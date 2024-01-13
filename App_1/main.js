@@ -5,7 +5,7 @@ const { app, BrowserWindow } = require('electron');
 function createWindow1(){
     //window properties
     const mainWindow = new BrowserWindow({
-        title: 'MMM E-mail client',
+        title: 'M3 E-mail client',
         width: 1280,
         height: 900,
         //minHeight: 500,
