@@ -1,0 +1,15 @@
+{
+  "name": "maturitetna",
+  "version": "1.0.0",
+  "productName": "MMM AI client",
+  "description": "maturitetna naloga v1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Mark Sadnik",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.1.3"
+  }
+}

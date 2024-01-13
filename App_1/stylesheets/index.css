@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+
+h1{
+    margin: 5px;
+}
