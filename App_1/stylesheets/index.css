@@ -1,20 +1,20 @@
-body{
+body {
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 20vw auto;
     color: white;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
-h1{
+h1 {
     font-size: 2vw;
 }
 
 /*-----------------------------NAVBAR - LEFT-----------------------------*/
 
-.left{
+.left {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 30vh 50vh 20vh;
@@ -28,31 +28,31 @@ h1{
     border-top: 0;
 }*/
 
-.top_l{
+.top_l {
     padding: 1.5vw;
 }
 
-.mid_l > div{
+.mid_l>div {
     font-size: 2vw;
 }
 
-.mid_l > div:hover{
+.mid_l>div:hover {
     font-weight: bold;
     background-color: #006786;
     text-decoration: underline;
 }
 
-.listItem{
-    display: inline-flex; 
+.listItem {
+    display: inline-flex;
     width: 20vw;
     padding: 1.25vw 3vw;
 }
 
-.listItem > div{
+.listItem>div {
     margin: 0.35vw;
 }
 
-.navImg{
+.navImg {
     width: 1.75vw;
     height: 1.75vw;
 }
@@ -61,7 +61,7 @@ h1{
 
 /*-----------------------------CONTENT - RIGHT-----------------------------*/
 
-.right{
+.right {
     background-color: #001f29;
     /*
     display: grid;
@@ -73,42 +73,46 @@ h1{
     justify-content: center;
 }
 
-.right > div{
+.right>div {
     /*border: 1px solid white;*/
     height: 80vh;
     width: 65vw;
     padding-left: 5vw;
-}   
+}
 
 /*NEW MAIL*/
 
-.newMailFrame{
+.newMailFrame {
     display: flex;
     flex-direction: column;
 }
 
-.newMailFrame > div{
+.newMailFrame > div {
     margin-bottom: 2vw;
 }
 
-.newMailTitle, .newMailRecipient, .newPurposeTop{
+.newMailTitle, .newMailRecipient, .newPurposeTop {
     display: inline-flex;
 }
 
-.newMailRecipient{
+.newMailRecipient {
     margin-top: 1vw;
 }
 
-.newMailTitle > div, .newMailRecipient > div, .newPurposeTop > div{
+.newMailTitle > div, .newMailRecipient > div, .newPurposeTop > div, .newPurposeBottom > div{
     margin: 0.5vw;
 }
 
-.newMailTitleImg{
+.newMailPurpose > div{
+    margin-bottom: 1vw;
+}
+
+.newMailTitleImg {
     width: 5vw;
     height: 5vw;
 }
 
-.newMailTextField{
+.newMailTextField {
     font-size: 2vw;
     height: 4.5vw;
     background-color: transparent;
@@ -120,7 +124,7 @@ h1{
     width: 30ch;
 }
 
-.NewMailSubmitBtn{
+.NewMailSubmitBtn {
     width: 6vw;
     height: 3vw;
     margin-top: 1.25vw;
@@ -133,11 +137,11 @@ h1{
     background-size: cover;
 }
 
-.NewMailSubmitBtn:hover{
+.NewMailSubmitBtn:hover {
     background-image: url("../pictures/arrow_icon_hover.png");
 }
 
-.NewRecipientBtn{
+.NewRecipientBtn {
     width: 4vw;
     height: 4vw;
     border-radius: 4vw;
@@ -147,13 +151,12 @@ h1{
     background-size: cover;
 }
 
-.NewRecipientBtn:hover{
+.NewRecipientBtn:hover {
     background-image: url("../pictures/white_pfp_hover.png");
-    background-color: #003242;
-    border: 2px solid white;
+    background-color: #02394a;
 }
 
-.newRecipientDropDown{
+.newRecipientDropDown {
     font-size: 2vw;
     height: 4vw;
     margin-left: 1vw;
@@ -163,17 +166,17 @@ h1{
     color: white;
 }
 
-.newRecipientDropDown:hover{
+.newRecipientDropDown:hover {
     border-bottom: 1px solid white;
 }
 
-.newRecipientDropDown option{
+.newRecipientDropDown option {
     color: black;
     background-color: transparent;
     font-size: 1.5vw;
 }
 
-.newPurposeBtn{
+.newPurposeBtn {
     width: 4vw;
     height: 4vw;
     background-color: transparent;
@@ -182,11 +185,11 @@ h1{
     background-size: cover;
 }
 
-.newPurposeBtn:hover{
+.newPurposeBtn:hover {
     background-image: url("../pictures/question_mark_icon_hover.png");
 }
 
-.newPurposeTextField{
+.newPurposeTextField {
     font-size: 2vw;
     height: 3vw;
     color: white;
@@ -197,7 +200,7 @@ h1{
     margin-left: 1vw;
 }
 
-.newExtraBtn{
+.newExtraBtn {
     width: 3vw;
     height: 3vw;
     background-color: transparent;
@@ -207,10 +210,106 @@ h1{
     background-size: cover;
 }
 
-.newExtraBtn:hover{
+.newExtraBtn:hover {
     background-image: url("../pictures/plus_icon_hover.png");
+}
+
+.newPurposeBottom {
+    display: inline-flex;
+    margin-left: 6.5vw;
+}
+
+.newMailPurpose{
+    display: grid;
+}
+
+.newFormalityOutput{
+    font-size: 2vw;
 }
 
 /*NEW MAIL*/
 
+
+/*GENERATED*/
+
+
+/*GENERATED*/
+
+
+/*CONTACTS*/
+
+
+
+/*CONTACTS*/
+
+
+/*SETTINGS*/
+
+
+
+/*SETTINGS*/
+
 /*-----------------------------CONTENT - RIGHT-----------------------------*/
+
+/*SWITCH*/
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 6vw;
+    height: 3vw;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 2.5vw;
+    width: 2.5vw;
+    left: 0.5vw;
+    bottom: 0.25vw;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(2.5vw);
+    -ms-transform: translateX(2.5vw);
+    transform: translateX(2.5vw);
+}
+
+.slider.round {
+    border-radius: 2.5vw;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/*SWITCH*/

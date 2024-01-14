@@ -91,6 +91,7 @@
 
             <!--purpose-->
             <div class="newMailPurpose">
+                <!--purpose general-->
                 <div class="newPurposeTop">
                     <div class="NewPurposeIcon">
                         <button class="newPurposeBtn"></button>
@@ -99,12 +100,24 @@
                         <input type="text" name="newMailPurpose" class="newPurposeTextField" value="Purpose" placeholder="Purpose">
                     </div>
                     <div class="newMailPurposeExtra">
-                        <button class="newExtraBtn" onclick="showPurposeMenu()"></button>
+                        <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                     </div>
                 </div>  
-                <div class="newPurposeBottom">
+                <!--purpose general-->
 
+                <!--formality-->
+                <div class="newFormality newPurposeBottom">
+                    <div class="newMailFormalitySwitch">
+                        <label class="newFormalitySwitch switch">
+                            <input type="checkbox" name="newFormality" checked id="newFormalityCheck" onchange="changeFormality()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="newFormalityOutput" id="newFormalityOutput"> 
+                        Formal
+                    </div>
                 </div>
+                <!--formality-->
             </div>
             <!--purpose-->
         </div>
@@ -131,5 +144,10 @@
     </div>
     <!--CONTENT-->
 </body>
+
+<!--script-->
+<script src="Scripts/inputFormatting.js"></script>
+<script>document.getElementById('newExtraBtn').click();</script>
+<!--script-->
 
 </html>
