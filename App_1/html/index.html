@@ -60,14 +60,14 @@
     <div class="right">
 
         <!--New mail-->
-        <div id="newMailFrame" class="newMail">
+        <div id="newMailFrame" class="newMailFrame">
             <!--new mail title-->
             <div class="newMailTitle inlineTextDiv">
                 <div class="NewMailIcon">
                     <img src="../pictures/new_mail_icon.png" class="newMailTitleImg" width="" height="">
                 </div>
                 <div class="NewMailTextDiv">
-                    <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="New title">
+                    <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="New title" value="New mail">
                 </div>
                 <div class="CreateMailDiv">
                     <button class="NewMailSubmitBtn"></button>
@@ -83,7 +83,7 @@
                 <div class="NewRecipientTextDiv">
                     <select name="newMailRecipient" class="newRecipientDropDown">
                         <option value="0">Select recipient</option>
-                        <option value="">Recipient 1</option>
+                        <option value="1">Recipient 1</option>
                     </select>
                 </div>
             </div>
@@ -91,10 +91,18 @@
 
             <!--purpose-->
             <div class="newMailPurpose">
-                <div>
-
-                </div>
-                <div class="newMailExtra">
+                <div class="newPurposeTop">
+                    <div class="NewPurposeIcon">
+                        <button class="newPurposeBtn"></button>
+                    </div>
+                    <div class="newMailPurposeTextField">
+                        <input type="text" name="newMailPurpose" class="newPurposeTextField" value="Purpose" placeholder="Purpose">
+                    </div>
+                    <div class="newMailPurposeExtra">
+                        <button class="newExtraBtn" onclick="showPurposeMenu()"></button>
+                    </div>
+                </div>  
+                <div class="newPurposeBottom">
 
                 </div>
             </div>

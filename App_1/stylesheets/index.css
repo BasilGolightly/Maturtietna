@@ -63,24 +63,43 @@ h1{
 
 .right{
     background-color: #001f29;
+    /*
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 65vw;
+    */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
 .right > div{
-    border-radius: 1px solid white;
-    padding: 10vh 0;
+    /*border: 1px solid white;*/
+    height: 80vh;
+    width: 65vw;
+    padding-left: 5vw;
 }   
 
 /*NEW MAIL*/
 
-.newMailTitle, .newMailRecipient{
+.newMailFrame{
+    display: flex;
+    flex-direction: column;
+}
+
+.newMailFrame > div{
+    margin-bottom: 2vw;
+}
+
+.newMailTitle, .newMailRecipient, .newPurposeTop{
     display: inline-flex;
 }
 
-.newMailTitle > div{
+.newMailRecipient{
+    margin-top: 1vw;
+}
+
+.newMailTitle > div, .newMailRecipient > div, .newPurposeTop > div{
     margin: 0.5vw;
 }
 
@@ -118,9 +137,78 @@ h1{
     background-image: url("../pictures/arrow_icon_hover.png");
 }
 
-.NewMailSubmitBtn::after{
-    border-radius: 1vw;
-    border: 1px solid white;
+.NewRecipientBtn{
+    width: 4vw;
+    height: 4vw;
+    border-radius: 4vw;
+    background-color: transparent;
+    border: none;
+    background-image: url("../pictures/white_pfp.png");
+    background-size: cover;
+}
+
+.NewRecipientBtn:hover{
+    background-image: url("../pictures/white_pfp_hover.png");
+    background-color: #003242;
+    border: 2px solid white;
+}
+
+.newRecipientDropDown{
+    font-size: 2vw;
+    height: 4vw;
+    margin-left: 1vw;
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    color: white;
+}
+
+.newRecipientDropDown:hover{
+    border-bottom: 1px solid white;
+}
+
+.newRecipientDropDown option{
+    color: black;
+    background-color: transparent;
+    font-size: 1.5vw;
+}
+
+.newPurposeBtn{
+    width: 4vw;
+    height: 4vw;
+    background-color: transparent;
+    border: none;
+    background-image: url("../pictures/question_mark_icon_neutral.png");
+    background-size: cover;
+}
+
+.newPurposeBtn:hover{
+    background-image: url("../pictures/question_mark_icon_hover.png");
+}
+
+.newPurposeTextField{
+    font-size: 2vw;
+    height: 3vw;
+    color: white;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid transparent;
+    border-bottom: 1px solid white;
+    margin-left: 1vw;
+}
+
+.newExtraBtn{
+    width: 3vw;
+    height: 3vw;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    background-image: url("../pictures/plus_icon_neutral.png");
+    background-size: cover;
+}
+
+.newExtraBtn:hover{
+    background-image: url("../pictures/plus_icon_hover.png");
 }
 
 /*NEW MAIL*/
