@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { app, BrowserWindow } = require('electron');
 
 //new window - MAIN

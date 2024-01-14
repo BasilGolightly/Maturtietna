@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMM E-mail client</title>
+    <meta name="author" content="Mark Sadnik, Max Sovic, Maximilian Zakrajsek (R4B)">
+    <title>M3 E-mail client</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/index.css">
 </head>
 
@@ -17,7 +18,7 @@
         <div class="mid_l">
             <div class="listItem">
                 <div>
-                    <img src="../pictures/new_mail_icon.png" class="addIcon img" width="20" height="20"> 
+                    <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height=""> 
                 </div>
                 <div>
                     New mail
@@ -26,7 +27,7 @@
             </div>
             <div class="listItem">
                 <div>
-                    <img src ="../pictures/mail_icon.png" class="generatedIcon img" width="20" height="20"> 
+                    <img src ="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height=""> 
                 </div>  
                 <div>
                     Generated
@@ -34,7 +35,7 @@
             </div>
             <div class="listItem">
                 <div>
-                    <img src="../pictures/white_pfp.png" class="contactsIcon img" width="20" height="20"> 
+                    <img src="../pictures/white_pfp.png" class="contactsIcon navImg" width="" height=""> 
                 </div>
                 <div>
                     Contacts
@@ -42,7 +43,7 @@
             </div>
             <div class="listItem">
                 <div>
-                    <img src="../pictures/setting_icon.png" class="settingsIcon img" width="20" height="20"> 
+                    <img src="../pictures/setting_icon.png" class="settingsIcon navImg" width="" height=""> 
                 </div>
                 <div>
                     Settings
@@ -54,9 +55,73 @@
         </div>
     </div>
     <!--NAVBAR-->
+
+    <!--CONTENT-->
     <div class="right">
 
+        <!--New mail-->
+        <div id="newMailFrame" class="newMail">
+            <!--new mail title-->
+            <div class="newMailTitle inlineTextDiv">
+                <div class="NewMailIcon">
+                    <img src="../pictures/new_mail_icon.png" class="newMailTitleImg" width="" height="">
+                </div>
+                <div class="NewMailTextDiv">
+                    <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="New title">
+                </div>
+                <div class="CreateMailDiv">
+                    <button class="NewMailSubmitBtn"></button>
+                </div>
+            </div>
+            <!--new mail title-->
+
+            <!--recipient-->
+            <div class="newMailRecipient">
+                <div class="NewRecipientIcon">
+                    <button class="NewRecipientBtn"></button>
+                </div>
+                <div class="NewRecipientTextDiv">
+                    <select name="newMailRecipient" class="newRecipientDropDown">
+                        <option value="0">Select recipient</option>
+                        <option value="">Recipient 1</option>
+                    </select>
+                </div>
+            </div>
+            <!--recipient-->
+
+            <!--purpose-->
+            <div class="newMailPurpose">
+                <div>
+
+                </div>
+                <div class="newMailExtra">
+
+                </div>
+            </div>
+            <!--purpose-->
+        </div>
+        <!--New mail-->
+
+
+
+        <!--Generated-->
+
+        <!--Generated-->
+
+
+
+        <!--Contacts-->
+
+        <!--Contacts-->
+
+
+
+        <!--Settings-->
+
+        <!--Settings-->
+
     </div>
+    <!--CONTENT-->
 </body>
 
 </html>
