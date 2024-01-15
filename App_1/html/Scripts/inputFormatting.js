@@ -17,20 +17,24 @@ function changeFormality(){
 
 function showPurposeMenu(){
     let nodes = document.getElementsByClassName('newPurposeBottom');
-    let displayMode = "";
+    let displayMode = "", displayMode2 = "";
 
     //hide
     if(newPurposeBottomVisible){
-        displayMode = "none"
+        displayMode = "none";
+        displayMode2 = "none";
         newPurposeBottomVisible = false;
     }
     //show
     else{
         displayMode = "inline-flex";
+        displayMode2 = "grid";
         newPurposeBottomVisible = true;
     }
 
     for(let i = 0; i < nodes.length; i++){
-        nodes[i].style.display = displayMode
+        nodes[i].style.display = displayMode;
     }
+    
+    document.getElementById('newReason').style.display = displayMode2;
 }

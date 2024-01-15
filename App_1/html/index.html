@@ -97,13 +97,29 @@
                         <button class="newPurposeBtn"></button>
                     </div>
                     <div class="newMailPurposeTextField">
-                        <input type="text" name="newMailPurpose" class="newPurposeTextField" value="Purpose" placeholder="Purpose">
+                        <select class="newPurposeDropDown" name="newMailPurpose">
+                            <option value="0">Select purpose of mail</option>
+                            <option value="apology">Apology</option>
+                        </select>
+                        <!--<input type="text" name="newMailPurpose" class="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
                     </div>
                     <div class="newMailPurposeExtra">
                         <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                     </div>
                 </div>  
                 <!--purpose general-->
+
+                <!--reason-->
+                <div class="newReason newPurposeBottom" id="newReason">
+                    <div class="newReasonTitleField">
+                        Reason
+                    </div>
+                    <div class="newMailReasonTextField"> 
+                        <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars" maxlength="200">    
+                        </textarea>
+                    </div>
+                </div>
+                <!--reason-->
 
                 <!--formality-->
                 <div class="newFormality newPurposeBottom">
@@ -147,7 +163,7 @@
 
 <!--script-->
 <script src="Scripts/inputFormatting.js"></script>
-<script>document.getElementById('newExtraBtn').click();</script>
+<script>//document.getElementById('newExtraBtn').click();</script>
 <!--script-->
 
 </html>
