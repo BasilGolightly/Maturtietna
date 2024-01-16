@@ -38,3 +38,9 @@ function showPurposeMenu(){
     
     document.getElementById('newReason').style.display = displayMode2;
 }
+
+function onBlurReasonTextBox(){
+    let textArea = document.getElementById('newReasonTextArea');
+    textArea.innerHTML = textArea.innerHTML.trim(); 
+    textArea.setSelectionRange(textArea.innerHTML.length, textArea.innerHTML.length);
+}
