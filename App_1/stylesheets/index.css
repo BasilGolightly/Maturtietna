@@ -83,7 +83,7 @@ h1 {
 /*NEW MAIL*/
 
 .newMailFrame {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -264,20 +264,27 @@ h1 {
 
 /*GENERATED*/
 
+.generatedFrame{
+    display: none;
+}
 
 /*GENERATED*/
 
 
 /*CONTACTS*/
 
-
+.contactsFrame{
+    display: none;
+}
 
 /*CONTACTS*/
 
 
 /*SETTINGS*/
 
-
+.settingsFrame{
+    display: none;
+}
 
 /*SETTINGS*/
 

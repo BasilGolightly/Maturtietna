@@ -16,7 +16,7 @@
             <h1>M3 email client</h1>
         </div>
         <div class="mid_l">
-            <div class="listItem">
+            <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
                     <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height=""> 
                 </div>
@@ -25,7 +25,7 @@
                 </div>
                 
             </div>
-            <div class="listItem">
+            <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
                     <img src ="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height=""> 
                 </div>  
@@ -33,7 +33,7 @@
                     Generated
                 </div>
             </div>
-            <div class="listItem">
+            <div class="listItem" id="contactsNavItem" onclick="displayMode(2)">
                 <div>
                     <img src="../pictures/white_pfp.png" class="contactsIcon navImg" width="" height=""> 
                 </div>
@@ -41,7 +41,7 @@
                     Contacts
                 </div>
             </div>
-            <div class="listItem">
+            <div class="listItem" id="settingsNavItem" onclick="displayMode(3)">
                 <div>
                     <img src="../pictures/setting_icon.png" class="settingsIcon navImg" width="" height=""> 
                 </div>
@@ -141,19 +141,25 @@
 
 
         <!--Generated-->
-
+        <div id="generatedFrame" class="generatedFrame">
+            generated1
+        </div>
         <!--Generated-->
 
 
 
         <!--Contacts-->
-
+        <div id="contactsFrame" class="contactsFrame">
+            contacts2
+        </div>
         <!--Contacts-->
 
 
 
         <!--Settings-->
-
+        <div id="settingsFrame" class="settingsFrame">
+            settings3
+        </div>
         <!--Settings-->
 
     </div>
@@ -162,7 +168,8 @@
 
 <!--script-->
 <script src="Scripts/inputFormatting.js"></script>
-<script>//document.getElementById('newExtraBtn').click();</script>
+<script src="Scripts/displayShowHide.js"></script>
+<script>displayMode(0)</script>
 <!--script-->
 
 </html>
