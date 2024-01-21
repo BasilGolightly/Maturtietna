@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -5,7 +7,8 @@ body {
     grid-template-rows: auto;
     grid-template-columns: 20vw auto;
     color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    /*font-family: 'Kanit', sans-serif;*/
+    /*font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif*/
 }
 
 h1 {
@@ -20,6 +23,7 @@ h1 {
     grid-template-rows: 30vh 50vh 20vh;
     background-color: #02394a;
     height: 100vh;
+    font-family: 'Kanit', sans-serif;
 }
 
 /*
@@ -36,10 +40,10 @@ h1 {
     font-size: 2vw;
 }
 
-.mid_l>div:hover {
+.mid_l > div:hover {
     font-weight: bold;
     background-color: #006786;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 
 .listItem {
@@ -53,8 +57,8 @@ h1 {
 }
 
 .navImg {
-    width: 1.75vw;
-    height: 1.75vw;
+    width: 1.5vw;
+    height: 1.5vw;
 }
 
 /*-----------------------------NAVBAR - LEFT-----------------------------*/
@@ -71,6 +75,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .right>div {
@@ -266,6 +271,35 @@ h1 {
 
 .generatedFrame{
     display: none;
+    flex-direction: column;
+}
+
+.generatedWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.generatedWrap > div{
+    flex: 50%;
+    width: 50%;
+}
+
+.generatedTitle{
+    font-size: 2.5vw;
+    display: inline-flex;
+    font-family: 'Kanit', sans-serif;
+}
+
+.generatedTitleText{
+    padding: 0.25vw 0.75vw;
+}
+
+.generatedImg{
+    width: 4vw;
+    height: 4vw;
 }
 
 /*GENERATED*/
