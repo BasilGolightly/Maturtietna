@@ -277,20 +277,44 @@ h1 {
 .generatedWrap{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    /*justify-content: center;*/
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    background-color: #012f3f;
+    border-radius: 2vw;
+    padding: 0.75vw;
 }
 
-.generatedWrap > div{
+.generatedLetter{
+    display: flex;
+    justify-content: center;
     flex: 50%;
-    width: 50%;
+    text-align: center;
+    max-width: 30vw;
+    height: 15vw;
+    border: 0.5vw solid white;
+    border-radius: 1vw;
+    /*margin: 0 1.5vw 1.5vw 0;*/
+    margin: 0.75vw;
 }
+
+.generatedLetterInner{
+    padding: 6vw 0;
+    height: 3vw;
+    width: 30vw;
+}
+
+/*
+.generatedWrap > div{
+    
+}
+*/
 
 .generatedTitle{
     font-size: 2.5vw;
     display: inline-flex;
     font-family: 'Kanit', sans-serif;
+    margin-bottom: 1.5vw;
 }
 
 .generatedTitleText{
@@ -301,6 +325,8 @@ h1 {
     width: 4vw;
     height: 4vw;
 }
+
+
 
 /*GENERATED*/
 
