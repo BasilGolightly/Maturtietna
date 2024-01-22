@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sevillana&display=swap');
 
 body {
     margin: 0;
@@ -277,31 +278,42 @@ h1 {
 .generatedWrap{
     display: flex;
     flex-wrap: wrap;
-    /*justify-content: center;*/
-    width: 100%;
-    overflow-y: auto;
-    background-color: #012f3f;
+    justify-content: center;
+    background-color: #012a38;
     border-radius: 2vw;
     padding: 0.75vw;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .generatedLetter{
     display: flex;
     justify-content: center;
-    flex: 50%;
+    flex: 33%;
     text-align: center;
-    max-width: 30vw;
-    height: 15vw;
-    border: 0.5vw solid white;
+    max-width: 17.5vw;
+    height: 8.75vw;
+    /*border: 0.25vw solid white;*/
     border-radius: 1vw;
     /*margin: 0 1.5vw 1.5vw 0;*/
-    margin: 0.75vw;
+    margin: 1vw;
+    background-image: url("../pictures/generated_mail_icon_neutral.png");
+    background-size: cover;
+}
+
+.generatedLetter:hover{
+    /*border: 0.25vw solid white;*/
+    background-image: url("../pictures/generated_mail_icon_hover.png");
 }
 
 .generatedLetterInner{
-    padding: 6vw 0;
+    font-family: cursive;
+    padding-top: 4.5vw;
     height: 3vw;
-    width: 30vw;
+    width: 12.5vw;
+    font-size: 1.25vw;
+    text-align: center;
+    font-family: 'Sevillana', cursive;
 }
 
 /*
@@ -325,6 +337,8 @@ h1 {
     width: 4vw;
     height: 4vw;
 }
+
+
 
 
 
@@ -412,3 +426,33 @@ input:checked+.slider:before {
 }
 
 /*SWITCH*/
+
+/*SCROLLBAR*/
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 40px;
+    
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+::-webkit-scrollbar-thumb{
+    height: 50px;
+    margin-right: 10px;
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: gray; 
+    height: 10px;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(177, 177, 177); 
+}
+
+/*SCROLLBAR*/

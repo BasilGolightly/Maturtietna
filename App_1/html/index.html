@@ -18,24 +18,24 @@
         <div class="mid_l">
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
-                    <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height=""> 
+                    <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
                 </div>
                 <div>
                     New mail
                 </div>
-                
+
             </div>
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
-                    <img src ="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height=""> 
-                </div>  
+                    <img src="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
+                </div>
                 <div>
                     Generated
                 </div>
             </div>
             <div class="listItem" id="contactsNavItem" onclick="displayMode(2)">
                 <div>
-                    <img src="../pictures/white_pfp.png" class="contactsIcon navImg" width="" height=""> 
+                    <img src="../pictures/white_pfp.png" class="contactsIcon navImg" width="" height="">
                 </div>
                 <div>
                     Contacts
@@ -43,7 +43,7 @@
             </div>
             <div class="listItem" id="settingsNavItem" onclick="displayMode(3)">
                 <div>
-                    <img src="../pictures/setting_icon.png" class="settingsIcon navImg" width="" height=""> 
+                    <img src="../pictures/setting_icon.png" class="settingsIcon navImg" width="" height="">
                 </div>
                 <div>
                     Settings
@@ -61,14 +61,15 @@
 
         <!--New mail-->
         <div id="newMailFrame" class="newMailFrame">
-            
+
             <!--new mail title-->
             <div class="newMailTitle inlineTextDiv">
                 <div class="NewMailIcon">
                     <img src="../pictures/new_mail_icon.png" class="newMailTitleImg" width="" height="">
                 </div>
                 <div class="NewMailTextDiv">
-                    <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="New title" value="New mail">
+                    <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30"
+                        placeholder="New title" value="New mail">
                 </div>
                 <div class="CreateMailDiv">
                     <button class="NewMailSubmitBtn"></button>
@@ -102,12 +103,12 @@
                             <option value="0">Select purpose of mail</option>
                             <option value="apology">Apology</option>
                         </select>
-                        <!--<input type="text" name="newMailPurpose" class="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
+                        <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
                     </div>
                     <div class="newMailPurposeExtra">
                         <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                     </div>
-                </div>  
+                </div>
                 <!--purpose general-->
 
                 <!--reason-->
@@ -116,7 +117,8 @@
                         Reason
                     </div>
                     <div class="newMailReasonTextField">
-                        <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea> 
+                        <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars"
+                            maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
                     </div>
                 </div>
                 <!--reason-->
@@ -125,11 +127,12 @@
                 <div class="newFormality newPurposeBottom">
                     <div class="newMailFormalitySwitch">
                         <label class="newFormalitySwitch switch">
-                            <input type="checkbox" name="newFormality" checked id="newFormalityCheck" onchange="changeFormality()">
+                            <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
+                                onchange="changeFormality()">
                             <span class="slider round"></span>
                         </label>
                     </div>
-                    <div class="newFormalityOutput" id="newFormalityOutput"> 
+                    <div class="newFormalityOutput" id="newFormalityOutput">
                         Formal
                     </div>
                 </div>
@@ -154,7 +157,7 @@
             <div class="generatedWrap">
                 <div class="generatedLetter">
                     <div class="generatedLetterInner">
-                        1
+                        Mail 690
                     </div>
                 </div>
                 <div class="generatedLetter">
@@ -172,32 +175,6 @@
                         4
                     </div>
                 </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner">
-                        4
-                    </div>
-                </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner">
-                        4
-                    </div>
-                </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner">
-                        4
-                    </div>
-                </div>
-                <!--
-                <div class="generatedLetter">
-                    4
-                </div>
-                <div class="generatedLetter">
-                    4
-                </div>
-                <div class="generatedLetter">
-                    4
-                </div>
-            -->
             </div>
         </div>
         <!--Generated-->
