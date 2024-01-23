@@ -292,7 +292,7 @@ h1 {
     flex: 33%;
     text-align: center;
     max-width: 17.5vw;
-    height: 8.75vw;
+    height: 13.5vw;
     /*border: 0.25vw solid white;*/
     border-radius: 1vw;
     /*margin: 0 1.5vw 1.5vw 0;*/
@@ -303,15 +303,16 @@ h1 {
 
 .generatedLetter:hover{
     /*border: 0.25vw solid white;*/
-    background-image: url("../pictures/generated_mail_icon_hover.png");
+    background-image: url("../pictures/generated_mail_icon_hover_2.png");
+    /*height: 13.5vw;*/
 }
 
 .generatedLetterInner{
     font-family: cursive;
-    padding-top: 4.5vw;
-    height: 3vw;
+    padding-top: 9vw;
+    height: 4vw;
     width: 12.5vw;
-    font-size: 1.25vw;
+    font-size: 1.5vw;
     text-align: center;
     font-family: 'Sevillana', cursive;
     font-weight: bold;
