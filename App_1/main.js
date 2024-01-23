@@ -16,7 +16,7 @@ function createWindow1(){
 
     //enable devtools and menubar if in development mode
     if(process.env.NODE_ENV !== "production"){
-        mainWindow.menuBarVisible = true;
+        mainWindow.menuBarVisible = false;
         //mainWindow.webContents.openDevTools();
     }
     //disable if not
