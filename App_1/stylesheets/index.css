@@ -93,13 +93,38 @@ h1 {
     flex-direction: column;
 }
 
-.newMailFrame > div {
+.newMailTitle, .newMailRecipient, .newPurposeTop, .newMailHead{
+    display: inline-flex;
+}
+
+.newMailHeadImg{
+    width: 4vw;
+    height: 4vw;
+}   
+
+#newMailHeadTitleText{
+    padding: 0.25vw 0.75vw;
+}
+
+.newMailHead{
+    font-size: 2.5vw;
+    font-family: 'Kanit', sans-serif;
     margin-bottom: 1.5vw;
 }
 
-.newMailTitle, .newMailRecipient, .newPurposeTop {
-    display: inline-flex;
+.newMailWrap{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5vw;
+    background-color: #012a38;
+    border-radius: 2vw;
 }
+
+.newMailWrap > div {
+    margin-bottom: 1.5vw;
+}
+
+
 
 /*.newMailRecipient {
     margin-top: 1vw;
@@ -291,7 +316,7 @@ h1 {
     justify-content: center;
     flex: 33%;
     text-align: center;
-    max-width: 17.5vw;
+    max-width: 19.5vw;
     height: 13.5vw;
     /*border: 0.25vw solid white;*/
     border-radius: 1vw;
@@ -303,7 +328,7 @@ h1 {
 
 .generatedLetter:hover{
     /*border: 0.25vw solid white;*/
-    background-image: url("../pictures/generated_mail_icon_hover_2.png");
+    background-image: url("../pictures/generated_mail_icon_hover.png");
     /*height: 13.5vw;*/
 }
 
