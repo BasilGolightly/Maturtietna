@@ -9,9 +9,9 @@ function createWindow1(){
         title: 'M3 E-mail client',
         width: 1280,
         height: 900,
-        //minHeight: 500,
-        //minWidth: 700,
-        resizable: false,
+        minHeight: 1024,
+        minWidth: 650,
+        resizable: false
     });
 
     //enable devtools and menubar if in development mode

@@ -12,9 +12,14 @@
 <body>
     <!--NAVBAR-->
     <div class="left">
+        
+        <!--logo-->
         <div class="top_l">
             <h1>M3 email client</h1>
         </div>
+        <!--logo-->
+
+        <!--nav items-->
         <div class="mid_l">
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
@@ -50,9 +55,21 @@
                 </div>
             </div>
         </div>
-        <div class="bottom_l">
+        <!--nav items-->
 
+        <!--account-->
+        <div class="bottom_l">
+            <div class="navAccWrap">
+                <div class="navAccImgWrap">
+                    <img src="../pictures/white_pfp.png" class="navAccImg">
+                </div>
+                <div class="navAccTextWrap">
+                    <div class="navAccUsername">Account name</div>
+                    <div class="navAccLogOut"><a class="link" href="#">logout</a></div>
+                </div>
+            </div>
         </div>
+        <!--account-->
     </div>
     <!--NAVBAR-->
 
@@ -134,7 +151,7 @@
                     <!--reason-->
 
                     <!--formality-->
-                    <div class="newFormality newPurposeBottom">
+                    <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
                         <div class="newMailFormalitySwitch">
                             <label class="newFormalitySwitch switch">
                                 <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
@@ -164,30 +181,33 @@
                     <img src="../pictures/mail_icon.png" class="generatedImg">
                 </div>
                 <div class="generatedTitleText">
-                    Generated mails <span class="generatedTitleCount" id="generatedTitleCount">(10)</span>
+                    Generated mails <span class="generatedTitleCount" id="generatedTitleCount">(5)</span>
                 </div>
             </div>
             <div class="generatedWrap">
                 <div class="generatedLetter">
                     <div class="generatedLetterInner">
-                        Mail 690
-                        <br>
-                        sda
+                        Mail 1
                     </div>
                 </div>
                 <div class="generatedLetter">
                     <div class="generatedLetterInner">
-                        2
+                        Mail 2
                     </div>
                 </div>
                 <div class="generatedLetter">
                     <div class="generatedLetterInner">
-                        3
+                        Mail 3
                     </div>
                 </div>
                 <div class="generatedLetter">
                     <div class="generatedLetterInner">
-                        4
+                        Mail 4
+                    </div>
+                </div>
+                <div class="generatedLetter">
+                    <div class="generatedLetterInner">
+                        Mail 5
                     </div>
                 </div>
             </div>
@@ -201,7 +221,6 @@
             contacts2
         </div>
         <!--Contacts-->
-
 
 
         <!--Settings-->
