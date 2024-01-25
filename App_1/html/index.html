@@ -180,37 +180,46 @@
                 <div>
                     <img src="../pictures/mail_icon.png" class="generatedImg">
                 </div>
-                <div class="generatedTitleText">
-                    Generated mails <span class="generatedTitleCount" id="generatedTitleCount">(5)</span>
+                <div class="generatedTitleText" id="generatedTitleText">
+                    <a onclick="displayMode(1)" href="#" class="generatedTitleLink">Generated mails</a> <!--<span class="generatedTitleCount" id="generatedTitleCount">(5)</span>--> > Mail 1
                 </div>
             </div>
-            <div class="generatedWrap">
-                <div class="generatedLetter">
+
+            <!--generated list-->
+            <div class="generatedWrap" id="generatedWrap">
+                <div class="generatedLetter" onclick="displayModeGenerated(1)">
                     <div class="generatedLetterInner">
                         Mail 1
                     </div>
                 </div>
                 <div class="generatedLetter">
-                    <div class="generatedLetterInner">
+                    <div class="generatedLetterInner" onclick="displayModeGenerated(2)">
                         Mail 2
                     </div>
                 </div>
                 <div class="generatedLetter">
-                    <div class="generatedLetterInner">
+                    <div class="generatedLetterInner" onclick="displayModeGenerated(3)">
                         Mail 3
                     </div>
                 </div>
                 <div class="generatedLetter">
-                    <div class="generatedLetterInner">
+                    <div class="generatedLetterInner" onclick="displayModeGenerated(4)">
                         Mail 4
                     </div>
                 </div>
                 <div class="generatedLetter">
-                    <div class="generatedLetterInner">
+                    <div class="generatedLetterInner" onclick="displayModeGenerated(5)">
                         Mail 5
                     </div>
                 </div>
             </div>
+            <!--generated list-->
+
+            <!--selected mail-->
+            <div class="generatedMailWrap" id="generatedMailWrap">
+                
+            </div>
+            <!--selected mail-->
         </div>
         <!--Generated-->
 
