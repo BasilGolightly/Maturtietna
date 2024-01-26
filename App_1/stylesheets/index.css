@@ -461,7 +461,117 @@ h1 {
 
 .contactsFrame{
     display: none;
+    flex-direction: column;
 }
+
+.contactsHeadWrap{
+    display: inline-flex;
+    margin-bottom: 1.5vw;
+}
+
+.contactsHeadImg{
+    width: 4vw;
+    height: 4vw;
+}
+
+.contactsHeadTitleText{
+    font-size: 2.5vw;
+    font-family: 'Kanit', sans-serif;
+    padding: 0.25vw 0.75vw;
+}
+
+.contactsWrap{
+    display: flex;
+    background-color: #012a38;
+    border-radius: 2vw;
+    /*justify-content: center;*/
+}
+
+.contactsListWrap{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1.5vw;
+}
+
+.contactsListHead{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: lightgrey;
+    margin-bottom: -0.25vw;
+}
+
+.contactsListHeadCount{
+    justify-content: left;
+    font-size: 1.5vw;
+}
+
+.contactsListHeadAdd{
+    text-align: right;
+    justify-content: right;
+}
+
+.contactFrame{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    margin-top: 1.5vw;
+    border-top: 1px solid #016b92;
+    /*border-bottom: 1px solid #015b7c;*/
+    padding: 1vw 0.25vw;
+}
+
+.contactBottom{
+    border-bottom: 1px solid #016b92;
+}
+
+.contactFrame:hover{
+    background-color: #016b92;
+}
+
+.contactName{
+    font-size: 1.5vw;
+    display: flex;
+}
+
+.contactArrow{
+    font-family: 'Kanit', sans-serif;
+    font-size: 2vw;
+    display: flex;
+    justify-content: right;
+    padding-right: 2vw;
+}
+
+.contactsListHeadBtnAdd{
+    /*width: 10vw;*/
+    /*display: inline;*/
+    /*width: 2vw;*/
+    /*height: 2vw;*/
+    border-radius: 1vw;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    font-size: 1vw;
+    color: white;
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+}
+
+.contactsAddBtnImg{
+    width: 3vw;
+    height: 3vw;
+    border: 1px solid white;
+    border-radius: 2vw;
+}
+
+.contactsAddBtnImg:hover{
+    border: 2px solid white;
+}
+
+/*.contactsListHeadBtnAdd:hover{
+    border: 1px solid white;
+}*/
 
 /*CONTACTS*/
 
