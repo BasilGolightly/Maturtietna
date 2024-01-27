@@ -444,13 +444,13 @@ h1 {
     height: 4vw;
 }
 
-.generatedTitleLink{
+.titleLink{
     text-decoration: none;
     color: white;
     font-size: 2.5vw;
 }
 
-.generatedTitleLink:hover{
+.titleLink:hover{
     text-decoration: underline;
 }
 
@@ -466,7 +466,7 @@ h1 {
 
 .contactsHeadWrap{
     display: inline-flex;
-    margin-bottom: 1.5vw;
+    margin-bottom: 2vw;
 }
 
 .contactsHeadImg{
@@ -484,6 +484,7 @@ h1 {
     display: flex;
     background-color: #012a38;
     border-radius: 2vw;
+    padding: 1.5vw;
     /*justify-content: center;*/
 }
 
@@ -491,7 +492,6 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1.5vw;
 }
 
 .contactsListHead{
@@ -519,8 +519,11 @@ h1 {
     margin-top: 1.5vw;
     border-top: 1px solid #016b92;
     /*border-bottom: 1px solid #015b7c;*/
-    padding: 1vw 0.25vw;
+    padding: 0.75vw 0.25vw;
+    font-family: 'Kanit', sans-serif;
+    border-bottom: 1px solid #016b92;
 }
+
 
 .contactBottom{
     border-bottom: 1px solid #016b92;
@@ -531,12 +534,13 @@ h1 {
 }
 
 .contactName{
+    margin-top: 0.35vw;
+    padding-left: 0.25vw;
     font-size: 1.5vw;
     display: flex;
 }
 
 .contactArrow{
-    font-family: 'Kanit', sans-serif;
     font-size: 2vw;
     display: flex;
     justify-content: right;

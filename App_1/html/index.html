@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mark Sadnik, Max Sovic, Maximilian Zakrajsek (R4B)">
+    <meta name="author" content="Mark Sadnik, Max Sovic, Maximilian Zakrajsek (R4B, SCC KER)">
     <title>M3 E-mail client</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/index.css">
 </head>
@@ -181,7 +181,7 @@
                     <img src="../pictures/mail_icon.png" class="generatedImg">
                 </div>
                 <div class="generatedTitleText" id="generatedTitleText">
-                    <a onclick="displayMode(1)" href="#" class="generatedTitleLink">Generated mails</a> <!--<span class="generatedTitleCount" id="generatedTitleCount">(5)</span>--> > Mail 1
+                    <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span class="generatedTitleCount" id="generatedTitleCount"></span>
                 </div>
             </div>
 
@@ -231,10 +231,10 @@
             <!--contacts title-->
             <div class="contactsHeadWrap">
                 <div>
-                    <img src="../pictures/white_pfp.png" class="contactsHeadImg">
+                    <img id="contactImg" src="../pictures/white_pfp.png" class="contactsHeadImg">
                 </div>
                 <div class="contactsHeadTitleText" id="contactsHeadTitleText">
-                    Contacts
+                    <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a> > Mark Sadnik
                 </div>
             </div>
             <!--contacts title-->
@@ -243,44 +243,64 @@
             <div class="contactsWrap">
                 
                 <!--contacts list-->
-                <div class="contactsListWrap">
+                <div class="contactsListWrap" id="contactList">
+
+                    <!--contact count-->
                     <div class="contactsListHead">
                         <div class="contactsListHeadCount">
-                            3 contact(s)
+                            <span id="countContacts"></span> contact(s)
                         </div>  
                         <div class="contactsListHeadAdd">
-                            <button class="contactsListHeadBtnAdd"><img src="../pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                            <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="../pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
                         </div>
                     </div>
-            
-                    <div class="contactFrame contactBottom">
-                        <div class="contactName">
+                    <!--contact count-->
+                    
+                    <!--contacts-->
+                    <div class="contactFrame" onclick="displayModeContacts(1)">
+                        <div class="contactName" id="contact1">
                             Mark Sadnik
                         </div>
                         <div class="contactArrow">
                             >
                         </div>
                     </div>
-                    <div class="contactFrame contactBottom">
-                        <div class="contactName">
+
+                    <!--
+                    <div class="contactFrame contactBottom" onclick="displayModeContacts(2)">
+                        <div class="contactName" id="contact2">
                             Maximilian Zakrajsek
                         </div>
                         <div class="contactArrow">
                             >
                         </div>
                     </div>
-                    <div class="contactFrame contactBottom">
-                        <div class="contactName">
+
+                    <div class="contactFrame contactBottom" onclick="displayModeContacts(3)">
+                        <div class="contactName" id="contact3">
                             Max Sovic
                         </div>
                         <div class="contactArrow">
                             >
                         </div>
                     </div>
+                    -->
+                    <!--contacts-->
+
                 </div>
                 <!--contacts list-->
 
-                
+                <!--selected contact-->
+                <div class="selectedContactWrap" id="selectedContact">
+
+                </div>
+                <!--selected contact-->
+
+                <!--add contact-->
+                <div class="addContactWrap" id="addContact">
+                    Add contacts
+                </div>
+                <!--add contact-->
             </div>
             <!--contacts wrap-->
         </div>
