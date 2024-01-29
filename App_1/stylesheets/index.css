@@ -7,14 +7,14 @@ body {
     padding: 0;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 20vw auto;
+    grid-template-columns: 200px auto;
     color: white;
     /*font-family: 'Kanit', sans-serif;*/
     /*font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif*/
 }
 
 h1 {
-    font-size: 2vw;
+    font-size: 20px;
 }
 
 /*-----------------------------NAVBAR - LEFT-----------------------------*/
@@ -22,8 +22,13 @@ h1 {
 .left {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 35vh 58vh 7vh;
+    grid-template-rows: 70px auto 55px;
     background-color: #02394a;
+    
+    /*
+    display: flex;
+    flex-direction: column;
+    */
     height: 100vh;
     font-family: 'Kanit', sans-serif;
 }
@@ -48,7 +53,7 @@ h1 {
 /*MID - NAV ITEMS */
 
 .mid_l>div {
-    font-size: 1.5vw;
+    font-size: 14px;
 }
 
 .mid_l > div:hover {
@@ -59,17 +64,21 @@ h1 {
 
 .listItem {
     display: inline-flex;
-    width: 20vw;
-    padding: 1vw 3vw;
+    width: 100%;
+    padding: 15px 20px;
+}
+
+.navImg{
+    margin-top: 2px;
 }
 
 .listItem>div {
-    margin: 0.35vw;
+    margin: 0 3px;
 }
 
 .navImg {
-    width: 1.25vw;
-    height: 1.25vw;
+    width: 15px;
+    height: 15px;
 }
 
 /*MID - NAV ITEMS */
@@ -86,20 +95,20 @@ h1 {
     margin-top: auto;
     width: 100%;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 35% 60%;
     grid-template-rows: auto;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .navAccImgWrap{
     display: grid;
     justify-content: left;
-    margin-left: 1.5vw;
-    margin-right: 1.5vw;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .navAccImg{
-    width: 3.5vw;
+    width: 40px;
     height: auto;
     border-radius: 100%;
     border: 1px solid white;
@@ -112,11 +121,11 @@ h1 {
 }
 
 .navAccUsername{
-    font-size: 1.25vw;
+    font-size: 12px;
 }
 
 .navAccLogOut{
-    font-size: 1vw;
+    font-size: 10px;
 }
 
 .link{
@@ -154,8 +163,8 @@ h1 {
 .right>div {
     /*border: 1px solid white;*/
     height: 80vh;
-    width: 65vw;
-    padding-left: 5vw;
+    width: 95%;
+    padding-left: 2.5vw;
 }
 
 /*NEW MAIL*/

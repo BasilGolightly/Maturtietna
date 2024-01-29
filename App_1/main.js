@@ -7,11 +7,11 @@ function createWindow1(){
     //window properties
     const mainWindow = new BrowserWindow({
         title: 'M3 E-mail client',
-        width: 1280,
-        height: 900,
+        width: 1128,
+        height: 768,
         minHeight: 1024,
         minWidth: 650,
-        resizable: false
+        resizable: true
     });
 
     //enable devtools and menubar if in development mode
