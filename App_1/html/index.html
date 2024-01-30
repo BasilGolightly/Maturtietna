@@ -7,6 +7,10 @@
     <meta name="author" content="Mark Sadnik, Max Sovic, Maximilian Zakrajsek (R4B, SCC KER)">
     <title>M3 E-mail client</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/index.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/newMail.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/generated.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/contacts.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/settings.css">
 </head>
 
 <body>
@@ -21,7 +25,6 @@
 
         <!--nav items-->
         <div class="mid_l">
-            <!--
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
                     <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
@@ -30,7 +33,6 @@
                     New mail
                 </div>
             </div>
-            -->
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
                     <img src="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
@@ -76,243 +78,245 @@
 
     <!--CONTENT-->
     <div class="right">
+        <div class="">
 
-        <!--New mail-->
-        <div id="newMailFrame" class="newMailFrame">
-            <!--new mail title icon-->
-            <div class="newMailHead">
-                <div>
-                    <img src="../pictures/new_mail_icon.png" class="newMailHeadImg">
-                </div>
-                <div id="newMailHeadTitleText" class="newMailHeadTitleText">
-                    Create new mail
-                </div>
-            </div>
-            <!--new mail title icon-->
-            <div class="newMailWrap">
+        </div>
+        <div class="rightInner">
 
-                <!--new mail title-->
-                <div class="newMailTitle inlineTextDiv">
-                    <div class="NewMailIcon">
-                        <img src="../pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
+            <!--New mail-->
+            <div id="newMailFrame" class="newMailFrame">
+                <!--new mail title icon-->
+                <div class="newMailHead">
+                    <div>
+                        <img src="../pictures/new_mail_icon.png" class="newMailHeadImg">
                     </div>
-                    <div class="NewMailTextDiv">
-                        <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
-                    </div>
-                    <div class="CreateMailDiv">
-                        <button class="NewMailSubmitBtn"></button>
+                    <div id="newMailHeadTitleText" class="newMailHeadTitleText">
+                        Create new mail
                     </div>
                 </div>
-                <!--new mail title-->
+                <!--new mail title icon-->
+                <div class="newMailWrap">
 
-                <!--recipient-->
-                <div class="newMailRecipient">
-                    <div class="NewRecipientIcon">
-                        <button class="NewRecipientBtn"></button>
-                    </div>
-                    <div class="NewRecipientTextDiv">
-                        <select name="newMailRecipient" class="newRecipientDropDown">
-                            <option value="0">Select recipient</option>
-                            <option value="1">Recipient 1</option>
-                        </select>
-                    </div>
-                </div>
-                <!--recipient-->
-
-                <!--purpose-->
-                <div class="newMailPurpose">
-                    <!--purpose general-->
-                    <div class="newPurposeTop">
-                        <div class="NewPurposeIcon">
-                            <button class="newPurposeBtn"></button>
+                    <!--new mail title-->
+                    <div class="newMailTitle inlineTextDiv">
+                        <div class="NewMailIcon">
+                            <img src="../pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
                         </div>
-                        <div class="newMailPurposeTextField">
-                            <select class="newPurposeDropDown" name="newMailPurpose">
-                                <option value="0">Select purpose of mail</option>
-                                <option value="apology">Apology</option>
+                        <div class="NewMailTextDiv">
+                            <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
+                        </div>
+                        <div class="CreateMailDiv">
+                            <button class="NewMailSubmitBtn"></button>
+                        </div>
+                    </div>
+                    <!--new mail title-->
+
+                    <!--recipient-->
+                    <div class="newMailRecipient">
+                        <div class="NewRecipientIcon">
+                            <button class="NewRecipientBtn"></button>
+                        </div>
+                        <div class="NewRecipientTextDiv">
+                            <select name="newMailRecipient" class="newRecipientDropDown">
+                                <option value="0">Select recipient</option>
+                                <option value="1">Recipient 1</option>
                             </select>
-                            <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
-                        </div>
-                        <div class="newMailPurposeExtra">
-                            <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                         </div>
                     </div>
-                    <!--purpose general-->
+                    <!--recipient-->
 
-                    <!--reason-->
-                    <div class="newReason newPurposeBottom" id="newReason">
-                        <div class="newReasonTitleField">
-                            Reason
+                    <!--purpose-->
+                    <div class="newMailPurpose">
+                        <!--purpose general-->
+                        <div class="newPurposeTop">
+                            <div class="NewPurposeIcon">
+                                <button class="newPurposeBtn"></button>
+                            </div>
+                            <div class="newMailPurposeTextField">
+                                <select class="newPurposeDropDown" name="newMailPurpose">
+                                    <option value="0">Select purpose of mail</option>
+                                    <option value="apology">Apology</option>
+                                </select>
+                                <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
+                            </div>
+                            <div class="newMailPurposeExtra">
+                                <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
+                            </div>
                         </div>
-                        <div class="newMailReasonTextField">
-                            <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
-                        </div>
-                    </div>
-                    <!--reason-->
+                        <!--purpose general-->
 
-                    <!--formality-->
-                    <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
-                        <div class="newMailFormalitySwitch">
-                            <label class="newFormalitySwitch switch">
-                                <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
-                                    onchange="changeFormality()">
-                                <span class="slider round"></span>
-                            </label>
+                        <!--reason-->
+                        <div class="newReason newPurposeBottom" id="newReason">
+                            <div class="newReasonTitleField">
+                                Reason
+                            </div>
+                            <div class="newMailReasonTextField">
+                                <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
+                            </div>
                         </div>
-                        <div class="newFormalityOutput" id="newFormalityOutput">
-                            Formal
+                        <!--reason-->
+
+                        <!--formality-->
+                        <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
+                            <div class="newMailFormalitySwitch">
+                                <label class="newFormalitySwitch switch">
+                                    <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
+                                        onchange="changeFormality()">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="newFormalityOutput" id="newFormalityOutput">
+                                Formal
+                            </div>
                         </div>
+                        <!--formality-->
                     </div>
-                    <!--formality-->
+                    <!--purpose-->
+
                 </div>
-                <!--purpose-->
 
             </div>
-
-        </div>
-        <!--New mail-->
+            <!--New mail-->
 
 
-
-        <!--Generated-->
-        <div id="generatedFrame" class="generatedFrame">
-            <div class="generatedTitle">
-                <div>
-                    <img src="../pictures/mail_icon.png" class="generatedImg">
-                </div>
-                <div class="generatedTitleText" id="generatedTitleText">
-                    <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span class="generatedTitleCount" id="generatedTitleCount"></span>
-                </div>
-            </div>
-
-            <!--generated list-->
-            <div class="generatedWrap" id="generatedWrap">
-                <div class="generatedLetter" onclick="displayModeGenerated(1)">
-                    <div class="generatedLetterInner">
-                        Mail 1
+            <!--Generated-->
+            <div id="generatedFrame" class="generatedFrame">
+                <div class="generatedTitle">
+                    <div>
+                        <img src="../pictures/mail_icon.png" class="generatedImg">
+                    </div>
+                    <div class="generatedTitleText" id="generatedTitleText">
+                        <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span class="generatedTitleCount" id="generatedTitleCount"></span>
                     </div>
                 </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner" onclick="displayModeGenerated(2)">
-                        Mail 2
-                    </div>
-                </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner" onclick="displayModeGenerated(3)">
-                        Mail 3
-                    </div>
-                </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner" onclick="displayModeGenerated(4)">
-                        Mail 4
-                    </div>
-                </div>
-                <div class="generatedLetter">
-                    <div class="generatedLetterInner" onclick="displayModeGenerated(5)">
-                        Mail 5
-                    </div>
-                </div>
-            </div>
-            <!--generated list-->
 
-            <!--selected mail-->
-            <div class="generatedMailWrap" id="generatedMailWrap">
-                
-            </div>
-            <!--selected mail-->
-        </div>
-        <!--Generated-->
-
-
-
-        <!--Contacts-->
-        <div id="contactsFrame" class="contactsFrame">
-            
-            <!--contacts title-->
-            <div class="contactsHeadWrap">
-                <div>
-                    <img id="contactImg" src="../pictures/white_pfp.png" class="contactsHeadImg">
-                </div>
-                <div class="contactsHeadTitleText" id="contactsHeadTitleText">
-                    <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a> > Mark Sadnik
-                </div>
-            </div>
-            <!--contacts title-->
-            
-            <!--contacts wrap-->
-            <div class="contactsWrap">
-                
-                <!--contacts list-->
-                <div class="contactsListWrap" id="contactList">
-
-                    <!--contact count-->
-                    <div class="contactsListHead">
-                        <div class="contactsListHeadCount">
-                            <span id="countContacts"></span> contact(s)
-                        </div>  
-                        <div class="contactsListHeadAdd">
-                            <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="../pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                <!--generated list-->
+                <div class="generatedWrap" id="generatedWrap">
+                    <div class="generatedLetter" onclick="displayModeGenerated(1)">
+                        <div class="generatedLetterInner">
+                            Mail 1
                         </div>
                     </div>
-                    <!--contact count-->
+                    <div class="generatedLetter">
+                        <div class="generatedLetterInner" onclick="displayModeGenerated(2)">
+                            Mail 2
+                        </div>
+                    </div>
+                    <div class="generatedLetter">
+                        <div class="generatedLetterInner" onclick="displayModeGenerated(3)">
+                            Mail 3
+                        </div>
+                    </div>
+                    <div class="generatedLetter">
+                        <div class="generatedLetterInner" onclick="displayModeGenerated(4)">
+                            Mail 4
+                        </div>
+                    </div>
+                    <div class="generatedLetter">
+                        <div class="generatedLetterInner" onclick="displayModeGenerated(5)">
+                            Mail 5
+                        </div>
+                    </div>
+                </div>
+                <!--generated list-->
+
+                <!--selected mail-->
+                <div class="generatedMailWrap" id="generatedMailWrap">
                     
-                    <!--contacts-->
-                    <div class="contactFrame" onclick="displayModeContacts(1)">
-                        <div class="contactName" id="contact1">
-                            Mark Sadnik
-                        </div>
-                        <div class="contactArrow">
-                            >
-                        </div>
-                    </div>
-
-                    <!--
-                    <div class="contactFrame contactBottom" onclick="displayModeContacts(2)">
-                        <div class="contactName" id="contact2">
-                            Maximilian Zakrajsek
-                        </div>
-                        <div class="contactArrow">
-                            >
-                        </div>
-                    </div>
-
-                    <div class="contactFrame contactBottom" onclick="displayModeContacts(3)">
-                        <div class="contactName" id="contact3">
-                            Max Sovic
-                        </div>
-                        <div class="contactArrow">
-                            >
-                        </div>
-                    </div>
-                    -->
-                    <!--contacts-->
-
                 </div>
-                <!--contacts list-->
-
-                <!--selected contact-->
-                <div class="selectedContactWrap" id="selectedContact">
-
-                </div>
-                <!--selected contact-->
-
-                <!--add contact-->
-                <div class="addContactWrap" id="addContact">
-                    Add contacts
-                </div>
-                <!--add contact-->
+                <!--selected mail-->
             </div>
-            <!--contacts wrap-->
+            <!--Generated-->
+
+
+            <!--Contacts-->
+            <div id="contactsFrame" class="contactsFrame">
+                
+                <!--contacts title-->
+                <div class="contactsHeadWrap">
+                    <div>
+                        <img id="contactImg" src="../pictures/white_pfp.png" class="contactsHeadImg">
+                    </div>
+                    <div class="contactsHeadTitleText" id="contactsHeadTitleText">
+                        <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a> > Mark Sadnik
+                    </div>
+                </div>
+                <!--contacts title-->
+                
+                <!--contacts wrap-->
+                <div class="contactsWrap">
+                    
+                    <!--contacts list-->
+                    <div class="contactsListWrap" id="contactList">
+
+                        <!--contact count-->
+                        <div class="contactsListHead">
+                            <div class="contactsListHeadCount">
+                                <span id="countContacts"></span> contact(s)
+                            </div>  
+                            <div class="contactsListHeadAdd">
+                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="../pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                            </div>
+                        </div>
+                        <!--contact count-->
+                        
+                        <!--contacts-->
+                        <div class="contactFrame" onclick="displayModeContacts(1)">
+                            <div class="contactName" id="contact1">
+                                Mark Sadnik
+                            </div>
+                            <div class="contactArrow">
+                                >
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="contactFrame contactBottom" onclick="displayModeContacts(2)">
+                            <div class="contactName" id="contact2">
+                                Maximilian Zakrajsek
+                            </div>
+                            <div class="contactArrow">
+                                >
+                            </div>
+                        </div>
+
+                        <div class="contactFrame contactBottom" onclick="displayModeContacts(3)">
+                            <div class="contactName" id="contact3">
+                                Max Sovic
+                            </div>
+                            <div class="contactArrow">
+                                >
+                            </div>
+                        </div>
+                        -->
+                        <!--contacts-->
+
+                    </div>
+                    <!--contacts list-->
+
+                    <!--selected contact-->
+                    <div class="selectedContactWrap" id="selectedContact">
+
+                    </div>
+                    <!--selected contact-->
+
+                    <!--add contact-->
+                    <div class="addContactWrap" id="addContact">
+                        Add contacts
+                    </div>
+                    <!--add contact-->
+                </div>
+                <!--contacts wrap-->
+            </div>
+            <!--Contacts-->
+
+
+            <!--Settings-->
+            <div id="settingsFrame" class="settingsFrame">
+                settings3
+            </div>
+            <!--Settings-->
         </div>
-        <!--Contacts-->
-
-
-        <!--Settings-->
-        <div id="settingsFrame" class="settingsFrame">
-            settings3
-        </div>
-        <!--Settings-->
-
     </div>
     <!--CONTENT-->
 </body>
