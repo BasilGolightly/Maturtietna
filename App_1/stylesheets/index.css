@@ -162,7 +162,7 @@ h1 {
 }
 
 .rightTop{
-    flex: 7%;
+    flex: 10%;
     width: 100%;
 }
 
@@ -196,7 +196,7 @@ h1 {
 
 .rightInner{
     /*border: 1px solid white;*/
-    flex: 93%;
+    flex: 90%;
     /*height: 80vh;*/
     width: 93%;
     padding-left: 2.5vw;
