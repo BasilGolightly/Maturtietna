@@ -25,6 +25,7 @@
 
         <!--nav items-->
         <div class="mid_l">
+            <!--
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
                     <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
@@ -33,12 +34,13 @@
                     New mail
                 </div>
             </div>
+            -->
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
                     <img src="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
                 </div>
                 <div>
-                    Generated
+                    Mails
                 </div>
             </div>
             <div class="listItem" id="contactsNavItem" onclick="displayMode(2)">
@@ -78,11 +80,21 @@
 
     <!--CONTENT-->
     <div class="right">
-        <div class="">
 
+        <!--top right-->
+        <div class="rightTop">
+            <div class="rightTopInner">
+                <div class="newMailTopBtnWrap">
+                    <button class="newMailTopBtn" onclick="displayMode(0)">
+                        <img src="../pictures/new_mail_icon.png" width="15" height="15"> New mail
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="rightInner">
+        <!--top right-->
 
+        <!--window CONTENT-->
+        <div class="rightInner">
             <!--New mail-->
             <div id="newMailFrame" class="newMailFrame">
                 <!--new mail title icon-->
@@ -317,6 +329,8 @@
             </div>
             <!--Settings-->
         </div>
+        <!--window CONTENT-->
+
     </div>
     <!--CONTENT-->
 </body>
@@ -324,7 +338,7 @@
 <!--script-->
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
-<script>displayMode(2)</script>
+<script>displayMode(0)</script>
 <!--script-->
 
 </html>

@@ -10,30 +10,30 @@
 }
 
 .newMailHeadImg{
-    width: 4vw;
-    height: 4vw;
+    width: 30px;
+    height: 30px;
 }   
 
 #newMailHeadTitleText{
-    padding: 0.25vw 0.75vw;
+    padding: 2.5px 7.5px;
 }
 
 .newMailHead{
-    font-size: 2.5vw;
+    font-size: 18px;
     font-family: 'Kanit', sans-serif;
-    margin-bottom: 1.5vw;
+    margin-bottom: 15px;
 }
 
 .newMailWrap{
     display: flex;
     flex-direction: column;
-    padding: 1.5vw;
+    padding: 15px;
     background-color: #012a38;
-    border-radius: 2vw;
+    border-radius: 15px;
 }
 
 .newMailWrap > div {
-    margin-bottom: 1.5vw;
+    margin-bottom: 15px;
 }
 
 
@@ -43,7 +43,7 @@
 }*/
 
 .newMailTitle > div, .newMailRecipient > div, .newPurposeTop > div, .newPurposeBottom > div{
-    margin: 0.5vw;
+    margin: 5px;
 }
 
 /*.newMailPurpose > div{
@@ -51,31 +51,31 @@
 }*/
 
 .newMailTitle{
-    margin-bottom: 1.25vw !important;
+    margin-bottom: 12.5px !important;
 }
 
 .newMailTitleImg {
-    width: 4vw;
-    height: 4vw;
+    width: 30px;
+    height: 30px;
 }
 
 .newMailTextField {
-    font-size: 1.75vw;
-    height: 3.5vw;
+    font-size: 14px;
+    height: 30px;
     background-color: transparent;
     border: 1px solid transparent;
     border-bottom: 1px solid white;
     outline: none;
     color: white;
     padding-bottom: 0;
-    width: 30ch;
+    width: 50ch;
 }
 
 .NewMailSubmitBtn {
-    width: 6vw;
-    height: 3vw;
-    margin-top: 1.25vw;
-    margin-left: 2vw;
+    width: 60px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 10px;
     /*border-radius: 1vw;*/
     outline: none;
     border: none;
@@ -90,9 +90,9 @@
 }
 
 .NewRecipientBtn {
-    width: 4vw;
-    height: 4vw;
-    border-radius: 4vw;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
     background-color: transparent;
     border: none;
     background-image: url("../pictures/white_pfp.png");
@@ -105,8 +105,10 @@
 }
 
 .newRecipientDropDown {
-    font-size: 2vw;
-    height: 4vw;
+    font-size: 14px;
+    height: 20px;
+    margin-top: 7.5px;
+    width: 35ch;
     /*margin-left: 1vw;*/
     background-color: transparent;
     border: 1px solid transparent;
@@ -121,12 +123,12 @@
 .newRecipientDropDown option {
     color: black;
     background-color: transparent;
-    font-size: 1.5vw;
+    font-size: 13px;
 }
 
 .newPurposeBtn {
-    width: 4vw;
-    height: 4vw;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     border: none;
     background-image: url("../pictures/question_mark_icon_neutral.png");
@@ -138,9 +140,9 @@
 }
 
 .newPurposeDropDown {
-    font-size: 2vw;
-    height: 3vw;
-    width: 30ch;
+    font-size: 14px;
+    height: 30px;
+    width: 35ch;
     color: white;
     background-color: transparent;
     outline: none;
@@ -157,8 +159,8 @@
 }
 
 .newExtraBtn {
-    width: 3vw;
-    height: 3vw;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     border: none;
     outline: none;
@@ -171,7 +173,7 @@
 }
 
 .newPurposeBottom {
-    margin-left: 5.5vw;
+    margin-left: 45px;
 }
 
 .newMailPurpose{
@@ -184,7 +186,7 @@
 }
 
 .newFormalityOutput{
-    font-size: 1.75vw;
+    font-size: 14px;
 }
 
 .newMailFormalitySwitchWrap{
@@ -192,8 +194,8 @@
 }
 
 .newReasonTextField{
-    border-radius: 0.5vw;
-    font-size: 1.25vw;
+    border-radius: 5px;
+    font-size: 14px;
     color: white;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     border: 1px solid white;
@@ -206,7 +208,7 @@
 }
 
 .newReasonTitleField{
-    font-size: 1.75vw;
+    font-size: 14px;
 }
 
 /*NEW MAIL*/

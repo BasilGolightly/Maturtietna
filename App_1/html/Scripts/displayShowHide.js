@@ -11,9 +11,10 @@ let newMailFrame = document.getElementById('newMailFrame');
 let generatedFrame = document.getElementById('generatedFrame');
 let contactsFrame = document.getElementById('contactsFrame');
 let settingsFrame = document.getElementById('settingsFrame');
+let backgroundNavColor = "#004d64";
 //let xFrame = document.getElementById('');
 
-
+ 
 function displayMode(mode){
     
     //reset navbar, such that no list item is glowing
@@ -31,7 +32,7 @@ function displayMode(mode){
             generatedFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
-            document.getElementById('newMailNavItem').style.backgroundColor = "#006786";
+            document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;
             break;
         //generated
         case 1:
@@ -46,7 +47,7 @@ function displayMode(mode){
             newMailFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
-            document.getElementById('generatedNavItem').style.backgroundColor = "#006786";
+            document.getElementById('generatedNavItem').style.backgroundColor = backgroundNavColor;
             break;
         //contacts
         case 2:
@@ -59,7 +60,7 @@ function displayMode(mode){
             let contacts = document.getElementsByClassName('contactFrame');
             document.getElementById('countContacts').innerHTML = contacts.length;
             document.getElementById('contactImg').src = "../pictures/white_pfp.png";
-            document.getElementById('contactsNavItem').style.backgroundColor = "#006786";
+            document.getElementById('contactsNavItem').style.backgroundColor = backgroundNavColor;
             document.getElementById('contactsHeadTitleText').innerHTML = "Contacts";
             document.getElementById('selectedContact').style.display = 'none';
             document.getElementById('addContact').style.display = 'none';
@@ -73,7 +74,7 @@ function displayMode(mode){
             contactsFrame.style.display = "none";
             newMailFrame.style.display = "none";
             generatedFrame.style.display = "none";
-            document.getElementById('settingsNavItem').style.backgroundColor = "#006786";
+            document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
             break;
     }
 
