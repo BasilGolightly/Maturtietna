@@ -1,5 +1,31 @@
 /*GENERATED*/
 
+.generatedTitle{
+    font-size: 18px;
+    display: inline-flex;
+    font-family: 'Kanit', sans-serif;
+    margin-bottom: 15px;
+}
+
+.generatedTitleText{
+    padding: 2px 7.5px;
+}
+
+.generatedImg{
+    width: 30px;
+    height: 30px;
+}
+
+.titleLink{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.titleLink:hover{
+    text-decoration: underline;
+}
+
 .generatedFrame{
     display: none;
     flex-direction: column;
@@ -8,78 +34,40 @@
 .generatedWrap{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     background-color: #012a38;
-    border-radius: 2vw;
-    padding: 0.75vw;
-    padding-bottom: 3.25vw;
+    border-radius: 15px;
+    padding: 7.5px;
     overflow-y: auto;
     width: 100%;
+    max-height: 70vh;
 }
 
 .generatedLetter{
     display: flex;
-    justify-content: center;
-    flex: 33%;
-    text-align: center;
-    max-width: 19.5vw;
+    flex-direction: column;
+    text-align: left;
     height: 13.5vw;
-    /*border: 0.25vw solid white;*/
     border-radius: 1vw;
-    /*margin: 0 1.5vw 1.5vw 0;*/
-    margin: 1vw;
-    background-image: url("../pictures/generated_mail_icon_neutral.png");
-    background-size: cover;
+    margin-bottom: 15px;
+    padding: 10px;
 }
 
 .generatedLetter:hover{
-    /*border: 0.25vw solid white;*/
-    background-image: url("../pictures/generated_mail_icon_hover.png");
-    /*height: 13.5vw;*/
-}
-
-.generatedLetterInner{
-    font-family: cursive;
-    padding-top: 9vw;
-    height: 4vw;
-    width: 12.5vw;
-    font-size: 1.5vw;
-    text-align: center;
-    /*font-family: 'Sevillana', cursive;*/
-    font-family: 'Kanit', sans-serif;
-    font-weight: bold;
+    background-color: #013141;
 }
 
 /*
-.generatedWrap > div{
-    
-}
-*/
+.generatedLetter:hover{
+    border: 0.25vw solid white;
+    background-image: url("../pictures/generated_mail_icon_hover.png");
+    height: 13.5vw;
+}*/
 
-.generatedTitle{
-    font-size: 2.5vw;
-    display: inline-flex;
+.generatedLetterInner{
     font-family: 'Kanit', sans-serif;
-    margin-bottom: 1.5vw;
+    font-size: 16px;
+    /*font-weight: bold;*/
 }
 
-.generatedTitleText{
-    padding: 0.25vw 0.75vw;
-}
-
-.generatedImg{
-    width: 4vw;
-    height: 4vw;
-}
-
-.titleLink{
-    text-decoration: none;
-    color: white;
-    font-size: 2.5vw;
-}
-
-.titleLink:hover{
-    text-decoration: underline;
-}
 
 /*GENERATED*/
