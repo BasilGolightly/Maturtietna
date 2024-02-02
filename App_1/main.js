@@ -29,6 +29,7 @@ function createWindow1(){
     mainWindow.loadFile(path.join(__dirname, './html/index.html'));
 }
 
+//app launch
 app.whenReady().then(() => {
     createWindow1();
 });

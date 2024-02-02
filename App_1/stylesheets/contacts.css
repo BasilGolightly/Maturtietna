@@ -7,25 +7,26 @@
 
 .contactsHeadWrap{
     display: inline-flex;
-    margin-bottom: 2vw;
+    margin-bottom: 20px;
 }
 
 .contactsHeadImg{
-    width: 4vw;
-    height: 4vw;
+    width: 30px;
+    height: 30px;
 }
 
 .contactsHeadTitleText{
-    font-size: 2.5vw;
+    font-size: 18px;
     font-family: 'Kanit', sans-serif;
-    padding: 0.25vw 0.75vw;
+    padding: 2.5px 7.5px;
 }
 
 .contactsWrap{
     display: flex;
-    background-color: #012a38;
-    border-radius: 2vw;
-    padding: 1.5vw;
+    /*background-color: #012a38;*/
+    background-color: rgb(15, 15, 15);
+    border-radius: 15px;
+    padding: 15px;
     /*justify-content: center;*/
 }
 
@@ -40,12 +41,12 @@
     display: grid;
     grid-template-columns: 50% 50%;
     color: lightgrey;
-    margin-bottom: -0.75vw;
+    margin-bottom: -10px;
 }
 
 .contactsListHeadCount{
     justify-content: left;
-    font-size: 1.5vw;
+    font-size: 14px;
 }
 
 .contactsListHeadAdd{
@@ -57,10 +58,10 @@
     width: 100%;
     display: grid;
     grid-template-columns: 75% 25%;
-    margin-top: 1.5vw;
+    margin-top: 15px;
     border-top: 1px solid #016b92;
     /*border-bottom: 1px solid #015b7c;*/
-    padding: 0.75vw 0.25vw;
+    padding: 7.5px 2.5px;
     font-family: 'Kanit', sans-serif;
     border-bottom: 1px solid #016b92;
 }
@@ -75,17 +76,17 @@
 }
 
 .contactName{
-    margin-top: 0.35vw;
-    padding-left: 0.25vw;
-    font-size: 1.5vw;
+    margin-top: 3.5px;
+    padding-left: 2.5px;
+    font-size: 15px;
     display: flex;
 }
 
 .contactArrow{
-    font-size: 2vw;
+    font-size: 20px;
     display: flex;
     justify-content: right;
-    padding-right: 2vw;
+    padding-right: 10%;
 }
 
 .contactsListHeadBtnAdd{
@@ -93,21 +94,21 @@
     /*display: inline;*/
     /*width: 2vw;*/
     /*height: 2vw;*/
-    border-radius: 1vw;
+    border-radius: 10px;
     background-color: transparent;
     outline: none;
     border: 0;
-    font-size: 1vw;
+    font-size: 13px;
     color: white;
     font-family: 'Kanit', sans-serif;
     text-align: center;
 }
 
 .contactsAddBtnImg{
-    width: 3vw;
-    height: 3vw;
+    width: 30px;
+    height: 30px;
     border: 1px solid white;
-    border-radius: 2vw;
+    border-radius: 30px;
 }
 
 .contactsAddBtnImg:hover{

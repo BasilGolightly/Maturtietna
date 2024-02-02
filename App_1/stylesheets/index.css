@@ -8,8 +8,9 @@ body {
     padding: 0;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 225px auto;
     color: white;
+    background-color: black;
     /*font-family: 'Kanit', sans-serif;*/
     /*font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif*/
 }
@@ -24,13 +25,15 @@ h1 {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 70px auto 55px;
-    background-color: #02394a;
-    
+    /*background-color: #02394a;*/
+    border-radius: 15px;
+    background-color: rgb(15, 15, 15);
+    margin: 0.5vh 5px;
     /*
     display: flex;
     flex-direction: column;
     */
-    height: 100vh;
+    height: 99vh;
     font-family: 'Kanit', sans-serif;
 }
 
@@ -59,14 +62,14 @@ h1 {
 
 .mid_l > div:hover {
     font-weight: bold;
-    background-color: #006786;
+    /*background-color: #006786;*/
     /*text-decoration: underline;*/
 }
 
 .listItem {
     display: inline-flex;
-    width: 100%;
-    padding: 15px 20px;
+    width: 195px;
+    padding: 15px 0 15px 20px;
 }
 
 .navImg{
@@ -149,7 +152,9 @@ h1 {
 /*-----------------------------CONTENT - RIGHT-----------------------------*/
 
 .right {
-    background-color: #001f29;
+    /*
+    background-color: #001f29;*/
+    background-color: black;
     /*
     display: grid;
     grid-template-rows: 100%;
@@ -162,16 +167,24 @@ h1 {
 }
 
 .rightTop{
-    flex: 10%;
+    display: flex;
+    flex: 7.5%;
     width: 100%;
+    margin-top: 5px;
+    justify-content: center
 }
 
 .rightTopInner{
+    width: 98%;
     display: grid;
     grid-template-rows: auto;
     height: 50px;
-    background-color: #002b3a;
-    padding-left: 10px;
+    border-radius: 20px;
+    /*background-color: #002b3a;*/
+    background-color: rgb(15, 15, 15);
+    /*padding-left: 10px; 
+    padding-right: 10px;*/
+    padding: 0 20px;
 }
 
 .rightTopInner > div{
@@ -195,9 +208,7 @@ h1 {
 }
 
 .rightInner{
-    /*border: 1px solid white;*/
-    flex: 90%;
-    /*height: 80vh;*/
+    flex: 92.5%;
     width: 93%;
     padding-left: 2.5vw;
 }

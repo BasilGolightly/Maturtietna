@@ -34,7 +34,8 @@
 .generatedWrap{
     display: flex;
     flex-wrap: wrap;
-    background-color: #012a38;
+    /*background-color: #012a38;*/
+    background-color: rgb(15, 15, 15);
     border-radius: 15px;
     padding: 7.5px;
     overflow-y: auto;
@@ -53,7 +54,8 @@
 }
 
 .generatedLetter:hover{
-    background-color: #013141;
+    /*background-color: #013141;*/
+    background-color: rgb(25, 25, 25);
 }
 
 /*

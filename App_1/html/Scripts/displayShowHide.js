@@ -11,7 +11,7 @@ let newMailFrame = document.getElementById('newMailFrame');
 let generatedFrame = document.getElementById('generatedFrame');
 let contactsFrame = document.getElementById('contactsFrame');
 let settingsFrame = document.getElementById('settingsFrame');
-let backgroundNavColor = "#004d64";
+let backgroundNavColor = "rgb(35, 35, 35)";
 //let xFrame = document.getElementById('');
 
  
