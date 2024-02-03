@@ -4,6 +4,7 @@
 //2 - CONTACTS
 //3 - SETTINGS
 let displayModeId = -1;
+let selectedMailId = 0;
 
 let navItems = document.getElementsByClassName('listItem');
 
@@ -42,7 +43,23 @@ function displayMode(mode){
             document.getElementById('generatedTitleText').innerHTML = "Generated mails <span class='generatedTitleCount' id='generatedTitleCount'></span>";
             let generatedMails = document.getElementsByClassName('generatedLetter');
             document.getElementById('generatedTitleCount').innerHTML = "(" + generatedMails.length + ")";
-            document.getElementById('generatedMailWrap').style.display = "none";
+
+            document.getElementById('generatedMailWrap').innerHTML = `<!--no mail selected-->
+            <div class="noMailSelectedWrap">
+                <div class="noMailSelectedInner">
+                    <div>
+                        <img src="pictures/generated_mail_icon_empty.png" class="noMailSelectedImg">
+                    </div>
+                    <div>No mail selected</div>
+                </div>
+            </div>
+            <!--no mail selected-->`;
+
+            let mails = document.getElementsByClassName('generatedLetter');
+            for(let i = 0; i < mails.length; i++){
+                mails[i].style.borderLeft = "3px solid gray";
+            }
+
             document.getElementById('generatedWrap').style.display = "flex";
             newMailFrame.style.display = "none";
             contactsFrame.style.display = "none";
@@ -59,7 +76,7 @@ function displayMode(mode){
             settingsFrame.style.display = "none";
             let contacts = document.getElementsByClassName('contactFrame');
             document.getElementById('countContacts').innerHTML = contacts.length;
-            document.getElementById('contactImg').src = "../pictures/white_pfp.png";
+            document.getElementById('contactImg').src = "pictures/white_pfp.png";
             document.getElementById('contactsNavItem').style.backgroundColor = backgroundNavColor;
             document.getElementById('contactsHeadTitleText').innerHTML = "Contacts";
             document.getElementById('selectedContact').style.display = 'none';
@@ -77,20 +94,65 @@ function displayMode(mode){
             document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
             break;
     }
-
-    /*
-    if(mode != displayModeId){
-        
-    }*/
 }
 
 function displayModeGenerated(mailId){
     displayMode(1);
 
-    document.getElementById('generatedWrap').style.display = "none";
-    document.getElementById('generatedMailWrap').style.display = "flex";
-    document.getElementById('generatedMailWrap').innerHTML = "<h1>" + mailId + "</h1>"; 
-    document.getElementById('generatedTitleText').innerHTML = "<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > Mail " + mailId;
+    let mails = document.getElementsByClassName('generatedLetter');
+    let selectedMail = document.getElementById('generatedLetter' + mailId);
+
+    for(let i = 0; i < mails.length; i++){
+        mails[i].style.borderLeft = "3px solid gray";
+    }
+
+    //deselect - HIDE MAIL
+    if(selectedMailId == mailId){
+        selectedMail.style.borderLeft = "3px solid gray";
+        displayMode(1);
+        selectedMailId = 0
+    }
+    //selected mail - SHOW MAIL
+    else{
+        selectedMailId = mailId;
+        selectedMail.style.borderLeft = "5px solid gray";
+        
+        //get data from mail
+        let title = document.getElementById("title" + mailId).innerHTML;
+        let date = document.getElementById("date" + mailId).innerHTML;
+        let content = document.getElementById("desc" + mailId).innerHTML;
+        let contact = document.getElementById("contact" + mailId).innerHTML;
+
+        document.getElementById('generatedMailWrap').innerHTML = `
+        <!--mail content-->
+        <div class="selectedMailWrap">
+
+            <!--mail title-->
+            <div class="selectedMailTop">
+                <div class="selectedMailTopLeft">  
+                    <div class="selectedMailTopTitle">
+                        ${title}
+                    </div>
+                    <div class="selectedMailTopContact">
+                        ${contact}
+                    </div>
+                </div>
+                <div class="selectedMailTopRight">
+                    ${date}
+                </div>
+            </div>
+        	<!--mail title-->
+
+            <!--mail content-->
+            <div class="selectedMailMiddle">
+                ${content}
+            </div>
+            <!--mail content-->
+        </div>
+        `; 
+        document.getElementById('generatedTitleText').innerHTML = "<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > Mail " + mailId;
+    }
+
 }
 
 function displayModeContacts(contactId){
@@ -116,7 +178,7 @@ function displayModeAddContacts(){
     document.getElementById('contactsHeadTitleText').innerHTML = "<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> > Add";
 
     //change title icon to add contact
-    document.getElementById('contactImg').src = "../pictures/white_pfp_hover.png";
+    document.getElementById('contactImg').src = "pictures/white_pfp_hover.png";
 
     //display add contact, hide contact list and selected contact wrap
     document.getElementById('contactList').style.display = 'none';

@@ -11,7 +11,10 @@ function createWindow1(){
         height: 768,
         minHeight: 600,
         minWidth: 750,
-        resizable: true
+        resizable: true,
+        webPreferences: {
+            nodeIntegration: true,
+        }
     });
 
     //enable devtools and menubar if in development mode
@@ -26,7 +29,7 @@ function createWindow1(){
     }
 
     //pripni index.html v okno
-    mainWindow.loadFile(path.join(__dirname, './html/index.html'));
+    mainWindow.loadFile(path.join(__dirname, './index.html'));
 }
 
 //app launch

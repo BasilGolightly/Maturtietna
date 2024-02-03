@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mark Sadnik, Max Sovic, Maximilian Zakrajsek (R4B, SCC KER)">
     <title>M3 E-mail client</title>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/index.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/newMail.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/generated.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/contacts.css">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/settings.css">
-    <!--<script src="../loadDatabase.js" defer></script>-->
+    <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/newMail.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/generated.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/contacts.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
+    <script src="loadDatabase.js" defer></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
         <div class="mid_l">
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
-                    <img src="../pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
+                    <img src="pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
                 </div>
                 <div>
                     New mail
@@ -36,7 +36,7 @@
             </div>
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
-                    <img src="../pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
+                    <img src="pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
                 </div>
                 <div>
                     Mails
@@ -44,7 +44,7 @@
             </div>
             <div class="listItem" id="contactsNavItem" onclick="displayMode(2)">
                 <div>
-                    <img src="../pictures/white_pfp.png" class="contactsIcon navImg" width="" height="">
+                    <img src="pictures/white_pfp.png" class="contactsIcon navImg" width="" height="">
                 </div>
                 <div>
                     Contacts
@@ -52,7 +52,7 @@
             </div>
             <div class="listItem" id="settingsNavItem" onclick="displayMode(3)">
                 <div>
-                    <img src="../pictures/setting_icon.png" class="settingsIcon navImg" width="" height="">
+                    <img src="pictures/setting_icon.png" class="settingsIcon navImg" width="" height="">
                 </div>
                 <div>
                     Settings
@@ -65,7 +65,7 @@
         <div class="bottom_l">
             <div class="navAccWrap">
                 <div class="navAccImgWrap">
-                    <img src="../pictures/white_pfp.png" class="navAccImg">
+                    <img src="pictures/white_pfp.png" class="navAccImg">
                 </div>
                 <div class="navAccTextWrap">
                     <div class="navAccUsername">Account name</div>
@@ -85,7 +85,10 @@
             <div class="rightTopInner">
                 <div class="newMailTopBtnWrap">
                     <button class="newMailTopBtn" onclick="displayMode(0)">
-                        <img src="../pictures/new_mail_icon.png" width="15" height="15"> New mail
+                        <img src="pictures/new_mail_icon.png" width="" height="" class="topBarImg"> New mail
+                    </button>
+                    <button class="addContactTopBtn" onclick="displayModeAddContacts()">
+                        <img src="pictures/white_pfp_hover.png" width="" height="" class="topBarImg"> New contact
                     </button>
                 </div>
             </div>
@@ -99,7 +102,7 @@
                 <!--new mail title icon-->
                 <div class="newMailHead">
                     <div>
-                        <img src="../pictures/new_mail_icon.png" class="newMailHeadImg">
+                        <img src="pictures/new_mail_icon.png" class="newMailHeadImg">
                     </div>
                     <div id="newMailHeadTitleText" class="newMailHeadTitleText">
                         Create new mail
@@ -111,7 +114,7 @@
                     <!--new mail title-->
                     <div class="newMailTitle inlineTextDiv">
                         <div class="NewMailIcon">
-                            <img src="../pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
+                            <img src="pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
                         </div>
                         <div class="NewMailTextDiv">
                             <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
@@ -194,43 +197,56 @@
             <div id="generatedFrame" class="generatedFrame">
                 <div class="generatedTitle">
                     <div>
-                        <img src="../pictures/mail_icon.png" class="generatedImg">
+                        <img src="pictures/mail_icon.png" class="generatedImg">
                     </div>
                     <div class="generatedTitleText" id="generatedTitleText">
                         <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span class="generatedTitleCount" id="generatedTitleCount"></span>
                     </div>
                 </div>
 
-                <!--generated list-->
-                <div class="generatedWrap" id="generatedWrap">
-                    <div class="generatedLetter" onclick="displayModeGenerated(1)">
-                        <div class="generatedLetterInner">
-                            Mail 1
-                        </div>
-                        <div class="generatedLetterContent">
-                            Description nasdadadasd
+                <div class="generatedWindowWrap">
+                    <!--generated list-->
+                    <div class="generatedWrap" id="generatedWrap">
+                        <div class="generatedLetter" onclick="displayModeGenerated(1)" id="generatedLetter1">
+                            <div class="generatedLetterInner">
+                                <div class="generatedLetterTitle" id="title1">
+                                    Mail 1
+                                </div>
+                                <div class="generatedLetterDate" id="date1">
+                                    3. 02. 2024
+                                </div>
+                            </div>
+                            <div class="generatedLetterContent">
+                                Description nasdadadasd
+                            </div>
+                            <div class="generatedLetterContentHidden">
+                                <p id="desc1">
+                                    Description 1
+                                </p>
+                                <div id="contact1">
+                                    contact1
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!--
-                    <div class="generatedLetter">
-                        <div class="generatedLetterInner" onclick="displayModeGenerated(2)">
-                            Mail 2
-                        </div>
-                    </div>
-                    <div class="generatedLetter">
-                        <div class="generatedLetterInner" onclick="displayModeGenerated(3)">
-                            Mail 3
-                        </div>
-                    </div>
-                    -->
-                </div>
-                <!--generated list-->
+                    <!--generated list-->
 
-                <!--selected mail-->
-                <div class="generatedMailWrap" id="generatedMailWrap">
-                    
+                    <!--selected mail-->
+                    <div class="generatedMailWrap" id="generatedMailWrap">
+                        <!--no mail selected-->
+                        <div class="noMailSelectedWrap">
+                            <div class="noMailSelectedInner">
+                                <div>
+                                    <img src="pictures/generated_mail_icon_empty.png" class="noMailSelectedImg">
+                                </div>
+                                <div>No mail selected</div>
+                            </div>
+                        </div>
+                        <!--no mail selected-->
+                    </div>
+                    <!--selected mail-->
                 </div>
-                <!--selected mail-->
+
             </div>
             <!--Generated-->
 
@@ -241,7 +257,7 @@
                 <!--contacts title-->
                 <div class="contactsHeadWrap">
                     <div>
-                        <img id="contactImg" src="../pictures/white_pfp.png" class="contactsHeadImg">
+                        <img id="contactImg" src="pictures/white_pfp.png" class="contactsHeadImg">
                     </div>
                     <div class="contactsHeadTitleText" id="contactsHeadTitleText">
                         <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a> > Mark Sadnik
@@ -261,7 +277,7 @@
                                 <span id="countContacts"></span> contact(s)
                             </div>  
                             <div class="contactsListHeadAdd">
-                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="../pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
                             </div>
                         </div>
                         <!--contact count-->

@@ -31,45 +31,189 @@
     flex-direction: column;
 }
 
-.generatedWrap{
+.generatedWindowWrap{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    width: 99%;
+    height: 75vh;
+}
+
+.generatedWrap{
+    flex: 25%;
+    display: flex;
+    flex-direction: column;
     /*background-color: #012a38;*/
     background-color: rgb(15, 15, 15);
+    margin-right: 7.5px;
     border-radius: 15px;
     padding: 7.5px;
     overflow-y: auto;
     width: 100%;
-    max-height: 70vh;
+    /*max-height: 70vh;*/
+    border-radius: 15px;
 }
 
 .generatedLetter{
+    /*border-bottom: 1px solid gray;*/
     display: flex;
     flex-direction: column;
     text-align: left;
-    height: 13.5vw;
-    border-radius: 1vw;
+    /*height: 100px;*/
+    max-height: 75px;
+    height: auto;
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 7.5px 7.5px 7.5px 7.5px;
+    width: 95%;
+    border-left: 3px solid gray;
 }
 
 .generatedLetter:hover{
-    /*background-color: #013141;*/
     background-color: rgb(25, 25, 25);
+}
+
+.generatedMailWrap{
+    display: flex;
+    flex-direction: column;
+    flex: 75%;
+    padding: 7.5px;
+    border-radius: 15px;
+    background-color: rgb(15, 15, 15);
 }
 
 /*
 .generatedLetter:hover{
     border: 0.25vw solid white;
-    background-image: url("../pictures/generated_mail_icon_hover.png");
+    background-image: url("pictures/generated_mail_icon_hover.png");
     height: 13.5vw;
 }*/
 
 .generatedLetterInner{
+    display: flex;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
     font-family: 'Kanit', sans-serif;
-    font-size: 16px;
+    width: 100%;
     /*font-weight: bold;*/
 }
 
+.generatedLetterTitle{
+    display: grid;
+    justify-content: left;
+    /*float: left;*/
+    font-size: 16px;
+    width: 65%;
+}
+
+.generatedLetterDate{
+    display: grid;
+    justify-content: right;
+    width: 35%;
+    font-size: 16px;
+    /*float: right;*/
+}
+
+.noMailSelectedWrap{
+    width: 100%;
+    display: grid;
+    justify-content: center;
+}
+
+.noMailSelectedInner{
+    padding: 25vh 0;
+    height: 25vh;
+    flex-wrap: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Kanit', sans-serif;
+    color: rgb(175, 175, 175);
+}
+
+.noMailSelectedImg{
+    width: 10.5vw;
+    height: 7.5vw;
+    margin-bottom: 10px;
+}
+
+.generatedLetterContentHidden{
+    display: none;
+}
+
+.selectedMailWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.selectedMailWrap > div{
+    padding: 15px;
+    width: 95%;
+}
+
+.selectedMailTop{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 75% 25%;
+    max-height: 100px;
+    border-bottom: 1px solid gray;
+}
+
+.selectedMailTopTitle{
+    font-size: 18px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.selectedMailTopLeft{
+
+}
+
+.selectedMailTopContact{
+
+}
+
+.selectedMailTopRight{
+    width: auto;
+    text-align: right;
+}
+
+@media screen and (max-width: 1850px) {
+    /*.generatedLetterInner{
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+    }*/
+
+    .generatedLetterDate{
+        font-size: 12px;
+    }
+
+    .generatedLetter{
+        padding-right: 0.25vw;
+    }
+
+    .generatedLetter{
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .generatedLetterInner{
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+    }
+
+    .generatedLetterDate{
+        justify-content: left;
+        font-size: 10px;
+    }
+
+    .generatedLetterContent{
+        font-size: 12px;
+    }
+}
 
 /*GENERATED*/
