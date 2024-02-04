@@ -27,13 +27,33 @@ function displayMode(mode){
     switch(mode){
         //new email
         case 0:
-            //alert('0');
+            alert('0');
             displayModeId = 0;
+
+            let contactsString = ``;
+            let contactNames = document.getElementsByClassName('contactName');
+            alert(contactNames.length);
+            for(let i = -1; i < contactNames.length; i++){
+                if(i == -1){
+                    contactsString = `<option value="0">-Select recipient-</option>`;
+                }
+                else{
+                    //id = 'contact1'
+                    let contactId = contactNames[i].id;
+                    contactId = contactId.substring(7, contactId.length);
+                    contactsString += `
+                    <option value="${contactId}">${contactNames[i].innerHTML.trim()}</option>
+                    `;
+                }
+                
+            }
+            document.getElementById('newRecipentDropDown').innerHTML = contactsString;
+            
             newMailFrame.style.display = "flex";
             generatedFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
-            document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;
+            /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
         //generated
         case 1:

@@ -26,6 +26,7 @@
 
         <!--nav items-->
         <div class="mid_l">
+            <!--
             <div class="listItem" id="newMailNavItem" onclick="displayMode(0)">
                 <div>
                     <img src="pictures/new_mail_icon.png" class="addIcon navImg" width="" height="">
@@ -34,6 +35,7 @@
                     New mail
                 </div>
             </div>
+            -->
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
                     <img src="pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
@@ -131,7 +133,7 @@
                             <button class="NewRecipientBtn"></button>
                         </div>
                         <div class="NewRecipientTextDiv">
-                            <select name="newMailRecipient" class="newRecipientDropDown">
+                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown">
                                 <option value="0">Select recipient</option>
                                 <option value="1">Recipient 1</option>
                             </select>
@@ -260,7 +262,7 @@
                         <img id="contactImg" src="pictures/white_pfp.png" class="contactsHeadImg">
                     </div>
                     <div class="contactsHeadTitleText" id="contactsHeadTitleText">
-                        <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a> > Mark Sadnik
+                        <a class="titleLink" href="#" onclick="displayMode(2)">Contacts</a>
                     </div>
                 </div>
                 <!--contacts title-->
@@ -292,7 +294,6 @@
                             </div>
                         </div>
 
-                        <!--
                         <div class="contactFrame contactBottom" onclick="displayModeContacts(2)">
                             <div class="contactName" id="contact2">
                                 Maximilian Zakrajsek
@@ -310,7 +311,6 @@
                                 >
                             </div>
                         </div>
-                        -->
                         <!--contacts-->
 
                     </div>
