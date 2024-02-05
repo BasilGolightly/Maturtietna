@@ -20,7 +20,7 @@
         
         <!--logo-->
         <div class="top_l">
-            <h1>M3 email client</h1>
+            <h1 class="logoTitle">M3 email client</h1>
         </div>
         <!--logo-->
 
@@ -350,7 +350,7 @@
                                 Date of birth
                             </div>
                             <div>
-                                <input class="addContactDobInput" type="date">
+                                <input class="addContactDobInput" id="addContactDOB" type="date" onchange="javascript: this.blur()" onkeydown="javascript: this.blur()">
                             </div>
                         </div>
                         <!--Date of birth-->
@@ -361,7 +361,7 @@
                                 Relation
                             </div>
                             <div>
-                                <select>
+                                <select class="addContactRelationInput" onchange="javascript: this.blur()">
                                     <option>Sibling</option>
                                     <option>Parent</option>
                                     <option>Child</option>

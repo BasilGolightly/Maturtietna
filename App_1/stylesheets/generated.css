@@ -24,6 +24,7 @@
 
 .titleLink:hover{
     text-decoration: underline;
+    text-decoration-color: white;
 }
 
 .generatedFrame{
@@ -168,6 +169,7 @@
     font-family: 'Kanit', sans-serif;
 }
 
+/*
 .selectedMailTopLeft{
 
 }
@@ -175,6 +177,7 @@
 .selectedMailTopContact{
 
 }
+*/
 
 .selectedMailTopRight{
     width: auto;

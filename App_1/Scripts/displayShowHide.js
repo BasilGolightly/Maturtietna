@@ -5,6 +5,9 @@
 //3 - SETTINGS
 let displayModeId = -1;
 let selectedMailId = 0;
+let date = new Date();
+date.setFullYear(date.getFullYear() - 10);
+document.getElementById('addContactDOB').max = date.getFullYear + "-" + date.getMonth() + "-" + date.getDate();
 
 let navItems = document.getElementsByClassName('listItem');
 
@@ -32,7 +35,7 @@ function displayMode(mode){
 
             let contactsString = ``;
             let contactNames = document.getElementsByClassName('contactName');
-            //alert(contactNames.length);
+
             for(let i = -1; i < contactNames.length; i++){
                 if(i == -1){
                     contactsString = `<option value="0">-Select recipient-</option>`;
@@ -47,6 +50,7 @@ function displayMode(mode){
                 }
                 
             }
+
             document.getElementById('newRecipentDropDown').innerHTML = contactsString;
             
             newMailFrame.style.display = "flex";

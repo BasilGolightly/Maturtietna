@@ -20,6 +20,18 @@ h1 {
     font-size: 20px;
 }
 
+/*
+.logoTitle{
+    text-decoration: none;
+    transition: background-size 400ms;
+}
+
+.logoTitle:hover{
+    text-decoration: underline;
+    transition: background-size 400ms;
+}
+*/
+
 /*-----------------------------NAVBAR - LEFT-----------------------------*/
 
 .left {

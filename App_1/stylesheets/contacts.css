@@ -125,6 +125,11 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    max-width: 750px;
+}
+
+.addContactWrap > div{
+    margin-bottom: 15px;
 }
 
 .addContactLastNameWrap{
@@ -135,7 +140,7 @@
 }
 
 .addContactLastNameWrap > div{
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .addContactComa{
@@ -150,12 +155,76 @@
     color: white;
     outline: none;
     width: 30ch;
+    font-size: 15px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.addContactTextField:hover{
+    border-bottom: 2px solid white;
+}
+
+.addContactTextField:focus{
+    border-bottom: 2px solid white;
 }
 
 .addContactTitle{
     font-family: 'Kanit', sans-serif;
     font-size: 18px;
     outline: none;
+    margin-bottom: 5px;
+}
+
+.addContactDobInput{
+    background-color: transparent;
+    outline: none;
+    color: white;
+    color-scheme: dark;
+    font-family: 'Kanit', sans-serif;
+    border: 0;
+    border-left: 3px solid white;
+    padding: 5px 5px 5px 7.5px;
+    font-size: 15px;
+    transition: 0.1s;
+}
+
+.addContactDobInput:hover{
+    background-color: #003347;
+    border-left: 7.5px solid white;
+    transition: 0.1s;
+}
+
+.addContactDobInput:focus{
+    background-color: #003347;
+    border-left: 7.5px solid white;
+}
+
+.addContactRelationInput{
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
+    border: 0;
+    /*border-bottom: 1px solid white;*/
+    border-left: 3px solid white;
+    outline: none;
+    transition: 0.1s;
+    font-family: 'Kanit', sans-serif;
+}
+
+.addContactRelationInput:hover{
+    border-left: 7.5px solid white;
+    transition: 0.1s;
+    background-color: #002207;
+}
+
+.addContactRelationInput:focus{
+    background-color: transparent;
+    border-left: 7.5px solid white;
+}
+
+.addContactRelationInput > option{
+    background-color: transparent;
+    color: black;
 }
 
 /*ADD CONTACT*/
