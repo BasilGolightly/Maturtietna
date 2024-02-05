@@ -119,4 +119,45 @@
     border: 1px solid white;
 }*/
 
+/*ADD CONTACT*/
+
+.addContactWrap{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.addContactLastNameWrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.addContactLastNameWrap > div{
+    margin-right: 15px;
+}
+
+.addContactComa{
+    font-size: 18px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.addContactTextField{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    outline: none;
+    width: 30ch;
+}
+
+.addContactTitle{
+    font-family: 'Kanit', sans-serif;
+    font-size: 18px;
+    outline: none;
+}
+
+/*ADD CONTACT*/
+
 /*CONTACTS*/

@@ -27,12 +27,12 @@ function displayMode(mode){
     switch(mode){
         //new email
         case 0:
-            alert('0');
+            //alert('0');
             displayModeId = 0;
 
             let contactsString = ``;
             let contactNames = document.getElementsByClassName('contactName');
-            alert(contactNames.length);
+            //alert(contactNames.length);
             for(let i = -1; i < contactNames.length; i++){
                 if(i == -1){
                     contactsString = `<option value="0">-Select recipient-</option>`;
@@ -138,9 +138,9 @@ function displayModeGenerated(mailId){
         selectedMail.style.borderLeft = "5px solid gray";
         
         //get data from mail
-        let title = document.getElementById("title" + mailId).innerHTML;
-        let date = document.getElementById("date" + mailId).innerHTML;
-        let content = document.getElementById("desc" + mailId).innerHTML;
+        let title = document.getElementById("titleMail" + mailId).innerHTML;
+        let date = document.getElementById("dateMail" + mailId).innerHTML;
+        let content = document.getElementById("descMail" + mailId).innerHTML;
         let contact = document.getElementById("contact" + mailId).innerHTML;
 
         document.getElementById('generatedMailWrap').innerHTML = `
@@ -154,7 +154,7 @@ function displayModeGenerated(mailId){
                         ${title}
                     </div>
                     <div class="selectedMailTopContact">
-                        ${contact}
+                        <span style="font-size: 13px">to</span> ${contact}
                     </div>
                 </div>
                 <div class="selectedMailTopRight">

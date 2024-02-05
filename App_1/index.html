@@ -211,10 +211,10 @@
                     <div class="generatedWrap" id="generatedWrap">
                         <div class="generatedLetter" onclick="displayModeGenerated(1)" id="generatedLetter1">
                             <div class="generatedLetterInner">
-                                <div class="generatedLetterTitle" id="title1">
+                                <div class="generatedLetterTitle" id="titleMail1">
                                     Mail 1
                                 </div>
-                                <div class="generatedLetterDate" id="date1">
+                                <div class="generatedLetterDate" id="dateMail1">
                                     3. 02. 2024
                                 </div>
                             </div>
@@ -222,10 +222,10 @@
                                 Description nasdadadasd
                             </div>
                             <div class="generatedLetterContentHidden">
-                                <p id="desc1">
+                                <p id="descMail1">
                                     Description 1
                                 </p>
-                                <div id="contact1">
+                                <div id="contactMail1">
                                     contact1
                                 </div>
                             </div>
@@ -324,7 +324,60 @@
 
                     <!--add contact-->
                     <div class="addContactWrap" id="addContact">
-                        Add contacts
+
+                        <!--first + last name-->
+                        <div class="addContactNameWrap">
+                            <div class="addContactNameTitle addContactTitle">
+                                Name
+                            </div>
+                            <div class="addContactLastNameWrap">
+                                <div>
+                                    <input type="text" class="addContactTextField" placeholder="First name">
+                                </div>
+                                <div class="addContactComa">
+                                    ,
+                                </div>
+                                <div>
+                                    <input type="text" class="addContactTextField" placeholder="Surname">
+                                </div>
+                            </div>
+                        </div>
+                        <!--first + last name-->
+
+                        <!--Date of birth-->
+                        <div class="addContactDateOfBirthWrap">
+                            <div class="addContactDateOfBirthTitle addContactTitle">
+                                Date of birth
+                            </div>
+                            <div>
+                                <input class="addContactDobInput" type="date">
+                            </div>
+                        </div>
+                        <!--Date of birth-->
+
+                        <!--Relation-->
+                        <div class="addContactRelationWrap">
+                            <div class="addContactTitle">
+                                Relation
+                            </div>
+                            <div>
+                                <select>
+                                    <option>Sibling</option>
+                                    <option>Parent</option>
+                                    <option>Child</option>
+                                    <option>Grandchild</option>
+                                    <option>Grandparent</option>
+                                    <option>Uncle / aunt</option>
+                                    <option>Nephew / Niece</option>
+                                    <option>Cousin</option>
+                                    <option>Relative</option>
+                                    <option>Acquaintance</option>
+                                    <option>Friend</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Relation-->
                     </div>
                     <!--add contact-->
                 </div>
@@ -348,7 +401,7 @@
 <!--script-->
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
-<script>displayMode(0)</script>
+<script>displayModeAddContacts();</script>
 <!--script-->
 
 </html>
