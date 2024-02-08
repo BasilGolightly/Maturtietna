@@ -227,6 +227,37 @@
     color: black;
 }
 
+.addContactBioText{
+    background-color: transparent;
+    color: white;
+    font-size: 13px;
+    width: 50ch;
+    padding: 10px;
+    height: 10ch;
+    border: 1px solid white;
+    resize: none;
+    font-family: sans-serif;
+    outline: none;
+    border-radius: 10px;
+}
+
+.addContactBioText:hover{
+    border: 2px solid white;
+}
+
+.addContactBioText:focus{
+    border: 2px solid white;
+}
+
+.red{
+    color: rgb(255, 105, 105);
+}
+
+.star{
+    vertical-align: super;
+    font-size: 13px;
+}
+
 /*ADD CONTACT*/
 
 /*CONTACTS*/

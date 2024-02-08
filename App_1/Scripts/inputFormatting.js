@@ -44,3 +44,11 @@ function onBlurReasonTextBox(){
     textArea.innerHTML = textArea.innerHTML.trim(); 
     textArea.setSelectionRange(textArea.innerHTML.length, textArea.innerHTML.length);
 }
+
+function setCursorTextArea(element){
+    //alert("asdad");
+    let text = element.innerHTML;
+    //text = text.trim();
+    element.innerHTML = text.trim();
+    //element.setSelectionRange(len-1, len-1);
+}

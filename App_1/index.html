@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/generated.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/contacts.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
-    <script src="loadDatabase.js" defer></script>
+    <script src="preload.js" defer></script>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 </head>
 
 <body>
@@ -85,13 +86,45 @@
         <!--top right-->
         <div class="rightTop">
             <div class="rightTopInner">
-                <div class="newMailTopBtnWrap">
+                <div class="newMailTopBtnWrap leftTop">
                     <button class="newMailTopBtn" onclick="displayMode(0)">
                         <img src="pictures/new_mail_icon.png" width="" height="" class="topBarImg"> New mail
                     </button>
                     <button class="addContactTopBtn" onclick="displayModeAddContacts()">
                         <img src="pictures/white_pfp_hover.png" width="" height="" class="topBarImg"> New contact
                     </button>
+                </div>
+
+                <div class="middleTop">
+                    <div class="searchBarWrap">
+                        <div>
+                            <button class="searchTopBtn">
+                                <img src="pictures/search_icon.webp" class="searchTopImg">
+                            </button>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="search..." class="searchTopTextBox" maxlength="50">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rightTopGrid">
+                    <div>
+                        <button class="rightTopBtn">
+                            <img src="pictures/dots_icon.png" width="35" height="35">
+                        </button>
+                    </div>
+                    <div>
+                        <button class="rightTopBtn">
+                            <img src="pictures/copy_icon.png" width="35" height="35">
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="rightTopBtn">
+                            <img src="pictures/trash_icon.png" width="35" height="35">
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,7 +361,7 @@
                         <!--first + last name-->
                         <div class="addContactNameWrap">
                             <div class="addContactNameTitle addContactTitle">
-                                Name
+                                Name <span class="red star">*</span>
                             </div>
                             <div class="addContactLastNameWrap">
                                 <div>
@@ -347,7 +380,7 @@
                         <!--Date of birth-->
                         <div class="addContactDateOfBirthWrap">
                             <div class="addContactDateOfBirthTitle addContactTitle">
-                                Date of birth
+                                Date of birth <span class="red star">*</span>
                             </div>
                             <div>
                                 <input class="addContactDobInput" id="addContactDOB" type="date" onchange="javascript: this.blur()" onkeydown="javascript: this.blur()">
@@ -358,7 +391,7 @@
                         <!--Relation-->
                         <div class="addContactRelationWrap">
                             <div class="addContactTitle">
-                                Relation
+                                Relation <span class="red star">*</span>
                             </div>
                             <div>
                                 <select class="addContactRelationInput" onchange="javascript: this.blur()">
@@ -378,6 +411,17 @@
                             </div>
                         </div>
                         <!--Relation-->
+
+                        <!--Bio-->
+                        <div class="addContactBioWrap">
+                            <div class="addContactTitle">
+                                Bio (optional)
+                            </div>
+                            <div class="addContactBioTextWrap">
+                                <textarea class="addContactBioText" placeholder="max. 250 char" onclick="setCursorTextArea(this)"></textarea>
+                            </div>
+                        </div>
+                        <!--Bio-->  
                     </div>
                     <!--add contact-->
                 </div>

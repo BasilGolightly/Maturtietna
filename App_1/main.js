@@ -13,20 +13,22 @@ function createWindow1(){
         minWidth: 750,
         resizable: true,
         webPreferences: {
+            contextIsolation: true,
             nodeIntegration: true,
+            preload: path.join(__dirname, './preload.js')
         }
     });
 
     //enable devtools and menubar if in development mode
-    if(process.env.NODE_ENV !== "production"){
+    /*if(process.env.NODE_ENV !== "production"){
         mainWindow.menuBarVisible = false;
-        //mainWindow.webContents.openDevTools();
-    }
+    }*/
+
     //disable if not
-    else{
+    /*else{
         mainWindow.menuBarVisible = false;
         mainWindow.webContents.closeDevTools();
-    }
+    }*/
 
     //pripni index.html v okno
     mainWindow.loadFile(path.join(__dirname, './index.html'));
