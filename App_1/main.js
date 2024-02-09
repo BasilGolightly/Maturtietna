@@ -6,17 +6,17 @@ const { app, BrowserWindow } = require('electron');
 function createWindow1(){
     //window properties
     const mainWindow = new BrowserWindow({
+        webPreferences: {
+            contextIsolation: false,
+            nodeIntegration: true,
+            preload: path.join(__dirname, './preload.js')
+        },
         title: 'M3 E-mail client',
         width: 1128,
         height: 768,
         minHeight: 600,
         minWidth: 750,
         resizable: true,
-        webPreferences: {
-            contextIsolation: true,
-            nodeIntegration: true,
-            preload: path.join(__dirname, './preload.js')
-        }
     });
 
     //enable devtools and menubar if in development mode
