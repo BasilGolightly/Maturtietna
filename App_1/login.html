@@ -6,7 +6,6 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <script src="Scripts/login.js"></script>
 </head>
 
 <body>
@@ -14,33 +13,59 @@
         <div class="main">
             <!--title-->
             <div class="mainTitle">
-                <h1 id="loginTitle">Login</h1>
-                <span id=""></span>
+                <div>
+                    <h1 id="loginTitle">Login</h1>
+                    <span id="loginName"></span>
+                </div>
+                
             </div>
             <!--title-->
     
             <!--accounts list-->
             <div class="mainInner">
                 <!--accounts-->
-                <div class="accountWrap">
-                    <div class="accountInner">
-                        <div class="accountName" id="accountName1">
-                            Account1
-                        </div>
-                        <div class="accountArrowWrap">
-                            <button class="accountArrow" onclick="">
-                                <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
-                            </button>
+                <div class="accountsList" id="accountsList">
+
+                    <!--ACC EXAMPLE-->
+                    <div class="accountWrap">
+                        <div class="accountInner">
+                            <div class="accountName" id="accountName1">
+                                Account1
+                            </div>
+                            <div class="accountArrowWrap">
+                                <button class="accountArrow" onclick="loginDisplay(1, 1);">
+                                    <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <!--ACC EXAMPLE-->
+
                 </div>
                 <!--accounts-->
 
                 <!--login-->
                 <div class="loginPromptWrap" id="loginPromptWrap">
+                    <div class="loginPromptTitle">
+                        Password
+                    </div>
+                    <div class="loginPromptInner">
+                        <input type="text" class="passwordTextField" placeholder="password">
+                    </div>
                     <div class="loginTitle">
-                        <div>
-                            &lt; Back
+                        <div class="loginPromptBack">
+                            <div>
+                                <button class="backBtn" onclick="loginDisplay(0, -1)">
+                                    Back to accounts
+                                </button>
+                            </div>
+                        </div>
+                        <div class="loginPromptSubmitWrap">
+                            <div>
+                                <button class="submitLoginBtn" onclick="login(id)">
+                                    Login
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,16 +75,19 @@
     
             <!--add account-->
             <div class="mainBottom">
-                <a href="register.html" class="registerLink">+Add account</a>
+                <div class="mainBottomInner">
+                    <a href="register.html" class="registerLink">+Add account</a>
+                </div>
             </div>
-            <!---->
+            <!--add account-->
         </div>
     </div>
     
 </body>
 
+<script src="Scripts/login.js"></script>
 <script>
-    loginDisplay(1);
+    loginDisplay(0, -1);
 </script>
 
 </html>
