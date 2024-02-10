@@ -20,18 +20,18 @@ function createWindow1(){
     });
 
     //enable devtools and menubar if in development mode
-    /*if(process.env.NODE_ENV !== "production"){
+    if(process.env.NODE_ENV !== "production"){
         mainWindow.menuBarVisible = false;
-    }*/
+    }
 
     //disable if not
-    /*else{
+    else{
         mainWindow.menuBarVisible = false;
         mainWindow.webContents.closeDevTools();
-    }*/
+    }
 
     //pripni index.html v okno
-    mainWindow.loadFile(path.join(__dirname, './index.html'));
+    mainWindow.loadFile(path.join(__dirname, './login.html'));
 }
 
 //app launch

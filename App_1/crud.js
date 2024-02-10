@@ -1,2 +1,0 @@
-const sql = require('./loadDatabase');
-

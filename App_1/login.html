@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script src="Scripts/login.js"></script>
+</head>
+
+<body>
+    <div class="mainWrap">
+        <div class="main">
+            <!--title-->
+            <div class="mainTitle">
+                <h1 id="loginTitle">Login</h1>
+                <span id=""></span>
+            </div>
+            <!--title-->
+    
+            <!--accounts list-->
+            <div class="mainInner">
+                <!--accounts-->
+                <div class="accountWrap">
+                    <div class="accountInner">
+                        <div class="accountName" id="accountName1">
+                            Account1
+                        </div>
+                        <div class="accountArrowWrap">
+                            <button class="accountArrow" onclick="">
+                                <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--accounts-->
+
+                <!--login-->
+                <div class="loginPromptWrap" id="loginPromptWrap">
+                    <div class="loginTitle">
+                        <div>
+                            &lt; Back
+                        </div>
+                    </div>
+                </div>
+                <!--login-->
+            </div>
+            <!--accounts list-->
+    
+            <!--add account-->
+            <div class="mainBottom">
+                <a href="register.html" class="registerLink">+Add account</a>
+            </div>
+            <!---->
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    loginDisplay(1);
+</script>
+
+</html>
