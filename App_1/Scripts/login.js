@@ -9,32 +9,47 @@ function loginDisplay(mode, accId){
         //show account list
         case 0:
             loginNameOut.innerHTML = "";
-            //document.getElementById('loginTitle').innerHTML = `Login`;
             loginPage.style.display = "none";
-            /*for(let i = 0; accounts.length; i++){
-                accounts[i].style.display = "flex";
-            }*/
             accList.style.display = "flex";
             loginDisplayMode = 0;
             break;
         //password prompt - selected account
         case 1:
-            /*for(let i = 0; accounts.length; i++){
-                accounts[i].style.display = "none";
-            }*/
             if(accId > -1){
                 loginDisplayMode = 1;
                 accList.style.display = "none";
                 loginPage.style.display = "flex";
                 let username = document.getElementById('accountName' + accId).innerHTML.trim();
-                //console.log(username)
-                //document.getElementById('loginTitle').innerHTML = `Login`;
                 loginNameOut.innerHTML = 'for ' + username;
             }
             else{
                 loginDisplay(0, -1);
             }
-            
             break;
+    }
+}
+
+function checkLoginPassword(el){
+    let text = el.value.trim();
+    if(text == ""){
+        document.getElementById('submitLoginBtn').disabled = true;
+        //console.log("disabled");
+    }
+    else{
+        document.getElementById('submitLoginBtn').disabled = false;
+        //console.log("enabled");
+    }
+}
+
+function togglePassLogin(){
+    let passField = document.getElementById('passwordTextField');
+    let btn = document.getElementById('showPassBtn');
+    if(passField.type == 'text'){
+        passField.type = 'password';
+        btn.innerHTML = "(Show)";
+    }
+    else{
+        passField.type = 'text';
+        btn.innerHTML = "(Hide)";
     }
 }

@@ -197,16 +197,22 @@ body {
     grid-template-columns: 50% 50%;
 }
 
+.loginPromptInner{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    border-bottom: 1px solid white;
+    width: 300px;
+}
+
 .passwordTextField{
     font-family: 'Kanit', sans-serif;
     color: white;
     font-size: 14px;
-    width: 300px;
+    width: 100%;
     border: 0;
     background-color: transparent;
-    border-bottom: 1px solid white;
-    margin-bottom: 10px;
     outline: none;
+    margin-bottom: 5px;
 }
 
 .loginPromptBack{
@@ -240,6 +246,19 @@ body {
     background-color: rgb(25, 25, 25);;
 }
 
+.showPassBtn{
+    font-family: 'Kanit', sans-serif;
+    color: gray;
+    font-size: 13px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.showPassWrap{
+    display: grid;
+    justify-content: right;
+}
 
 /*ACCOUNTS LIST*/
 
