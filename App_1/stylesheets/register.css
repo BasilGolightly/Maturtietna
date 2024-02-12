@@ -69,6 +69,15 @@ body {
     width: 300px;
 }
 
+.registerTop{
+    text-align: center;
+}
+
+.ErrorWrap{
+    color: rgb(252, 72, 72);
+    font-size: 12px;
+}
+
 .registerTextBox{
     font-family: 'Kanit', sans-serif;
     background-color: transparent;

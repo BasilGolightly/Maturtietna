@@ -12,3 +12,17 @@ function showHidePassRegister(textBoxIndex){
         textBox.type = 'text';
     }
 }
+
+function submitRegister(){
+    //set error display to empty string
+    document.getElementById('error').innerHTML = "";
+    let error = "";
+
+    //get user input data
+    let allgood = true;
+    let username = document.getElementById('newUsername').value.trim();
+    let password = document.getElementById('passwordtextBox1').value.trim();
+    let repeatPass = document.getElementById('passwordtextBox2"').value.trim();
+
+    
+}
