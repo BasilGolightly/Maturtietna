@@ -1,6 +1,8 @@
 //const{ contextBridge } = require('electron');
 const sqlite3 = require('sqlite3').verbose();
 
+console.log('backend');
+
 //connect to sql DB
 /*
 let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {

@@ -30,9 +30,10 @@ body {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
-    width: 500px;
+    width: 400px;
     border: 1px solid white;
-    height: auto;
+    border-radius: 15px;
+    height: 650px;
 }
 
 .backLink{
@@ -45,7 +46,90 @@ body {
 }
 
 .registerMiddle{
+    display: grid;
+    justify-content: center;
+}
+
+.registerInner{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
+}
+
+.registerInner > div{
+    margin-bottom: 20px;
+}
+
+.RegisterTitle{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.promptWrap{
+    width: 300px;
+}
+
+.registerTextBox{
+    font-family: 'Kanit', sans-serif;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    border: none;
+    outline: none;
+}
+
+.passwordInnerDiv{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 80% 20%;
+    border-bottom: 1px solid white;
+}
+
+.borderBottom{
+    border-bottom: 1px solid white;
+    width: 300px;
+}
+
+.leftGrid{
+    display: grid;
+    justify-content: left;
+    text-align: left;
+}
+
+.rightGrid{
+    display: grid;
+    justify-content: right;
+    text-align: right;
+}
+
+.showHideBtn{
+    background-color: transparent;
+    color: gray;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    font-family: 'Kanit', sans-serif;
+    width: 50px;
+    text-align: right;
+}
+
+.RegisterButtonsWrap{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+
+.registerBtn{
+    color: white;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid white;
+    background-color: transparent;
+    font-family: 'Kanit', sans-serif;
+    border-radius: 10px;
+}
+
+.registerBtn:hover{
+    background-color: rgb(25, 25, 25);
 }

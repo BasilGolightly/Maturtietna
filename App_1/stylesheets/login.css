@@ -54,15 +54,22 @@ body {
 }
 
 .mainInner{
-    max-height: 50vh;
+    /*max-height: 50vh;*/
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     width: 100%;
+    height: auto;
 }
 
 /*ACCOUNTS LIST*/
+
+.accountsList{
+    display: grid;
+    justify-content: center;
+    height: auto;
+}
 
 .accountWrap{
     display: flex;
@@ -152,6 +159,7 @@ body {
     margin-top: 0.5px;
 }
 
+/*
 .accountArrow:hover{
     width: 27.5px;
     height: 27.5px;
@@ -162,6 +170,7 @@ body {
         margin-left: 0.48px;
     }
 }
+*/
 
 .loginPromptWrap{
     display: flex;
@@ -239,11 +248,11 @@ body {
 }
 
 .backBtn:hover{
-    background-color: rgb(25, 25, 25);;
+    background-color: rgb(25, 25, 25);
 }
 
 .submitLoginBtn:hover{
-    background-color: rgb(25, 25, 25);;
+    background-color: rgb(25, 25, 25);
 }
 
 .showPassBtn{

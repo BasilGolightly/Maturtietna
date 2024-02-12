@@ -18,7 +18,71 @@
             </div>
 
             <div class="registerMiddle">
-                
+                <!--register prompts-->
+                <div class="registerInner">
+                    <!--Username-->
+                    <div class="UsernameWrap promptWrap">
+                        <div class="RegisterTitle">
+                            Username
+                        </div>
+                        <div class="UsernamePromptInner">
+                            <input type="text" class="borderBottom registerTextBox" placeholder="username">
+                        </div>
+                    </div>
+                    <!--Username-->
+
+                    <!--Password-->
+                    <div class="PasswordWrap promptWrap">
+                        <div class="RegisterTitle">
+                            Password
+                        </div>
+                        <div class="PasswordPromptInner">
+                            <div class="passwordInnerDiv">
+                                <div class="leftGrid">
+                                    <input type="password" class="registerTextBox" id="passwordtextBox1" placeholder="password">
+                                </div>
+                                <div class="rightGrid">
+                                    <button class="showHideBtn showHideBtn1" id="showHideBtn1" onclick="showHidePassRegister(1)">(Show)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Password-->
+
+                    <!--Repeat PASS-->
+                    <div class="RepeatPasswordWrap promptWrap">
+                        <div class="RegisterTitle">
+                            Repeat password
+                        </div>
+                        <div class="RepeatPassInner">
+                            <div class="RepeatPassInnerDiv passwordInnerDiv">
+                                <div class="leftGrid">
+                                    <input type="password" class="registerTextBox" id="passwordtextBox2" placeholder="repeat password">
+                                </div>
+                                <div class="rightGrid">
+                                    <button class="showHideBtn showHideBtn2" id="showHideBtn2" onclick="showHidePassRegister(2)">(Show)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Repeat PASS-->
+
+                    <!--buttons-->
+                    <div class="RegisterButtonsWrap promptWrap">
+                        <div class="leftGrid">
+                            <div>
+                                <button class="registerBtn">Clear</button>
+                            </div>
+                        </div>
+                        <div class="rightGrid">
+                            <div>
+                                <button class="registerBtn">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--buttons-->
+                </div>
+                <!--register prompts-->
             </div>
 
             <div class="registerBottom">
@@ -29,4 +93,10 @@
         </div>
     </div>
 </body>
+
+<script src="Scripts/register.js"></script>
+<script>
+
+</script>
+
 </html>

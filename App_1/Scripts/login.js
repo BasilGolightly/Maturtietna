@@ -10,7 +10,7 @@ function loginDisplay(mode, accId){
         case 0:
             loginNameOut.innerHTML = "";
             loginPage.style.display = "none";
-            accList.style.display = "flex";
+            accList.style.display = "grid";
             loginDisplayMode = 0;
             break;
         //password prompt - selected account
