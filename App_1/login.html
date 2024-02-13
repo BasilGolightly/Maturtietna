@@ -6,7 +6,6 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <script src="preload.js"></script>
 </head>
 
 <body>
@@ -20,6 +19,7 @@
                 </div>
                 <div>
                     <span class="errorLogin" id="errorLogin"></span>
+                    <span class="idLogin" id="idLogin"></span>
                 </div>
                 
             </div>
@@ -29,8 +29,7 @@
             <div class="mainInner">
                 <!--accounts-->
                 <div class="accountsList" id="accountsList">
-
-                    <!--ACC EXAMPLE-->
+                    <!--ACC EXAMPLE
                     <div class="accountWrap">
                         <div class="accountInner">
                             <div class="accountName" id="accountName1">
@@ -43,52 +42,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--ACC EXAMPLE-->
-                    
-                    <!--ACC EXAMPLE-->
-                    <div class="accountWrap">
-                        <div class="accountInner">
-                            <div class="accountName" id="accountName1">
-                                Account1
-                            </div>
-                            <div class="accountArrowWrap">
-                                <button class="accountArrow" onclick="loginDisplay(1, 1);">
-                                    <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--ACC EXAMPLE-->
-
-                    <!--ACC EXAMPLE-->
-                    <div class="accountWrap">
-                        <div class="accountInner">
-                            <div class="accountName" id="accountName1">
-                                Account1
-                            </div>
-                            <div class="accountArrowWrap">
-                                <button class="accountArrow" onclick="loginDisplay(1, 1);">
-                                    <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--ACC EXAMPLE-->
-
-                    <!--ACC EXAMPLE-->
-                    <div class="accountWrap">
-                        <div class="accountInner">
-                            <div class="accountName" id="accountName1">
-                                Account1
-                            </div>
-                            <div class="accountArrowWrap">
-                                <button class="accountArrow" onclick="loginDisplay(1, 1);">
-                                    <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--ACC EXAMPLE-->
+                    ACC EXAMPLE-->
                 </div>
                 <!--accounts-->
 
@@ -132,7 +86,7 @@
             <!--add account-->
             <div class="mainBottom">
                 <div class="mainBottomInner">
-                    <a href="register.html" class="registerLink">+Add account (max. 5)</a>
+                    <a href="register.html" class="registerLink" id="registerLink">+Add account (max. 5)</a>
                 </div>
             </div>
             <!--add account-->
@@ -142,8 +96,11 @@
 </body>
 
 <script src="Scripts/login.js"></script>
+<script src="preload.js"></script>
 <script>
     loginDisplay(0, -1);
+    setupDb();
+    loginDisplayAccounts();
 </script>
 
 </html>

@@ -276,6 +276,10 @@ body {
     justify-content: right;
 }
 
+.idLogin{
+    display: none;
+}
+
 /*ACCOUNTS LIST*/
 
 /*

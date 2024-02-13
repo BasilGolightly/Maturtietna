@@ -4,6 +4,7 @@ let accList = document.getElementById('accountsList');
 let loginPage = document.getElementById('loginPromptWrap');
 let loginNameOut = document.getElementById('loginName');
 let forName = document.getElementById('forName');
+let idLogin = document.getElementById('idLogin');
 
 function loginDisplay(mode, accId){
     switch(mode){
@@ -12,6 +13,7 @@ function loginDisplay(mode, accId){
             forName.innerHTML = "";
             loginNameOut.innerHTML = "";
             loginPage.style.display = "none";
+            idLogin.innerHTML = "";
             accList.style.display = "grid";
             loginDisplayMode = 0;
             break;
@@ -21,6 +23,7 @@ function loginDisplay(mode, accId){
                 loginDisplayMode = 1;
                 accList.style.display = "none";
                 loginPage.style.display = "flex";
+                idLogin.innerHTML = accId;
                 let username = document.getElementById('accountName' + accId).innerHTML.trim();
                 forName = "for ";
                 loginNameOut.innerHTML = username;

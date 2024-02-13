@@ -12,9 +12,3 @@ function showHidePassRegister(textBoxIndex){
         textBox.type = 'text';
     }
 }
-
-/*
-function submitRegister(){
-    
-}
-*/
