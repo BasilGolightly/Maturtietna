@@ -3,11 +3,13 @@ let accounts = document.getElementsByClassName('accountWrap');
 let accList = document.getElementById('accountsList');
 let loginPage = document.getElementById('loginPromptWrap');
 let loginNameOut = document.getElementById('loginName');
+let forName = document.getElementById('forName');
 
 function loginDisplay(mode, accId){
     switch(mode){
         //show account list
         case 0:
+            forName.innerHTML = "";
             loginNameOut.innerHTML = "";
             loginPage.style.display = "none";
             accList.style.display = "grid";
@@ -20,7 +22,8 @@ function loginDisplay(mode, accId){
                 accList.style.display = "none";
                 loginPage.style.display = "flex";
                 let username = document.getElementById('accountName' + accId).innerHTML.trim();
-                loginNameOut.innerHTML = 'for ' + username;
+                forName = "for ";
+                loginNameOut.innerHTML = username;
             }
             else{
                 loginDisplay(0, -1);

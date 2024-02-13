@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script src="preload.js"></script>
 </head>
 
 <body>
@@ -15,7 +16,10 @@
             <div class="mainTitle">
                 <div>
                     <h1 id="loginTitle">Login</h1>
-                    <span id="loginName"></span>
+                    <span id="forName"></span><span id="loginName"></span>
+                </div>
+                <div>
+                    <span class="errorLogin" id="errorLogin"></span>
                 </div>
                 
             </div>
@@ -114,7 +118,7 @@
                         </div>
                         <div class="loginPromptSubmitWrap">
                             <div>
-                                <button class="submitLoginBtn" id="submitLoginBtn" onclick="login(id)" disabled>
+                                <button class="submitLoginBtn" id="submitLoginBtn" onclick="login()" disabled>
                                     Login
                                 </button>
                             </div>

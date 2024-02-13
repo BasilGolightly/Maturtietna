@@ -37,12 +37,14 @@ body {
 }
 
 .backLink{
-    color: rgb(72, 72, 250);
+    /*color: rgb(72, 72, 250);*/
+    color: rgb(243, 243, 205);
     text-decoration: none;
 }
 
 .backLink:hover{
-    color: rgb(100, 100, 255);
+    /*color: rgb(100, 100, 255);*/
+    color: white;
 }
 
 .registerMiddle{

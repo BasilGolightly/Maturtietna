@@ -25,6 +25,11 @@ body {
     overflow-y: hidden;
 }
 
+.errorLogin{
+    color: rgb(252, 72, 72);
+    font-size: 12px;
+}
+
 .mainWrap{
     display: grid;
     width: 100vw;
@@ -144,11 +149,13 @@ body {
 
 .registerLink{
     text-decoration: none;
-    color: rgb(72, 72, 250);
+    /*color: rgb(72, 72, 250);*/
+    color: rgb(243, 243, 205);;
 }
 
 .registerLink:hover{
-    color: rgb(100, 100, 255);
+    /*color: rgb(100, 100, 255);*/
+    color: white;
 }
 
 .arrowIcon{
