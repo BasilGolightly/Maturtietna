@@ -68,21 +68,8 @@ function setupDb() {
 }
 
 /*-------------------------------------REGISTER-------------------------------------*/
-function register(username, password) {
-    let sql = "";
 
-    db.run(
-        `INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`, (err) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log("user " + username + " successfuly registered");
-            }
-        }
-    );
-}
-
+//CHECK REGISTER FORM DATA
 function registerCheck() {
     //set error display to empty string
     let errorHTML = document.getElementById('error');
@@ -132,21 +119,69 @@ function registerCheck() {
     }
 
     //repeat pass check
-    if (repeatPass != password || repeatPass === '') {
+    if (repeatPass != password || repeatPass.trim() === '') {
         error += "Passwords do not match";
         allgood = false;
     }
 
-    //proceed with register
+    //if all is in proper format, proceed with register
     if (allgood) {
         register(username, password);
     }
+    //if not, output error
+    else{
+        document.getElementById('error').innerHTML = error;
+    }   
 }
+
+//INSERT INTO USERS 
+function register(username, password) {
+    let id = 0;
+    let success = true;
+
+    db.run(
+        `INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`, (err) => {
+            if (err != null) {
+                console.log(err);
+                success = false;
+            }
+            else {
+                console.log("user " + username + " successfuly registered");
+            }
+        }
+    );
+    
+    //if insert is successful, write data to JSON and redirect to homepage
+    if(success){
+        db.get(`
+        SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'
+        `, (err, row) => {
+            id = row.id_user;
+        })
+        writeToLoginfile(username, password, id);
+        window.location = "index.html";
+    }
+    else{
+        document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
+    }
+}
+
+//clear register form - empty error, username, pass and new pass contents 
+function registerClear(){
+    document.getElementById('error').innerHTML = "";
+    document.getElementById('newUsername').innerHTML = "";
+    document.getElementById('passwordtextBox1').innerHTML = "";
+    document.getElementById('passwordtextBox2').innerHTML = "";
+}
+
+
 /*-------------------------------------REGISTER-------------------------------------*/
 
 
 
 /*-------------------------------------LOGIN-------------------------------------*/
+
+//CHECK IF LOGIN PASSWORD IS CORRECT
 function loginCheck() {
     db.each(
         "SELECT id_user, username FROM Users", (err, row) => {
@@ -155,9 +190,8 @@ function loginCheck() {
     )
 }
 
+//DISPLAY EXISTING ACCOUNTS
 function loginDisplayAccounts() {
-    //display existing accounts
-    //let displayString = ``;
     let countAcc = 0;
     db.each(
         "SELECT id_user, username FROM Users", (err, row) => {
@@ -182,6 +216,7 @@ function loginDisplayAccounts() {
     )
 }
 
+//WRITE TO TEMPORARY JSON FILE
 function writeToLoginfile(username, pass, id) {
     const obj = {
         UserName: username,
@@ -194,18 +229,49 @@ function writeToLoginfile(username, pass, id) {
     );
 }
 
+//TEMPLATE - READ FROM JSON
+/*
 function readLoginfile(){
     let obj;
     fs.readFile("DB/login.json", "utf-8", (error, data) =>{
         console.log(JSON.parse(data));
     });
 }
+*/
+
 /*-------------------------------------LOGIN-------------------------------------*/
 
 
 
-/*-------------------------------------HOMEP-------------------------------------*/
+/*-------------------------------------HOMEPAGE-------------------------------------*/
+
+//load all of user's info by reading ID from JSON and querying for data
 function loadUserProfile(){
+    let id, username;
+
+    //get ID from JSON
+    fs.readFile("DB/login.json", "utf-8", (error, data) =>{
+        let obj = JSON.parse(data);
+        id = obj.Id;
+        //username = obj.UserName
+    });
+
+    //query for user data via ID
+    db.get(`
+    SELECT username, password, firstTime
+    FROM Users
+    WHERE id_user = ${id} 
+    `, (err, row) => {
+        username = row.username;
+    });
+    
+    document.getElementById('navAccName').innerHTML = username.trim();
+
+    //at the end, delete contents of JSON, to avoid unintended access to user info
+    writeToLoginfile("", "", "");
+}
+
+function loadUserSettings(accId){
     
 }
-/*-------------------------------------HOMEP-------------------------------------*/
+/*-------------------------------------HOMEPAGE-------------------------------------*/
