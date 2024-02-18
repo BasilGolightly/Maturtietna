@@ -72,7 +72,7 @@
                         </div>
                         <div class="loginPromptSubmitWrap">
                             <div>
-                                <button class="submitLoginBtn" id="submitLoginBtn" onclick="login()" disabled>
+                                <button class="submitLoginBtn" id="submitLoginBtn" onclick="loginCheck()" disabled>
                                     Login
                                 </button>
                             </div>
@@ -95,12 +95,13 @@
     
 </body>
 
-<script src="Scripts/login.js"></script>
 <script src="preload.js"></script>
+<script src="Scripts/login.js"></script>
 <script>
     loginDisplay(0, -1);
     setupDb();
     loginDisplayAccounts();
+    writeToLoginfile("", "", "");
 </script>
 
 </html>

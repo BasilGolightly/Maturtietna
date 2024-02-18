@@ -80,7 +80,7 @@ function registerCheck() {
     let allgood = true;
     let username = document.getElementById('newUsername').value.trim();
     let password = document.getElementById('passwordtextBox1').value.trim();
-    let repeatPass = document.getElementById('passwordtextBox2"').value.trim();
+    let repeatPass = document.getElementById('passwordtextBox2').value.trim();
 
     //username check
     if (username == "") {
@@ -156,22 +156,26 @@ function register(username, password) {
         db.get(`
         SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'
         `, (err, row) => {
-            id = row.id_user;
-        })
-        writeToLoginfile(username, password, id);
-        window.location = "index.html";
+            if(row != null){
+                id = row.id_user;
+            }
+            else{
+                success = false;
+            }
+        });
+        if(success){
+            db.close();
+            writeToLoginfile(username, password, id);
+            window.location = "index.html";
+        }
+        else{
+            document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
+        }
+        
     }
     else{
         document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
     }
-}
-
-//clear register form - empty error, username, pass and new pass contents 
-function registerClear(){
-    document.getElementById('error').innerHTML = "";
-    document.getElementById('newUsername').innerHTML = "";
-    document.getElementById('passwordtextBox1').innerHTML = "";
-    document.getElementById('passwordtextBox2').innerHTML = "";
 }
 
 
@@ -181,25 +185,51 @@ function registerClear(){
 
 /*-------------------------------------LOGIN-------------------------------------*/
 
+
+
 //CHECK IF LOGIN PASSWORD IS CORRECT
 function loginCheck() {
-    db.each(
-        "SELECT id_user, username FROM Users", (err, row) => {
-            console.log("ID: " + row.id_user + " Username: " + row.username);
-        }
-    )
+    let password =  document.getElementById('passwordTextField').value.trim();
+    let username = document.getElementById('loginName').innerHTML.trim();
+    let success = true;
+
+    if(password != "" && username != ""){
+        login();
+    }
+    else{
+        document.getElementById('errorLogin').innerHTML = "Password cannot be empty";
+    }
 }
 
+//LOGIN - WRITE TO JSON AND REDIRECT
+function login(){
+    db.get(`
+        SELECT id_user FROM Users WHERE
+        username = '${username}' AND password = '${password}'
+        `, (err, row) => {
+            if(row != null){
+                let id = row.id_user;                
+            }
+            else{
+                document.getElementById('errorLogin').innerHTML = "Incorrect password";
+                success = false;
+            }
+        });
+}
+
+let countAcc = 0;
+
 //DISPLAY EXISTING ACCOUNTS
-function loginDisplayAccounts() {
-    let countAcc = 0;
+function loginDisplayAccounts(){
+    countAcc = 0;
     db.each(
         "SELECT id_user, username FROM Users", (err, row) => {
-            document.getElementById('accountsList').innerHTML += `
+            if(row != null){
+                document.getElementById('accountsList').innerHTML += `
 
                 <div class="accountWrap">
                     <div class="accountInner">
-                        <div class="accountName" id="accountName1">
+                        <div class="accountName" id="accountName${row.id_user}">
                             ${row.username.trim()}
                         </div>
                         <div class="accountArrowWrap">
@@ -210,10 +240,20 @@ function loginDisplayAccounts() {
                     </div>
                 </div>
                 `;
-            countAcc++;
-            console.log(countAcc);
+                countAcc++;
+                console.log(countAcc);
+            }
         }
     )
+    
+    loginCheckAccountCount();
+}
+
+//CHECK NUM OF EXISTING ACCOUNTS
+function loginCheckAccountCount(){
+    if(countAcc === 0){
+        document.getElementById('accountsList').innerHTML = "";
+    }
 }
 
 //WRITE TO TEMPORARY JSON FILE
@@ -227,6 +267,11 @@ function writeToLoginfile(username, pass, id) {
         console.log(err);
     }
     );
+}
+
+function writeToLoginfile(username, pass, id, redirect){
+    writeToLoginfile(username, pass, id);
+    window.location = redirect;
 }
 
 //TEMPLATE - READ FROM JSON
@@ -247,7 +292,7 @@ function readLoginfile(){
 
 //load all of user's info by reading ID from JSON and querying for data
 function loadUserProfile(){
-    let id, username;
+    let id, username = "";
 
     //get ID from JSON
     fs.readFile("DB/login.json", "utf-8", (error, data) =>{
@@ -262,7 +307,12 @@ function loadUserProfile(){
     FROM Users
     WHERE id_user = ${id} 
     `, (err, row) => {
-        username = row.username;
+        if(row == undefined || row == null){
+            window.location = "login.html";
+        }
+        else{
+            username = row.username;
+        }
     });
     
     document.getElementById('navAccName').innerHTML = username.trim();

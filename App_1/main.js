@@ -31,8 +31,10 @@ function createWindow1(){
     }
 
     //pripni index.html v okno
-    mainWindow.loadFile(path.join(__dirname, './register.html'));
+    mainWindow.loadFile(path.join(__dirname, './login.html'));
 }
+
+app.allowRendererProcessReuse = false;
 
 //app launch
 app.whenReady().then(() => {
