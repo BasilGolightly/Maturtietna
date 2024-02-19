@@ -135,21 +135,32 @@ function registerCheck() {
 }
 
 //INSERT INTO USERS 
-function register(username, password) {
+async function register(username, password) {
     let id = 0;
     let success = true;
 
-    db.serialize(() => {
-        db.run(`INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`)
-        .get(`SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'`, (err, row) => {
-                if(row != null){
-                    id = row.id_user;
-                }
-                else{
-                    success = false;
-                }
+    try{
+        db.run(`INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`, (err, row) =>
+        {
+            if(row == null){
+                success = false;
+            }   
         });
-    });
+        
+        db.get(`SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'`, (err, row) => {
+            if (row != null) {
+                success = true;
+                id = row.id_user;
+            }
+            else {
+                success = false;
+            }
+        });
+    }
+    catch{
+        document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
+    }
+    
 
     if(success){
         //if insert is successful, write data to JSON and redirect to homepage
@@ -173,7 +184,7 @@ function register(username, password) {
 
 
 //CHECK IF LOGIN PASSWORD IS CORRECT
-function loginCheck() {
+async function loginCheck() {
     let password =  document.getElementById('passwordTextField').value.trim();
     let username = document.getElementById('loginName').innerHTML.trim();
 
@@ -186,7 +197,7 @@ function loginCheck() {
 }
 
 //LOGIN - WRITE TO JSON AND REDIRECT
-function login(username, password){
+async function login(username, password){
     let success = false;
     let link = "index.html";
     let id = document.getElementById('idLogin').innerHTML;

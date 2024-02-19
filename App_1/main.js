@@ -17,6 +17,7 @@ function createWindow1(){
         minHeight: 600,
         minWidth: 750,
         resizable: true,
+        
     });
 
     //enable devtools and menubar if in development mode
@@ -33,8 +34,6 @@ function createWindow1(){
     //pripni index.html v okno
     mainWindow.loadFile(path.join(__dirname, './login.html'));
 }
-
-app.allowRendererProcessReuse = false;
 
 //app launch
 app.whenReady().then(() => {
