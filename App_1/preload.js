@@ -126,7 +126,7 @@ function registerCheck() {
 
     //if all is in proper format, proceed with register
     if (allgood) {
-        register(username, password);
+        register(username, password); 
     }
     //if not, output error
     else{
@@ -139,43 +139,28 @@ function register(username, password) {
     let id = 0;
     let success = true;
 
-    db.run(
-        `INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`, (err) => {
-            if (err != null) {
-                console.log(err);
-                success = false;
-            }
-            else {
-                console.log("user " + username + " successfuly registered");
-            }
-        }
-    );
-    
-    //if insert is successful, write data to JSON and redirect to homepage
-    if(success){
-        db.get(`
-        SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'
-        `, (err, row) => {
-            if(row != null){
-                id = row.id_user;
-            }
-            else{
-                success = false;
-            }
+    db.serialize(() => {
+        db.run(`INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`)
+        .get(`SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'`, (err, row) => {
+                if(row != null){
+                    id = row.id_user;
+                }
+                else{
+                    success = false;
+                }
         });
-        if(success){
-            db.close();
-            writeToLoginfile(username, password, id);
-            window.location = "index.html";
-        }
-        else{
-            document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
-        }
-        
+    });
+
+    if(success){
+        //if insert is successful, write data to JSON and redirect to homepage
+        db.close();
+        //writeToLoginfile(username, password, id);
+        window.location = "login.html";
     }
     else{
         document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
     }
+    
 }
 
 
@@ -191,10 +176,9 @@ function register(username, password) {
 function loginCheck() {
     let password =  document.getElementById('passwordTextField').value.trim();
     let username = document.getElementById('loginName').innerHTML.trim();
-    let success = true;
 
     if(password != "" && username != ""){
-        login();
+        login(username, password);
     }
     else{
         document.getElementById('errorLogin').innerHTML = "Password cannot be empty";
@@ -202,19 +186,31 @@ function loginCheck() {
 }
 
 //LOGIN - WRITE TO JSON AND REDIRECT
-function login(){
-    db.get(`
-        SELECT id_user FROM Users WHERE
-        username = '${username}' AND password = '${password}'
-        `, (err, row) => {
-            if(row != null){
-                let id = row.id_user;                
-            }
-            else{
-                document.getElementById('errorLogin').innerHTML = "Incorrect password";
-                success = false;
-            }
-        });
+function login(username, password){
+    let success = false;
+    let link = "index.html";
+    let id = document.getElementById('idLogin').innerHTML;
+    db.get(`SELECT username, password, id_user FROM Users WHERE id_user = '${id}' AND password = '${password}'`, (row) => {
+        console.log(row);
+        if(row != null){
+            success = true;    
+            console.log("row is not null");   
+        }
+        else{
+            console.log("row is null");
+            document.getElementById('errorLogin').innerHTML = "Incorrect password";
+            success = false;
+        }
+    });
+
+    if(success){
+        writeToLoginfile(username, password, id);
+        //window.location = link;
+    }
+    else{
+        document.getElementById('errorLogin').innerHTML = "Login could not be carried out.";
+    }
+    
 }
 
 let countAcc = 0;
@@ -241,7 +237,7 @@ function loginDisplayAccounts(){
                 </div>
                 `;
                 countAcc++;
-                console.log(countAcc);
+                //console.log(countAcc);
             }
         }
     )
@@ -264,16 +260,16 @@ function writeToLoginfile(username, pass, id) {
         Id: id
     };
     fs.writeFile('DB/login.json', JSON.stringify(obj), (err) => {
-        console.log(err);
+        console.log("Write Err: " + err);
     }
     );
 }
 
-function writeToLoginfile(username, pass, id, redirect){
+/*function writeToLoginfile(username, pass, id, redirect){
     writeToLoginfile(username, pass, id);
     window.location = redirect;
 }
-
+*/
 //TEMPLATE - READ FROM JSON
 /*
 function readLoginfile(){
@@ -302,7 +298,7 @@ function loadUserProfile(){
     });
 
     //query for user data via ID
-    db.get(`
+    /*db.get(`
     SELECT username, password, firstTime
     FROM Users
     WHERE id_user = ${id} 
@@ -313,12 +309,12 @@ function loadUserProfile(){
         else{
             username = row.username;
         }
-    });
+    });*/
     
     document.getElementById('navAccName').innerHTML = username.trim();
 
     //at the end, delete contents of JSON, to avoid unintended access to user info
-    writeToLoginfile("", "", "");
+    //writeToLoginfile("", "", "");
 }
 
 function loadUserSettings(accId){

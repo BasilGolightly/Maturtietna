@@ -8,7 +8,7 @@ let idLogin = document.getElementById('idLogin');
 
 function loginDisplay(mode, accId){
     switch(mode){
-        //show account list
+        //show account list - BACK BUTTON
         case 0:
             forName.innerHTML = "";
             loginNameOut.innerHTML = "";
@@ -16,6 +16,8 @@ function loginDisplay(mode, accId){
             idLogin.innerHTML = "";
             accList.style.display = "grid";
             loginDisplayMode = 0;
+            document.getElementById('passwordTextField').value = "";
+            document.getElementById('errorLogin').innerHTML = "";
             break;
         //password prompt - selected account
         case 1:
