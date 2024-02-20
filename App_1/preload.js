@@ -95,7 +95,7 @@ function SqlRunPromise(query) {
                 reject(err);
             }
 
-            // "return" the result when the action finish
+            //"return" the result when the action finish
             resolve(this.lastId);
         })
     })
@@ -234,43 +234,8 @@ async function register(username, password) {
 
 /*-------------------------------------LOGIN-------------------------------------*/
 
-/*example of async
-
-
-async function getTestWithQuestions() { // your code
-
-    try {
-        let sql_instruction = ""; // your SQL query;
-        const rows = await getPromise(sql_instruction, []);
-        let test_array = [];
-
-        for(let i = 0; i < rows.length; i = i + 1) {
-
-            const test = rows[i];
-            let test_name = test.test_name;
-            let question_array = [];
-            sql_instruction = `SELECT * from questions where test_id = ?`;
-
-            const question_rows = await getAllPromise(sql_instruction, [test.id]);
-            question_rows.forEach(question=> {
-                question_array.push(question);
-            });
-
-            test_array.push(JSON.stringify({'test_name':test_name, questions:question_array}))
-        }
-
-        return test_array;
-
-    } catch(error) {
-        console.log(error);
-        throw error;
-    }
-}
-*/
-
-
 //CHECK IF LOGIN PASSWORD IS CORRECT
-async function loginCheck() {
+function loginCheck() {
     let password =  document.getElementById('passwordTextField').value.trim();
     let username = document.getElementById('loginName').innerHTML.trim();
 
@@ -284,28 +249,36 @@ async function loginCheck() {
 
 //LOGIN - WRITE TO JSON AND REDIRECT
 async function login(username, password){
-    let success = false;
-    let link = "index.html";
-    let id = document.getElementById('idLogin').innerHTML;
-    db.get(`SELECT username, password, id_user FROM Users WHERE id_user = '${id}' AND password = '${password}'`, (row) => {
+    try{
+        const row = await SqlGetPromise(`SELECT id_user, username, password FROM Users WHERE username = '${username}' AND password = '${password}'`);
         console.log(row);
-        if(row != null){
-            success = true;    
-            console.log("row is not null");   
-        }
-        else{
-            console.log("row is null");
-            document.getElementById('errorLogin').innerHTML = "Incorrect password";
-            success = false;
-        }
-    });
 
-    if(success){
-        writeToLoginfile(username, password, id);
-        //window.location = link;
+        //password correct
+        if(row != null){
+            //write to JSON intermediate file
+            const WriteLoginSuccess = await writeToLoginfile(username, password, row.id_user);
+
+            //JSON WRITE SUCCESS - go to index.html
+            if(WriteLoginSuccess){
+                alert("Going to homepage...");
+                window.location = "index.html";
+            }
+            
+            //JSON WRITE FAIL - show error
+            else{
+                document.getElementById('errorLogin').innerHTML = "Login action could not be carried out <br>";
+            }
+        }
+
+        //password invalid
+        else{
+            document.getElementById('errorLogin').innerHTML = "Invalid password / credentials. <br>";
+        }
     }
-    else{
-        document.getElementById('errorLogin').innerHTML = "Login could not be carried out.";
+    //query error
+    catch(error){
+        document.getElementById('errorLogin').innerHTML = "Login action could not be carried out <br>";
+        console.log(error);
     }
     
 }
@@ -371,11 +344,6 @@ function writeToLoginfile(username, pass, id) {
     })
 }
 
-/*function writeToLoginfile(username, pass, id, redirect){
-    writeToLoginfile(username, pass, id);
-    window.location = redirect;
-}
-*/
 //TEMPLATE - READ FROM JSON
 /*
 function readLoginfile(){
