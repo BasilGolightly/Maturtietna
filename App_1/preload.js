@@ -67,6 +67,58 @@ function setupDb() {
     })
 }
 
+/*SQL FUNCTIONS*/
+
+//GET SINGLE ROW
+function SqlGetPromise(query) {
+    return new Promise((resolve, reject) => {
+
+        db.get(query, (err, rows) => {
+            //failed query
+            if(err) {
+                reject(err);
+            }
+
+            // "return" the result when the action finish
+            resolve(rows);
+        })
+    })
+}
+
+//EXECUTE DML STATEMENT
+function SqlRunPromise(query) {
+    return new Promise((resolve, reject) => {
+        
+        db.run(query, (err) => {
+            //failed DML
+            if(err) {
+                reject(err);
+            }
+
+            // "return" the result when the action finish
+            resolve(this.lastId);
+        })
+    })
+}
+
+//SELECT MULTIPLE ROWS
+function SqlEachPromise(query){
+    return new Promise((resolve, reject) => {
+        
+        db.each(query, (err, rows) => {
+            //failed query
+            if(err) {
+                reject(err);
+            }
+
+            // "return" the result when the action finish
+            resolve(rows);
+        })
+    })
+}
+
+/*SQL FUNCTIONS*/
+
 /*-------------------------------------REGISTER-------------------------------------*/
 
 //CHECK REGISTER FORM DATA
@@ -134,44 +186,45 @@ function registerCheck() {
     }   
 }
 
+//EXECUTE INSERT INTO FOR NEW USER AND RETURN THE NEW ID IF SUCCESSFUL
+function SqlRegisterPromise(query) {
+    return new Promise((resolve, reject) => {
+        
+        db.run(query, function(err){
+            //failed DML
+            if(err) {
+                reject(err);
+            }
+            
+            resolve(this.lastID);
+        })
+    })    
+}
+
 //INSERT INTO USERS 
 async function register(username, password) {
-    let id = 0;
-    let success = true;
-
     try{
-        db.run(`INSERT INTO Users VALUES(NULL, '${username}', '${password}', '1')`, (err, row) =>
-        {
-            if(row == null){
-                success = false;
-            }   
-        });
+        //insert into users table
+        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', '1')`);
+        console.log("New account ID: " + id);
         
-        db.get(`SELECT id_user FROM Users WHERE username = '${username.trim()}' AND password = '${password.trim()}'`, (err, row) => {
-            if (row != null) {
-                success = true;
-                id = row.id_user;
-            }
-            else {
-                success = false;
-            }
-        });
+        //write to intermediary JSON file
+        const Writesuccess = await writeToLoginfile(username, password, id)
+        
+        //success - go straight to homepage
+        if(Writesuccess){
+            //alert("JSON write successful");
+            window.location = "index.html";
+        }
+        //fail - you have to login manually to get data to JSON file
+        else{
+            window.location = "login.html";
+        }
     }
-    catch{
+    catch(error){
+        console.log(error);
         document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
     }
-    
-
-    if(success){
-        //if insert is successful, write data to JSON and redirect to homepage
-        db.close();
-        //writeToLoginfile(username, password, id);
-        window.location = "login.html";
-    }
-    else{
-        document.getElementById('error').innerHTML += "The register action could not be carried out. <br>";
-    }
-    
 }
 
 
@@ -182,28 +235,13 @@ async function register(username, password) {
 /*-------------------------------------LOGIN-------------------------------------*/
 
 /*example of async
-function getPromise(query) {
-    return new Promise((resolve, reject) => {
 
-        db.all(query, (err, rows) => {
-
-            if(err) {
-                
-                // case error
-                reject(err);
-            }
-
-            // "return" the result when the action finish
-            resolve(rows);
-        })
-    })
-}
 
 async function getTestWithQuestions() { // your code
 
     try {
         let sql_instruction = ""; // your SQL query;
-        const rows = await getAllPromise(sql_instruction, []);
+        const rows = await getPromise(sql_instruction, []);
         let test_array = [];
 
         for(let i = 0; i < rows.length; i = i + 1) {
@@ -313,15 +351,24 @@ function loginCheckAccountCount(){
 
 //WRITE TO TEMPORARY JSON FILE
 function writeToLoginfile(username, pass, id) {
+    
     const obj = {
         UserName: username,
         Pass: pass,
         Id: id
     };
-    fs.writeFile('DB/login.json', JSON.stringify(obj), (err) => {
-        console.log("Write Err: " + err);
-    }
-    );
+
+    return new Promise((resolve, reject) => {
+
+        fs.writeFile('DB/login.json', JSON.stringify(obj), (err) => {
+            if(err){
+                reject(false);
+            }
+
+            resolve(true);
+        })
+
+    })
 }
 
 /*function writeToLoginfile(username, pass, id, redirect){
