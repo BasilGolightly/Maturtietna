@@ -181,6 +181,54 @@ async function register(username, password) {
 
 /*-------------------------------------LOGIN-------------------------------------*/
 
+/*example of async
+function getPromise(query) {
+    return new Promise((resolve, reject) => {
+
+        db.all(query, (err, rows) => {
+
+            if(err) {
+                
+                // case error
+                reject(err);
+            }
+
+            // "return" the result when the action finish
+            resolve(rows);
+        })
+    })
+}
+
+async function getTestWithQuestions() { // your code
+
+    try {
+        let sql_instruction = ""; // your SQL query;
+        const rows = await getAllPromise(sql_instruction, []);
+        let test_array = [];
+
+        for(let i = 0; i < rows.length; i = i + 1) {
+
+            const test = rows[i];
+            let test_name = test.test_name;
+            let question_array = [];
+            sql_instruction = `SELECT * from questions where test_id = ?`;
+
+            const question_rows = await getAllPromise(sql_instruction, [test.id]);
+            question_rows.forEach(question=> {
+                question_array.push(question);
+            });
+
+            test_array.push(JSON.stringify({'test_name':test_name, questions:question_array}))
+        }
+
+        return test_array;
+
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
+*/
 
 
 //CHECK IF LOGIN PASSWORD IS CORRECT
