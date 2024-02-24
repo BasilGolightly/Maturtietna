@@ -67,7 +67,7 @@ function setupDb() {
     })
 }
 
-/*SQL FUNCTIONS*/
+/*-------------------------------------SQL FUNCTIONS-------------------------------------*/
 
 //GET SINGLE ROW
 function SqlGetPromise(query) {
@@ -104,20 +104,38 @@ function SqlRunPromise(query) {
 //SELECT MULTIPLE ROWS
 function SqlEachPromise(query){
     return new Promise((resolve, reject) => {
-        
-        db.each(query, (err, rows) => {
+        let rows = new Array();
+        db.each(query, (err, row) => {
             //failed query
             if(err) {
                 reject(err);
             }
-
+            else{
+                rows.push(row);
+            }
             // "return" the result when the action finish
-            resolve(rows);
+            
         })
+        resolve(rows);
     })
 }
 
-/*SQL FUNCTIONS*/
+//SELECT ALL ROWS
+function SqlAllPromise(query){
+    return new Promise((resolve, reject) => {
+        
+        db.all(query, (err, rows) => {
+            //failed query
+            if(err) {
+                reject(err);
+            }
+            resolve(rows);
+        })
+
+    })
+}
+
+/*-------------------------------------SQL FUNCTIONS-------------------------------------*/
 
 /*-------------------------------------REGISTER-------------------------------------*/
 
@@ -227,10 +245,20 @@ async function register(username, password) {
     }
 }
 
+async function checkExistingAccounts(){
+    try{
+        const rows = await SqlAllPromise("SELECT id_user FROM Users");
+
+        if(rows.length >= 5){
+            window.location = "login.html";
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
 /*-------------------------------------REGISTER-------------------------------------*/
-
-
 
 /*-------------------------------------LOGIN-------------------------------------*/
 
@@ -251,7 +279,6 @@ function loginCheck() {
 async function login(username, password){
     try{
         const row = await SqlGetPromise(`SELECT id_user, username, password FROM Users WHERE username = '${username}' AND password = '${password}'`);
-        console.log(row);
 
         //password correct
         if(row != null){
@@ -260,7 +287,6 @@ async function login(username, password){
 
             //JSON WRITE SUCCESS - go to index.html
             if(WriteLoginSuccess){
-                alert("Going to homepage...");
                 window.location = "index.html";
             }
             
@@ -283,44 +309,55 @@ async function login(username, password){
     
 }
 
-let countAcc = 0;
-
 //DISPLAY EXISTING ACCOUNTS
-function loginDisplayAccounts(){
-    countAcc = 0;
-    db.each(
-        "SELECT id_user, username FROM Users", (err, row) => {
-            if(row != null){
+async function loginDisplayAccounts(){
+    //attempt query
+    try{
+        const rows = await SqlAllPromise(`SELECT id_user, username FROM Users`);
+        
+        //found accounts
+        if(rows.length > 0){
+            
+            //IF THERE ALREADY ARE MORE THAN 5 ACCOUNTS - HIDE REGISTER LINK
+            if(rows.length >= 5){
+                document.getElementById('registerLink').innerHTML = "";
+            }
+
+            //DISPLAY ACCOUNTS
+            for(let i = 0; i < rows.length; i++){
                 document.getElementById('accountsList').innerHTML += `
 
                 <div class="accountWrap">
                     <div class="accountInner">
-                        <div class="accountName" id="accountName${row.id_user}">
-                            ${row.username.trim()}
+                        <div class="accountName" id="accountName${rows[i].id_user}">
+                            ${rows[i].username.trim()}
                         </div>
                         <div class="accountArrowWrap">
-                            <button class="accountArrow" onclick="loginDisplay(1, ${row.id_user});">
+                            <button class="accountArrow" onclick="loginDisplay(1, ${rows[i].id_user});">
                                 <img src="pictures/arrow_circle_icon.png" class="arrowIcon">
                             </button>
                         </div>
                     </div>
                 </div>
                 `;
-                countAcc++;
-                //console.log(countAcc);
             }
         }
-    )
-    
-    loginCheckAccountCount();
-}
 
-//CHECK NUM OF EXISTING ACCOUNTS
-function loginCheckAccountCount(){
-    if(countAcc === 0){
-        document.getElementById('accountsList').innerHTML = "";
+        //no accounts found
+        else{
+            window.location = "register.html";
+        }
+    } 
+
+    //failed query
+    catch(error){
+        window.location = "register.html";
     }
 }
+
+/*-------------------------------------LOGIN-------------------------------------*/
+
+/*-------------------------------------JSON-------------------------------------*/
 
 //WRITE TO TEMPORARY JSON FILE
 function writeToLoginfile(username, pass, id) {
@@ -344,51 +381,57 @@ function writeToLoginfile(username, pass, id) {
     })
 }
 
-//TEMPLATE - READ FROM JSON
-/*
-function readLoginfile(){
-    let obj;
-    fs.readFile("DB/login.json", "utf-8", (error, data) =>{
-        console.log(JSON.parse(data));
-    });
+//READ FROM FILE
+function readLoginFile(){
+    return new Promise((resolve, reject) => {
+        fs.readFile('DB/login.json', (err, data) =>{
+            if(err){
+                reject(err);
+            }
+            else{
+                let obj;
+                obj = JSON.parse(data);
+                resolve(obj);
+            }
+        })
+    })
 }
-*/
 
-/*-------------------------------------LOGIN-------------------------------------*/
-
-
+/*-------------------------------------JSON-------------------------------------*/
 
 /*-------------------------------------HOMEPAGE-------------------------------------*/
 
 //load all of user's info by reading ID from JSON and querying for data
-function loadUserProfile(){
-    let id, username = "";
+async function loadUserProfile(){
+    try{
+        let id = "", username = "", password = "";
+        const obj = await readLoginFile();
 
-    //get ID from JSON
-    fs.readFile("DB/login.json", "utf-8", (error, data) =>{
-        let obj = JSON.parse(data);
         id = obj.Id;
-        //username = obj.UserName
-    });
+        username = obj.UserName;
+        password = obj.Pass;
 
-    //query for user data via ID
-    /*db.get(`
-    SELECT username, password, firstTime
-    FROM Users
-    WHERE id_user = ${id} 
-    `, (err, row) => {
-        if(row == undefined || row == null){
-            window.location = "login.html";
+        if(id != ""){
+            alert("success");
+            document.getElementById('navAccName').innerHTML = username.trim();
         }
-        else{
-            username = row.username;
-        }
-    });*/
-    
-    document.getElementById('navAccName').innerHTML = username.trim();
 
-    //at the end, delete contents of JSON, to avoid unintended access to user info
-    //writeToLoginfile("", "", "");
+        //at the end, delete contents of JSON, to avoid unintended access to user info
+        try{
+            const deleteJSONsuccess = await writeToLoginfile("", "", "");
+            if(!deleteJSONsuccess){
+                window.location = "login.html";
+            }
+        }
+        //if data delete could not go through, go back to login
+        catch(error){
+            console.log("JSON Delete error: " + error);
+        }
+        
+    }
+    catch(error){
+        window.location = "login.html";
+    }
 }
 
 function loadUserSettings(accId){
