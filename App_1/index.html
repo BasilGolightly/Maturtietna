@@ -89,7 +89,7 @@
                     <button class="newMailTopBtn" onclick="displayMode(0)">
                         <img src="pictures/new_mail_icon.png" width="" height="" class="topBarImg"> New mail
                     </button>
-                    <button class="addContactTopBtn" onclick="displayModeAddContacts()">
+                    <button class="addContactTopBtn" onclick="displayModeAddContacts(-1)">
                         <img src="pictures/white_pfp_hover.png" width="" height="" class="topBarImg"> New contact
                     </button>
                 </div>
@@ -311,33 +311,15 @@
                                 <span id="countContacts"></span> contact(s)
                             </div>  
                             <div class="contactsListHeadAdd">
-                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts()"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
                             </div>
                         </div>
                         <!--contact count-->
                         
                         <!--contacts-->
-                        <div class="contactFrame" onclick="displayModeContacts(1)">
+                        <div class="contactFrame" onclick="displayModeAddContacts(1)">
                             <div class="contactName" id="contact1">
                                 Mark Sadnik
-                            </div>
-                            <div class="contactArrow">
-                                >
-                            </div>
-                        </div>
-
-                        <div class="contactFrame contactBottom" onclick="displayModeContacts(2)">
-                            <div class="contactName" id="contact2">
-                                Maximilian Zakrajsek
-                            </div>
-                            <div class="contactArrow">
-                                >
-                            </div>
-                        </div>
-
-                        <div class="contactFrame contactBottom" onclick="displayModeContacts(3)">
-                            <div class="contactName" id="contact3">
-                                Max Sovic
                             </div>
                             <div class="contactArrow">
                                 >
@@ -348,13 +330,7 @@
                     </div>
                     <!--contacts list-->
 
-                    <!--selected contact-->
-                    <div class="selectedContactWrap" id="selectedContact">
-
-                    </div>
-                    <!--selected contact-->
-
-                    <!--add contact-->
+                    <!--ADD, EDIT contact-->
                     <div class="addContactWrap" id="addContact">
 
                         <!--first + last name-->
@@ -364,13 +340,13 @@
                             </div>
                             <div class="addContactLastNameWrap">
                                 <div>
-                                    <input type="text" class="addContactTextField" placeholder="First name">
+                                    <input type="text" class="addContactTextField" id="addContactFirstName" placeholder="First name">
                                 </div>
                                 <div class="addContactComa">
                                     ,
                                 </div>
                                 <div>
-                                    <input type="text" class="addContactTextField" placeholder="Surname">
+                                    <input type="text" class="addContactTextField" id="addContactLastName" placeholder="Surname">
                                 </div>
                             </div>
                         </div>
@@ -393,19 +369,19 @@
                                 Relation <span class="red star">*</span>
                             </div>
                             <div>
-                                <select class="addContactRelationInput" onchange="javascript: this.blur()">
-                                    <option>Sibling</option>
-                                    <option>Parent</option>
-                                    <option>Child</option>
-                                    <option>Grandchild</option>
-                                    <option>Grandparent</option>
-                                    <option>Uncle / aunt</option>
-                                    <option>Nephew / Niece</option>
-                                    <option>Cousin</option>
-                                    <option>Relative</option>
-                                    <option>Acquaintance</option>
-                                    <option>Friend</option>
-                                    <option>Other</option>
+                                <select class="addContactRelationInput" id="addContactRelation" onchange="javascript: this.blur()">
+                                    <option value="0">Sibling</option>
+                                    <option value="1">Parent</option>
+                                    <option value="2">Child</option>
+                                    <option value="3">Grandchild</option>
+                                    <option value="4">Grandparent</option>
+                                    <option value="5">Uncle / aunt</option>
+                                    <option value="6">Nephew / Niece</option>
+                                    <option value="7">Cousin</option>
+                                    <option value="8">Relative</option>
+                                    <option value="9">Acquaintance</option>
+                                    <option value="10">Friend</option>
+                                    <option value="11">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -417,14 +393,26 @@
                                 Bio (optional)
                             </div>
                             <div class="addContactBioTextWrap">
-                                <textarea class="addContactBioText" placeholder="max. 250 char" onclick="setCursorTextArea(this)"></textarea>
+                                <textarea class="addContactBioText" id="addContactBio" placeholder="max. 250 char" onclick="setCursorTextArea(this)"></textarea>
                             </div>
                         </div>
                         <!--Bio-->  
+
+                        <!--Submit-->
+                        <div class="addContactSubmitWrap">
+                            <div class="addContactSubmitInner">
+                                <button class="addContactSubmitBtn" onclick="saveContact()">
+                                    Save changes
+                                </button>
+                            </div>
+                        </div>
+                        <!--Submit-->
                     </div>
-                    <!--add contact-->
+                    <!--ADD, EDIT contact-->
+
                 </div>
                 <!--contacts wrap-->
+
             </div>
             <!--Contacts-->
 
@@ -446,7 +434,7 @@
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
 <script>
-    displayModeAddContacts();
+    displayModeAddContacts(-1);
     setupDb();
     loadUserProfile();
 </script>

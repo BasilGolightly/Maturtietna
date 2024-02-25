@@ -258,6 +258,16 @@
     font-size: 13px;
 }
 
+.addContactSubmitBtn{
+    font-family: 'Kanit', sans-serif;
+    color: white;
+    border: 1px solid white;
+    border-radius: 7.5px;
+    padding: 7.5px;
+    outline: none;
+    background-color: transparent;
+}
+
 /*ADD CONTACT*/
 
 /*CONTACTS*/
