@@ -139,10 +139,6 @@
     margin-bottom: 10px;
 }
 
-.generatedLetterContentHidden{
-    display: none;
-}
-
 .selectedMailWrap{
     display: flex;
     flex-direction: column;

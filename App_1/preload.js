@@ -36,7 +36,7 @@ function setupDb() {
         name NVARCHAR(50) NOT NULL,
         surname NVARCHAR(50) NOT NULL,
         dob DATE NOT NULL,
-        relation TEXT NOT NULL,
+        relation INTEGER NOT NULL,
         bio TEXT,
         CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
@@ -55,6 +55,7 @@ function setupDb() {
         id_user INTEGER NOT NULL,
         title NVARCHAR(50) NOT NULL,
         date_generated DATE NOT NULL,
+        content TEXT NOT NULL,
         CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
         CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
@@ -557,15 +558,18 @@ async function loadUserProfile(){
     }
 }
 
-function displayModeAddContacts(contactId){
+
+//ADD, MODIFY CONTACTS
+async function displayModeAddContacts(contactId){
     displayMode(2);
     let firstName = document.getElementById('addContactFirstName');
     let lastName = document.getElementById('addContactLastName');
     let dob = document.getElementById('addContactDOB');
     let relation = document.getElementById('addContactRelation');
     let addBtn = document.getElementById('addContactSubmitBtn');
+    let bio = document.getElementById('addContactBio');
 
-    //add contact
+    //ADD contact
     if(contactId < 0){
         //rewrite title text to "contacts > add"
         document.getElementById('contactsHeadTitleText').innerHTML = "<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> > Add";
@@ -576,21 +580,63 @@ function displayModeAddContacts(contactId){
         //empty inputs, to enable add contact
         firstName.value = "";
         lastName.value = "";
-        ///dob.value = "";
+        bio.innerHTML = "";
+        dob.value = "";
         relation.value = '0';
+
+        //change value of button to ADD CONTACT
         addBtn.innerHTML = "Add contact";
+
+        //display add contact, hide contact list 
+        document.getElementById('contactList').style.display = 'none';
+        document.getElementById('addContact').style.display = 'flex';
     }
-    //modify contact
+
+    //MODIFY contact
     else{
+        //get contact data from id
+        try{
+            let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio 
+            FROM Contacts 
+            WHERE id_contact = '${contactId}'`;
 
+            const row = await SqlGetPromise(query);
+
+            //query successful - FILL FORM
+            if(row != null){
+                alert("load contact success");
+
+                firstName.value = row.name;
+                lastName.value = row.surname;
+                bio.innerHTML = row.bio;
+                relation.value = row.relation;
+
+                //rewrite title text to "Contacts > [name of contact]"
+                document.getElementById('contactsHeadTitleText').innerHTML = `<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> >${row.name + " " + row.surname}`;
+
+                //change value of button to SAVE CHANGES
+                addBtn.innerHTML = "Save changes";
+
+                //at the end, display modify contact screen
+                document.getElementById('contactList').style.display = 'none';
+                document.getElementById('addContact').style.display = 'flex';
+            }
+
+            //query not successful
+            else{
+                alert("Error finding contact info");
+            }
+        }
+        //data not found
+        catch(error){
+            console.log(error);
+            alert("Error loading contact info");
+        }
     }
-
-    //display add contact, hide contact list 
-    document.getElementById('contactList').style.display = 'none';
-    document.getElementById('addContact').style.display = 'flex';
 }
 
-function displayModeGenerated(mailId){
+//SELECT MAILS
+async function displayModeGenerated(mailId){
     displayMode(1);
 
     let mails = document.getElementsByClassName('generatedLetter');
@@ -603,53 +649,97 @@ function displayModeGenerated(mailId){
     //deselect - HIDE MAIL
     if(selectedMailId == mailId){
         selectedMail.style.borderLeft = "3px solid gray";
-        displayMode(1);
-        selectedMailId = 0
+        selectedMailId = 0;
     }
-    //selected mail - SHOW MAIL
+
+    //select mail - SHOW MAIL
     else{
         selectedMailId = mailId;
         selectedMail.style.borderLeft = "5px solid gray";
-        
-        //get data from mail
-        let title = document.getElementById("titleMail" + mailId).innerHTML;
-        let date = document.getElementById("dateMail" + mailId).innerHTML;
-        let content = document.getElementById("descMail" + mailId).innerHTML;
-        let contact = document.getElementById("contact" + mailId).innerHTML;
 
-        document.getElementById('generatedMailWrap').innerHTML = `
-        <!--mail content-->
-        <div class="selectedMailWrap">
+        //query for mail
+        try{
+            let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content
+            FROM Mails
+            WHERE id_mail = '${mailId}'`;
 
-            <!--mail title-->
-            <div class="selectedMailTop">
-                <div class="selectedMailTopLeft">  
-                    <div class="selectedMailTopTitle">
-                        ${title}
+            const row = await SqlGetPromise(query);
+
+            //mail found - DISPLAY MAIL
+            if(row != null){
+
+                //GET CONTACT NAME
+                let contactName = "";
+
+                try{
+                    let contactQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio 
+                    FROM Contacts 
+                    WHERE id_contact = '${row.id_contact}'`;
+
+                    const contactRow = await SqlGetPromise(contactQuery);
+
+                    //contact found - show contact as '[Name], [Surname]'
+                    if(contactRow != null){
+                        contactName = contactRow.name + " " + contactRow.surname;
+                    }
+
+                    //contact not found - show contact as 'Contact X'
+                    else{
+                        contactName = "Contact " +  row.id_contact;
+                    }
+                }
+                //if name could not be resolved - show contact as 'Contact X'
+                catch(error2){
+                    console.log("contact name error: " + error2);
+                    contactName = "Contact " +  row.id_contact;
+                }
+
+                //FILL RIGHT WINDOW WITH MAIL CONTENT
+                document.getElementById('generatedMailWrap').innerHTML = `
+                <!--mail content-->
+                <div class="selectedMailWrap">
+
+                    <!--mail title-->
+                    <div class="selectedMailTop">
+                        <div class="selectedMailTopLeft">  
+                            <div class="selectedMailTopTitle">
+                                ${row.title}
+                            </div>
+                            <div class="selectedMailTopContact">
+                                <span style="font-size: 13px">to</span> <a onclick="displayModeAddContacts(${row.id_contact})" href="#">${contactName}</a>
+                            </div>
+                        </div>
+                        <div class="selectedMailTopRight">
+                            ${row.date_generated}
+                        </div>
                     </div>
-                    <div class="selectedMailTopContact">
-                        <span style="font-size: 13px">to</span> ${contact}
-                    </div>
-                </div>
-                <div class="selectedMailTopRight">
-                    ${date}
-                </div>
-            </div>
-        	<!--mail title-->
+                    <!--mail title-->
 
-            <!--mail content-->
-            <div class="selectedMailMiddle">
-                ${content}
-            </div>
-            <!--mail content-->
-        </div>
-        `; 
-        document.getElementById('generatedTitleText').innerHTML = "<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > Mail " + mailId;
+                    <!--mail content-->
+                    <div class="selectedMailMiddle">
+                        ${row.content}
+                    </div>
+                    <!--mail content-->
+                </div>
+                `; 
+
+                //CHANGE HEAD TEXT TO 'Generated mail > [title of mail]'
+                document.getElementById('generatedTitleText').innerHTML = `<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > ${row.title}`;
+            }
+
+            //mail not found
+            else{
+                alert("Mail not found");
+            }
+        }
+
+        //unsuccessful query
+        catch(error){
+            console.log("get mail error: " + error);
+        }
     }
 
 }
 
-function loadUserSettings(accId){
-    
-}
+
 /*-------------------------------------HOMEPAGE-------------------------------------*/
