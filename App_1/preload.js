@@ -558,6 +558,23 @@ async function loadUserProfile(){
     }
 }
 
+// 0 = ADD, 1 = MODIFY
+let contactMode = 0;
+let contactHiddenId = -1;
+
+//SUBMIT CONTACT - INSERT / MODIFY
+async function submitContact(){
+    
+    //INSERT INTO
+    if(contactHiddenId < 0){
+        /*---TO DO---*/
+    }
+
+    //MODIFY
+    else{
+        /*---TO DO---*/
+    }
+}
 
 //ADD, MODIFY CONTACTS
 async function displayModeAddContacts(contactId){
@@ -590,6 +607,12 @@ async function displayModeAddContacts(contactId){
         //display add contact, hide contact list 
         document.getElementById('contactList').style.display = 'none';
         document.getElementById('addContact').style.display = 'flex';
+
+        //set contact mode to 0 - ADD MODE
+        contactMode = 0;
+
+        //set selected contact ID to -1¸
+        contactHiddenId = -1;
     }
 
     //MODIFY contact
@@ -620,16 +643,26 @@ async function displayModeAddContacts(contactId){
                 //at the end, display modify contact screen
                 document.getElementById('contactList').style.display = 'none';
                 document.getElementById('addContact').style.display = 'flex';
+
+                //set contact mode to 1 - MODIFY MODE
+                contactMode = 1;
+
+                //set selected contact id 
+                contactHiddenId = contactId;
             }
 
             //query not successful
             else{
                 alert("Error finding contact info");
+                contactMode = 0;
+                contactHiddenId = -1;
             }
         }
         //data not found
         catch(error){
             console.log(error);
+            contactMode = 0;
+            contactHiddenId = -1;
             alert("Error loading contact info");
         }
     }
@@ -690,7 +723,7 @@ async function displayModeGenerated(mailId){
                 }
                 //if name could not be resolved - show contact as 'Contact X'
                 catch(error2){
-                    console.log("contact name error: " + error2);
+                    console.log("Contact name error: " + error2);
                     contactName = "Contact " +  row.id_contact;
                 }
 
@@ -735,7 +768,7 @@ async function displayModeGenerated(mailId){
 
         //unsuccessful query
         catch(error){
-            console.log("get mail error: " + error);
+            console.log("Get mail error: " + error);
         }
     }
 
