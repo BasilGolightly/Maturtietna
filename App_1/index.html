@@ -152,10 +152,10 @@
                             <img src="pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
                         </div>
                         <div class="NewMailTextDiv">
-                            <input type="text" name="NewMailTitle" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
+                            <input type="text" name="NewMailTitle" id="newMailTextField" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
                         </div>
                         <div class="CreateMailDiv">
-                            <button class="NewMailSubmitBtn"></button>
+                            <button class="NewMailSubmitBtn" id="NewMailSubmitBtn" onclick="generateMail()"></button>
                         </div>
                     </div>
                     <!--new mail title-->
@@ -182,7 +182,7 @@
                                 <button class="newPurposeBtn"></button>
                             </div>
                             <div class="newMailPurposeTextField">
-                                <select class="newPurposeDropDown" name="newMailPurpose">
+                                <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
                                     <option value="0">Select purpose of mail</option>
                                     <option value="apology">Apology</option>
                                 </select>

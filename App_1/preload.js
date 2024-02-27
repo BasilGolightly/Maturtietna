@@ -853,5 +853,30 @@ async function displayModeGenerated(mailId){
 
 }
 
+let formality = true;
+
+function changeFormality(){
+    //infromal
+    if(formality){
+        formality = false;
+        document.getElementById('newFormalityOutput').innerHTML = "Informal";
+    }
+    //formal
+    else{
+        formality = true;
+        document.getElementById('newFormalityOutput').innerHTML = "Formal";
+    }
+    //alert(formality);
+}
+
+async function generateMail(){
+    let title = document.getElementById('newMailTextField');
+    let recipient = document.getElementById('newRecipentDropDown');
+    let purpose = document.getElementById('newMailPurpose');
+    let reason = document.getElementById('newReasonTextArea');
+    let formalityItem = document.getElementById('newFormalityCheck').value;
+    let formal = formality;
+}
+
 
 /*-------------------------------------HOMEPAGE-------------------------------------*/

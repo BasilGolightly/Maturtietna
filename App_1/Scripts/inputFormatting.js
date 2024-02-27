@@ -1,19 +1,4 @@
-var formality = true;
 var newPurposeBottomVisible = true; 
-
-function changeFormality(){
-    //infromal
-    if(formality){
-        formality = false;
-        document.getElementById('newFormalityOutput').innerHTML = "Informal";
-    }
-    //formal
-    else{
-        formality = true;
-        document.getElementById('newFormalityOutput').innerHTML = "Formal";
-    }
-    //alert(formality);
-}
 
 function showPurposeMenu(){
     let nodes = document.getElementsByClassName('newPurposeBottom');
