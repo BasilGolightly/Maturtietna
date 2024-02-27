@@ -96,7 +96,7 @@ function SqlRunPromise(query) {
                 reject(err);
             }
 
-            //"return" the result when the action finish
+            //"return" the inserted id when the action is finished
             resolve(this.lastId);
         })
     })
@@ -527,8 +527,7 @@ async function loadUserProfile(){
         if(obj.Id != "" && obj.UserName != ""){
             //alert("success");
             document.getElementById('navAccName').innerHTML = obj.UserName.trim();
-
-
+            document.getElementById('globalIdUser').innerHTML = obj.Id;
         }
         //unsuccessful read
         else{
@@ -559,20 +558,100 @@ async function loadUserProfile(){
 }
 
 // 0 = ADD, 1 = MODIFY
-let contactMode = 0;
 let contactHiddenId = -1;
 
-//SUBMIT CONTACT - INSERT / MODIFY
-async function submitContact(){
-    
-    //INSERT INTO
-    if(contactHiddenId < 0){
-        /*---TO DO---*/
+//SUBMIT CONTACT - INSERT / UPDATE
+async function submitContact() {
+    //get logged in user's ID from hidden <span> element
+    let idUser = document.getElementById('globalIdUser').innerHTML;
+
+    //get data from text fields
+    let firstName = document.getElementById('addContactFirstName');
+    let lastName = document.getElementById('addContactLastName');
+    let dob = document.getElementById('addContactDOB');
+    let relation = document.getElementById('addContactRelation');
+    let bio = document.getElementById('addContactBio');
+
+    let allgood = true;
+
+    if (firstName.value.trim() == "" || lastName.value.trim() == "") {
+        allgood = false;
     }
 
-    //MODIFY
-    else{
-        /*---TO DO---*/
+    if (relation.value == "") {
+        allgood = false;
+    }
+
+    if (bio.innerHTML.trim() == "") {
+        allgood = false;
+    }
+
+    //check if all inputs were correctly filled out
+    if (allgood) {
+        firstName = firstName.value.trim();
+        lastName = lastName.value.trim();
+        relation = relation.value;
+        bio = bio.innerHTML.trim();
+
+        //INSERT INTO - contact id is -1 or less
+        if (contactHiddenId < 0) {
+            
+            //try INSERT
+            try {
+                let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstName}', '${lastName}', '${dob}', '${relation}', '${bio}')`;
+                const InsertedContactId = await SqlRunPromise(query);
+
+                //successful query
+                if (InsertedContactId != null) {
+                    //after insert, clear fields and display contact
+                    firstName.value = "";
+                    lastName.value = "";
+                    relation.value = '0';
+                    bio.innerHTML = "";
+
+                    displayModeAddContacts(InsertedContactId);
+                }
+                //unsuccessful
+                else {
+                    alert("Contact could not be created.");
+                }
+            }
+
+            //unsuccessful INSERT
+            catch (error) {
+                console.log(error);
+                alert("Contact could not be created.");
+            }
+
+        }
+
+        //UPDATE - contact id is 0 or more
+        else {
+
+            //try UPDATE
+            try{
+                let query = `UPDATE Contacts
+                SET name = '${firstName}', surname = '${lastName}', dob = '${dob}', relation = '${relation}', bio = '${bio}'
+                WHERE id_contact = '${contactHiddenId}'`;
+                const UpdatedContactId = await SqlRunPromise(query);
+
+                //unsuccessful update
+                if(UpdatedContactId == null){
+                    alert("Contact changes could not be saved.");
+                }
+            }
+
+            //unsuccessful UPDATE
+            catch(error){
+                console.log(error);
+                alert("Contact changes could not be saved.");
+            }
+        }
+
+    }
+    //if not display error
+    else {
+        alert("All inputs have to be filled out properly.");
     }
 }
 
@@ -609,7 +688,7 @@ async function displayModeAddContacts(contactId){
         document.getElementById('addContact').style.display = 'flex';
 
         //set contact mode to 0 - ADD MODE
-        contactMode = 0;
+        //contactMode = 0;
 
         //set selected contact ID to -1¸
         contactHiddenId = -1;
@@ -645,7 +724,7 @@ async function displayModeAddContacts(contactId){
                 document.getElementById('addContact').style.display = 'flex';
 
                 //set contact mode to 1 - MODIFY MODE
-                contactMode = 1;
+                //contactMode = 1;
 
                 //set selected contact id 
                 contactHiddenId = contactId;
@@ -654,14 +733,14 @@ async function displayModeAddContacts(contactId){
             //query not successful
             else{
                 alert("Error finding contact info");
-                contactMode = 0;
+                //contactMode = 0;
                 contactHiddenId = -1;
             }
         }
         //data not found
         catch(error){
             console.log(error);
-            contactMode = 0;
+            //contactMode = 0;
             contactHiddenId = -1;
             alert("Error loading contact info");
         }

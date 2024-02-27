@@ -20,6 +20,10 @@ h1 {
     font-size: 20px;
 }
 
+.globalIdUser{
+    display: none;
+}
+
 /*
 .logoTitle{
     text-decoration: none;
