@@ -518,6 +518,128 @@ function displayMode(mode){
     }
 }
 
+//load ALL mails
+async function loadMails(){
+    //get logged in user's ID from hidden <span> element
+    let idUser = document.getElementById('globalIdUser').innerHTML;
+    
+    try{
+        let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content 
+        FROM Mails
+        WHERE id_user = '${idUser}'
+        `;
+        const rows = await SqlAllPromise(query);
+
+        //successfull query
+        if(rows != null){
+
+            //loop through all rows and write mails to list
+            for(let i = 0; i < rows.length; i++){
+                let content = rows[i].content;
+                let quick_content = content.substring(0, 16) + '...';
+
+                document.getElementById('generatedWrap').innerHTML += `
+
+                <div class="generatedLetter" onclick="displayModeGenerated(${rows[i].id_mail})" id="generatedLetter${rows[i].id_mail}">
+                    <div class="generatedLetterInner">
+                        <div class="generatedLetterTitle" id="titleMail${rows[i].id_mail}">
+                            ${rows[i].title}
+                        </div>
+                        <div class="generatedLetterDate" id="dateMail${rows[i].id_mail}">
+                            ${rows[i].date_generated}
+                        </div>
+                    </div>
+
+                    <!--quick peek content-->
+                    <div class="generatedLetterContent">
+                        ${quick_content}
+                    </div>
+                    <!--quick peek content-->
+                </div>
+
+                `;
+            }
+
+        }
+        //unsuccessfull query
+        else{
+            alert("Mails could not be loaded");
+        }
+    }
+    //unsuccessfull query
+    catch(error){
+        console.log(error);
+        alert("Mails could not be loaded");
+    }
+}
+
+//load ALL contacts into contact list
+async function loadContacts(){
+    //get logged in user's ID from hidden <span> element
+    let idUser = document.getElementById('globalIdUser').innerHTML;
+
+    //SUCCESSFULL QUERY
+    try{
+        let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio
+        FROM Contacts
+        WHERE id_user = '${idUser}'
+        ORDER BY id_contact DESC
+        `;
+        const rows = await SqlAllPromise(query);
+
+        //SUCCESSFULL QUERY  
+        if(rows != null){
+
+            //loop through contacts and display them
+            for(let i = 0; i < rows.length; i++){
+
+                //display contact count
+                if(i == 0){
+                    document.getElementById('contactList').innerHTML = `
+                    <!--contact count-->
+                        <div class="contactsListHead">
+                            <div class="contactsListHeadCount">
+                                <span id="countContacts">${rows.length}</span> contact(s)
+                            </div>  
+                            <div class="contactsListHeadAdd">
+                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                            </div>
+                        </div>
+                    <!--contact count-->
+                    `;
+                }
+
+                //display contact
+                document.getElementById('contactList').innerHTML += `
+
+                <!--contact-->
+                <div class="contactFrame" onclick="displayModeAddContacts(${rows[i].id_contact})">
+                    <div class="contactName" id="contact${rows[i].id_contact}">
+                        ${rows[i].name} ${rows[i].surname}
+                    </div>
+                    <div class="contactArrow">
+                        >
+                    </div>
+                </div>
+                <!--contact-->
+
+                `;
+            }
+        }
+
+        //UNSUCCESSFULL QUERY
+        else{
+            alert("Contact list could not be loaded");
+        }
+    }
+
+    //UNSUCCESSFULL QUERY
+    catch(error){
+        console.log(error);
+        alert("Contact list could not be loaded");
+    }
+}
+
 //load all of user's info by reading ID from JSON and querying for data
 async function loadUserProfile(){
     try{
@@ -870,12 +992,26 @@ function changeFormality(){
 }
 
 async function generateMail(){
+    //get new mail form data
     let title = document.getElementById('newMailTextField');
     let recipient = document.getElementById('newRecipentDropDown');
     let purpose = document.getElementById('newMailPurpose');
     let reason = document.getElementById('newReasonTextArea');
     let formalityItem = document.getElementById('newFormalityCheck').value;
     let formal = formality;
+
+    //check text fields if they are filled out (correctly)
+    ////------- TO DO
+
+    //insert data into prompt
+    ////------- TO DO (SOVIČ, MAXI)
+
+    //send request to openai via the API
+    ////------- TO DO (SOVIČ, MAXI)
+    
+    //check if the email is correct - whether chatGPT understood the prompt or not
+        //understood - clear text fields, go to mail
+        //didn't understand - display "Your input data could not be understood by the AI"
 }
 
 
