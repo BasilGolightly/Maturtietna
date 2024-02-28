@@ -29,6 +29,82 @@
     padding: 2.5px 7.5px;
 }
 
-
-
 /*SETTINGS*/
+
+/*ACC SETTINGS*/
+
+.accSettingsTitle{
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.accSettingsContent{
+    font-size: 15px;
+}
+
+.accSettingsContent > tr{
+    margin-bottom: 10px;
+}
+
+#accSettingsTableFirstCol{
+    width: 100px;
+}
+
+.accSettingsUsernameTextField, .accSettingsPasswordTextField{
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.changeUsernameBtn, .changePassBtn{
+    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid rgb(91, 91, 252);
+    padding: 5px;
+    background-color: rgb(91, 91, 252);
+    font-family: 'Kanit', sans-serif;
+    color: white;
+    border: 0;
+}
+
+.changeUsernameBtn:hover, .changePassBtn:hover{
+    color: rgb(91, 91, 252);
+    border: 1px solid rgb(91, 91, 252);
+    background-color: transparent;
+}
+
+.deleteAccBtn{
+    color: rgb(255, 67, 67);
+    background-color: transparent;
+    outline: none;
+    border: 1px solid rgb(255, 67, 67); 
+    font-family: 'Kanit', sans-serif;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.deleteAccBtn:hover{
+    color: white;
+    background-color: rgb(200, 31, 31);
+}
+
+.accSettingsDeleteAccount{
+    
+}
+
+/*
+.accSettingsUsernameWrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.accSettingsPaswordWrap{
+    display: flex;
+    flex-direction: row;
+}
+*/
+
+
+/*ACC SETTINGS*/

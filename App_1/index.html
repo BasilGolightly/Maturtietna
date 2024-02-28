@@ -432,52 +432,54 @@
                     
                     <!--account settings-->
                     <div class="accSettingsWrap">
+
                         <div class="accSettingsTitle">
                             Account Settings
                         </div>
 
-                        <div class="accSettingsContent"> 
+                        <table class="accSettingsContent"> 
 
                             <!--username-->
-                            <div class="accSettingsUsernameWrap">
-                                <div class="accSettingsUsernameTitle">
+                            <tr class="accSettingsUsernameWrap">
+                                <td class="accSettingsUsernameTitle" id="accSettingsTableFirstCol">
                                     Username
-                                </div>
+                                </td>
 
-                                <div class="accSettingsUsernameInner">
-                                    <input type="text">
-                                </div>
+                                <td class="accSettingsUsernameInner">
+                                    <input type="text" class="accSettingsUsernameTextField">
+                                </td>
 
-                                <div class="accSettingsUsernameBtnWrap">
-                                    <button>Edit</button>
-                                </div>
-                            </div>
+                                <td class="accSettingsUsernameBtnWrap">
+                                    <button class="changeUsernameBtn">Edit</button>
+                                </td>
+                            </tr>
                             <!--username-->
 
                             <!--password-->
-                            <div class="accSettingsPaswordWrap">
-                                <div class="accSettingsPasswordTitle">
+                            <tr class="accSettingsPaswordWrap">
+                                <td class="accSettingsPasswordTitle">
                                     Password
-                                </div>
+                                </td>
 
-                                <div class="accSettingsPasswordInner">
-                                    <input type="password">
-                                </div>
+                                <td class="accSettingsPasswordInner">
+                                    <input type="password" class="accSettingsPasswordTextField">
+                                </td>
 
-                                <div class="accSettingsPasswordBtnWrap">
-                                    <button>Change password</button>
-                                </div>
-                            </div>
+                                <td class="accSettingsPasswordBtnWrap">
+                                    <button class="changePassBtn">Edit</button>
+                                </td>
+                            </tr>
                             <!--password-->
 
                             <!--delete account-->
-                            <div class="accSettingsDeleteAccount">
-                                <div>
-                                    <button>Delete Account</button>
-                                </div>
-                            </div>
+                            <tr class="accSettingsDeleteAccount">
+                                <td colspan="3">
+                                    <button class="deleteAccBtn">Delete Account</button>
+                                </td>
+                            </tr>
                             <!--delete account-->
-                        </div>
+                        </table>
+
                     </div>
                     <!--account settings-->
                     
