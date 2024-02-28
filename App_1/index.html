@@ -415,7 +415,75 @@
 
             <!--Settings-->
             <div id="settingsFrame" class="settingsFrame">
-                settings3
+
+                <!--settings title-->
+                <div class="settingsHeadWrap">
+                    <div class="settingsImgWrap">
+                        <img src="pictures/acc_settings_icon.png" class="settingsTitleImg">
+                    </div>
+                    <div class="settingsTitleWrap">
+                        Settings
+                    </div>
+                </div>
+                <!--settings title-->
+
+                <!--settings content-->
+                <div class="settingContentWrap">
+                    
+                    <!--account settings-->
+                    <div class="accSettingsWrap">
+                        <div class="accSettingsTitle">
+                            Account Settings
+                        </div>
+
+                        <div class="accSettingsContent"> 
+
+                            <!--username-->
+                            <div class="accSettingsUsernameWrap">
+                                <div class="accSettingsUsernameTitle">
+                                    Username
+                                </div>
+
+                                <div class="accSettingsUsernameInner">
+                                    <input type="text">
+                                </div>
+
+                                <div class="accSettingsUsernameBtnWrap">
+                                    <button>Edit</button>
+                                </div>
+                            </div>
+                            <!--username-->
+
+                            <!--password-->
+                            <div class="accSettingsPaswordWrap">
+                                <div class="accSettingsPasswordTitle">
+                                    Password
+                                </div>
+
+                                <div class="accSettingsPasswordInner">
+                                    <input type="password">
+                                </div>
+
+                                <div class="accSettingsPasswordBtnWrap">
+                                    <button>Change password</button>
+                                </div>
+                            </div>
+                            <!--password-->
+
+                            <!--delete account-->
+                            <div class="accSettingsDeleteAccount">
+                                <div>
+                                    <button>Delete Account</button>
+                                </div>
+                            </div>
+                            <!--delete account-->
+                        </div>
+                    </div>
+                    <!--account settings-->
+                    
+                </div>
+                <!--settings content-->
+
             </div>
             <!--Settings-->
         </div>
@@ -430,9 +498,11 @@
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
 <script>
-    displayModeAddContacts(-1);
+    //displayModeAddContacts(-1);
+    displayMode(3);
     setupDb();
     loadUserProfile();
+    
 </script>
 <!--script-->
 

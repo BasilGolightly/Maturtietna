@@ -656,8 +656,6 @@ async function loadUserProfile(){
             window.location = "login.html";
         }
 
-
-
         //at the end, delete contents of JSON, to avoid unintended access to user info
         //try{
             ///const deleteJSONsuccess = await writeToLoginfile("", "", "");
