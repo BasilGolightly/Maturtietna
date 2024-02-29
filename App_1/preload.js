@@ -650,30 +650,210 @@ async function loadUserProfile(){
             //alert("success");
             document.getElementById('navAccName').innerHTML = obj.UserName.trim();
             document.getElementById('globalIdUser').innerHTML = obj.Id;
+            
+
+            //fill account settings - username and password field
+            document.getElementById('accSettingsUsernameTextField').value = obj.UserName;
+
+            try{
+                let query = `SELECT firstTime, password 
+                FROM Users
+                WHERE id_user = '${obj.Id}'`;
+                const row = await SqlGetPromise(query);
+                //console.log(row);
+
+                //successful query for password
+                if(row != null){
+                    document.getElementById('accSettingsPasswordTextField').value = row.password;
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
+
+            //at the end, delete contents of JSON, to avoid unintended access to user info
+            //try{
+                ///const deleteJSONsuccess = await writeToLoginfile("", "", "");
+                
+                //delete could not be carried out
+                ///if(!deleteJSONsuccess){
+                    ///window.location = "login.html";
+                ///}
+            ///}
+            //if data delete could not go through, go back to login
+            ///catch(error){
+                ///console.log("JSON Delete error: " + error);
+            ///}
         }
         //unsuccessful read
         else{
             window.location = "login.html";
         }
-
-        //at the end, delete contents of JSON, to avoid unintended access to user info
-        //try{
-            ///const deleteJSONsuccess = await writeToLoginfile("", "", "");
-            
-            //delete could not be carried out
-            ///if(!deleteJSONsuccess){
-                ///window.location = "login.html";
-            ///}
-        ///}
-        //if data delete could not go through, go back to login
-        ///catch(error){
-            ///console.log("JSON Delete error: " + error);
-        ///}
-        
     }
     catch(error){
         alert(error);
         window.location = "login.html";
+    }
+}
+
+let changeUserNameStage = 0;
+
+async function changeUsername(){
+    
+}
+
+let changePassStage = 0;
+
+async function changePass(){
+    let oldPass = document.getElementById('accSettingsPasswordTextField');
+    let enterPass = document.getElementById('accSettingsEnterPassTextField');
+    let newPass = document.getElementById('accSettingsNewPassTextField');
+    let btn = document.getElementById('changePassBtn');
+
+    //0. default look, old password shown, button says 'edit'
+    if(changePassStage == -1){
+        newPass.style.display = "none";
+        newPass.style.zIndex = -1;
+        newPass.style.width = '0px';
+
+        enterPass.style.display = "none";
+        enterPass.style.zIndex = -1;
+        enterPass.style.width = '0px';
+
+        oldPass.style.display = "flex";
+        oldPass.style.zIndex = 0;
+        oldPass.style.width = 'auto';
+
+        btn.innerHTML = "Edit";
+
+        changePassStage = 0;
+    }
+
+    //1. enter password - hide old pass text field, show enter pass text field, make button say enter password
+    else if(changePassStage == 0){
+        oldPass.style.display = "none";
+        oldPass.style.zIndex = -1;
+        oldPass.style.width = '0px';
+
+        newPass.style.display = "none";
+        newPass.style.zIndex = -1;
+        newPass.style.width = '0px';
+
+        enterPass.style.display = "flex";
+        enterPass.style.zIndex = 0;
+        enterPass.style.width = 'auto';
+
+        btn.innerHTML = "Enter password";
+
+        newPass.value = "";
+        enterPass.value = "";
+
+        //enterPass.click();
+
+        changePassStage = 1;
+    }
+
+    //2. submit old pass - check if the password matches
+    else if(changePassStage == 1){
+        //enterPass.click();
+
+        enterPass.value = enterPass.value.trim();
+
+        //password is not empty
+        if(enterPass.value != ""){
+            //passwords match
+            if(oldPass.value == enterPass.value){
+                oldPass.style.display = "none";
+                oldPass.style.zIndex = -1;
+                oldPass.style.width = '0px';
+
+                enterPass.style.display = "none";
+                enterPass.style.zIndex = -1;
+                enterPass.style.width = '0px';
+
+                newPass.style.display = "flex";
+                newPass.style.zIndex = 0;
+                newPass.style.width = 'auto';
+                
+                btn.innerHTML = "Change password";
+
+                changePassStage = 2;
+            }
+            //passwords don't match
+            else{
+                alert("Password is incorrect.");
+                //changePassStage = 1;
+                //changePass();
+            }
+        }
+        //password is empty
+        else{
+            alert("Password cannot be empty.");
+            //changePassStage = 1;
+            //changePass();
+        }
+    }
+
+    //3. change password
+    else{
+        newPass.click();
+
+        newPass.value = newPass.value.trim();
+        
+        //new password is not empty
+        if(newPass.value != ""){
+            //check that password is at least 12 chars
+            if(newPass.value.length >= 12){
+                //password includes spaces
+                if(newPass.value.includes(" ")){
+                    alert("New password cannot contain spaces.");
+                    newPass.focus();
+                }
+                //password does not include spaces - attempt UPDATE
+                else{
+                    //get logged in user's ID from hidden <span> element
+                    let idUser = document.getElementById('globalIdUser').innerHTML;
+
+                    try{
+                        let query = `UPDATE Users
+                        SET password = '${newPass.value}'
+                        WHERE id_user = '${idUser}'`;
+                        const UpdateErr = await SqlRunPromise(query);
+
+                        if(UpdateErr == undefined){
+                            alert("Password changed successfully");
+                            oldPass.value = newPass.value;
+                            newPass.value = "";
+                            enterPass.value = "";
+
+                            changePassStage = -1;
+                            changePass();
+                        }
+
+                        else{
+                            alert("Password could not be changed. We apologize for the inconvenience");
+                            changePassStage = -1;
+                            changePass();
+                        }
+                    }
+                    catch(error){
+                        console.log(error);
+                        alert("Password could not be changed. We apologize for the inconvenience");
+                        changePassStage = -1;
+                        changePass();
+                    }
+                }
+            }
+            //password is shorter than 12 characters
+            else{
+                alert("New password must be at least 12 characters long.");
+            }
+        }
+        else{
+            alert("New password cannot be empty.");
+        }
+
+        newPass.click();
     }
 }
 

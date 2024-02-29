@@ -446,11 +446,11 @@
                                 </td>
 
                                 <td class="accSettingsUsernameInner">
-                                    <input type="text" class="accSettingsUsernameTextField">
+                                    <input type="text" class="accSettingsUsernameTextField" id="accSettingsUsernameTextField" readonly>
                                 </td>
 
                                 <td class="accSettingsUsernameBtnWrap">
-                                    <button class="changeUsernameBtn">Edit</button>
+                                    <button class="changeUsernameBtn" onclick="changeUsername()">Edit</button>
                                 </td>
                             </tr>
                             <!--username-->
@@ -462,11 +462,13 @@
                                 </td>
 
                                 <td class="accSettingsPasswordInner">
-                                    <input type="password" class="accSettingsPasswordTextField">
+                                    <input type="password" style="display: none;" class="accSettingsNewPassTextField" id="accSettingsNewPassTextField" placeholder="12 characters minimum"> 
+                                    <input type="password" style="display: none;" class="accSettingsEnterPassTextField" id="accSettingsEnterPassTextField" placeholder="enter password...">
+                                    <input type="password" class="accSettingsPasswordTextField" id="accSettingsPasswordTextField" readonly>
                                 </td>
 
                                 <td class="accSettingsPasswordBtnWrap">
-                                    <button class="changePassBtn">Edit</button>
+                                    <button class="changePassBtn" id="changePassBtn" onclick="changePass()">Edit</button>
                                 </td>
                             </tr>
                             <!--password-->
