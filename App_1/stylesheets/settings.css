@@ -57,6 +57,10 @@
     outline: none;
 }
 
+.accSettingsUsernameTextField:focus, .accSettingsPasswordTextField:focus, .accSettingsNewPassTextField:focus, .accSettingsEnterPassTextField:focus{
+    border-bottom: 1px solid white;
+}
+
 .accSettingsNewPassTextField, .accSettingsEnterPassTextField{
     position: relative;
     z-index: -1;

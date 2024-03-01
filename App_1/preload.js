@@ -513,7 +513,7 @@ function displayMode(mode){
             contactsFrame.style.display = "none";
             newMailFrame.style.display = "none";
             generatedFrame.style.display = "none";
-            document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
+            //document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
             break;
     }
 }
@@ -696,14 +696,9 @@ async function loadUserProfile(){
     }
 }
 
-let changeUserNameStage = 0;
-
-async function changeUsername(){
-    
-}
-
 let changePassStage = 0;
 
+//change password
 async function changePass(){
     let oldPass = document.getElementById('accSettingsPasswordTextField');
     let enterPass = document.getElementById('accSettingsEnterPassTextField');
@@ -763,22 +758,31 @@ async function changePass(){
         if(enterPass.value != ""){
             //passwords match
             if(oldPass.value == enterPass.value){
-                oldPass.style.display = "none";
-                oldPass.style.zIndex = -1;
-                oldPass.style.width = '0px';
+                //change username ready
+                if(changeUserNameStage < 0){
+                    changeUserNameStage = 1;
+                    changeUsername();
+                }
+                //change pass functionality
+                else{
+                    oldPass.style.display = "none";
+                    oldPass.style.zIndex = -1;
+                    oldPass.style.width = '0px';
 
-                enterPass.style.display = "none";
-                enterPass.style.zIndex = -1;
-                enterPass.style.width = '0px';
+                    enterPass.style.display = "none";
+                    enterPass.style.zIndex = -1;
+                    enterPass.style.width = '0px';
 
-                newPass.style.display = "flex";
-                newPass.style.zIndex = 0;
-                newPass.style.width = 'auto';
-                
-                btn.innerHTML = "Change password";
+                    newPass.style.display = "flex";
+                    newPass.style.zIndex = 0;
+                    newPass.style.width = 'auto';
+                    
+                    btn.innerHTML = "Change password";
 
-                changePassStage = 2;
+                    changePassStage = 2;
+                }
             }
+
             //passwords don't match
             else{
                 alert("Password is incorrect.");
@@ -856,6 +860,106 @@ async function changePass(){
         newPass.click();
     }
 }
+
+let changeUserNameStage = 0;
+
+//change username
+async function changeUsername(){
+    let userNameText = document.getElementById('accSettingsUsernameTextField');
+    let btn = document.getElementById('changeUsernameBtn');
+
+    //0. set username text field to readonly, set button to say 'edit'
+    if(changeUserNameStage == -1){
+        userNameText.readOnly = true;
+
+        btn.innerHTML = "Edit";
+
+        changePassStage = -1;
+        changePass();
+
+        changeUserNameStage = 0;
+    }
+
+    //1. show enter password field via the changePassMethod
+    else if(changeUserNameStage == 0){
+        changePassStage = 0;
+        changePass();
+
+        let enterPass = document.getElementById('accSettingsEnterPassTextField');
+        enterPass.click();
+    }
+
+    //2. password properly entered, make button say 'change Username', and enable username inputs, reset password to default 
+    else if(changeUserNameStage == 1){
+        userNameText.readOnly = false;
+
+        btn.innerHTML = "Change username";
+
+        changePassStage = -1;
+        changePass();
+
+        userNameText.click();
+        changeUserNameStage = 2;
+    } 
+
+    //3. submit changed username, check if the format is correct
+    else{
+        //get logged in user's ID from hidden <span> element
+        let idUser = document.getElementById('globalIdUser').innerHTML;
+        userNameText.value = userNameText.value.trim();
+        let username = userNameText.value;
+
+        //username is not empty
+        if(username != ""){
+            //username includes spacebars
+            if(username.includes(" ")){
+                alert("New username cannot include spaces.");
+                userNameText.click();
+            }
+            else{
+
+                //check if another user with the same username exists
+                try{
+                    let query = `SELECT id_user FROM Users WHERE username = '${username}'`;
+                    const row = await SqlGetPromise(query);
+                    
+                    //username free
+                    if(row == undefined){
+                        try{
+                            let update = `UPDATE Users
+                            SET username = '${username}'
+                            WHERE id_user = '${idUser}'`;
+                            const updatedId = await SqlRunPromise(update);
+
+                            alert("Username succesfuly changed.");
+
+                            changeUserNameStage = -1;
+                            changeUsername();
+                        }
+                        catch(error2){
+                            console.log(error2);
+                            alert("Username could not be changed. We apologize for the inconvenience.");
+                        }
+                    }
+                    //username taken
+                    else{
+                        alert("Username taken.");
+                    }
+                }
+                catch(error){ 
+                    console.log(error);
+                    alert("Username could not be changed. We apologize for the inconvenience.");
+                }
+            }
+        }
+        //username empty
+        else{
+            alert("New username cannot be empty.");
+            userNameText.click();
+        }
+    }
+}
+
 
 // 0 = ADD, 1 = MODIFY
 let contactHiddenId = -1;
