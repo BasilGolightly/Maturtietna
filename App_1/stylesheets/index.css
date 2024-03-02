@@ -148,6 +148,7 @@ h1 {
 .accSettingsLink{
     text-decoration: none;
     color: white;
+    outline: none;
 }
 
 .accSettingsLink:hover{
@@ -319,7 +320,7 @@ h1 {
     margin-left: 10px;
 }
 
-.rightTopBtn{
+.rightTopBtn, .rightTopBtn1{
     background-color: transparent;
     width: 27.5px;
     height: 27.5px;
@@ -356,6 +357,15 @@ h1 {
 
 .TopDeleteBtn:hover{
     background-image: url("../pictures/trash_icon_hover.png");
+}
+
+.TopClearBtn{
+    background-image: url("../pictures/cancel_icon.png");
+    background-size: contain;
+}
+
+.TopClearBtn:hover{
+    background-image: url("../pictures/cancel_icon_hover.png");
 }
 
 /*TOP MENU*/

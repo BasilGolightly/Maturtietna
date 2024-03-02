@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/generated.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/contacts.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/search.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <script src="Scripts/resizeMain.js"></script>
 </head>
@@ -99,14 +100,14 @@
                 </div>
 
                 <div class="middleTop">
-                    <div class="searchBarWrap">
+                    <div class="searchBarWrap" id="searchBarWrap">
                         <div>
-                            <button class="searchTopBtn">
+                            <button class="searchTopBtn" id="searchTopBtn">
                                 <img src="pictures/search_icon.webp" class="searchTopImg">
                             </button>
                         </div>
                         <div>
-                            <input type="text" placeholder="search..." class="searchTopTextBox" maxlength="50">
+                            <input type="text" placeholder="search..." id="searchTopTextBox" class="searchTopTextBox" maxlength="50">
                         </div>
                     </div>
                 </div>
@@ -127,6 +128,12 @@
                     <div>
                         <button class="rightTopBtn TopDeleteBtn" onclick="DeleteMail()">
                             <!--<img src="pictures/trash_icon.png" width="35" height="35">-->
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="rightTopBtn1 TopClearBtn" onclick="searchBarDisplayMode(0)">
+
                         </button>
                     </div>
                 </div>
@@ -494,6 +501,29 @@
 
             </div>
             <!--Settings-->
+
+            <!--Search section-->
+            <div class="searchFrame" id="searchFrame">
+
+                <!--search title-->
+                <div class="searchHeadWrap">
+                    <div class="searchHeadIconWrap">
+                        <img src="pictures/search_icon_white.png" class="searchHeadImg">
+                    </div>
+                    <div class="searchHeadTitle">
+                        Results for &raquo;<span id="searchStringOutput">123123</span>&laquo;
+                    </div>
+                </div>
+                <!--search title-->
+
+                <!--search content-->
+                <div class="searchContentWrap">
+
+                </div>
+                <!--search content-->
+
+            </div>
+            <!--Search section-->
         </div>
         <!--window CONTENT-->
 
@@ -507,7 +537,7 @@
 <script src="Scripts/displayShowHide.js"></script>
 <script>
     //displayModeAddContacts(-1);
-    displayMode(3);
+    displayMode(4);
     setupDb();
     loadUserProfile();
     

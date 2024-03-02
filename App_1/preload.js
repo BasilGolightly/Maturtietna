@@ -408,7 +408,6 @@ function readLoginFile(){
 let displayModeId = -1;
 let selectedMailId = 0;
 
-
 function displayMode(mode){
     let date = new Date();
     date.setFullYear(date.getFullYear() - 10);
@@ -420,6 +419,7 @@ function displayMode(mode){
     let generatedFrame = document.getElementById('generatedFrame');
     let contactsFrame = document.getElementById('contactsFrame');
     let settingsFrame = document.getElementById('settingsFrame');
+    let searchFrame = document.getElementById('searchFrame');
     let backgroundNavColor = "rgb(35, 35, 35)";
 
     //reset navbar, such that no list item is glowing
@@ -454,10 +454,12 @@ function displayMode(mode){
 
             document.getElementById('newRecipentDropDown').innerHTML = contactsString;
             
-            newMailFrame.style.display = "flex";
             generatedFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
+            searchFrame.style.display = "none";
+            newMailFrame.style.display = "flex";
+            
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
         //generated
@@ -485,20 +487,25 @@ function displayMode(mode){
                 mails[i].style.borderLeft = "3px solid gray";
             }
 
-            document.getElementById('generatedWrap').style.display = "flex";
             newMailFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
+            searchFrame.style.display = "none";
+            document.getElementById('generatedWrap').style.display = "flex";
+    
             document.getElementById('generatedNavItem').style.backgroundColor = backgroundNavColor;
             break;
         //contacts
         case 2:
             //alert('2');
             displayModeId = 2;
-            contactsFrame.style.display = "flex";
+
+            searchFrame.style.display = "none";
             newMailFrame.style.display = "none";
             generatedFrame.style.display = "none";
             settingsFrame.style.display = "none";
+            contactsFrame.style.display = "flex";
+            
             let contacts = document.getElementsByClassName('contactFrame');
             document.getElementById('countContacts').innerHTML = contacts.length;
             document.getElementById('contactImg').src = "pictures/white_pfp.png";
@@ -512,13 +519,79 @@ function displayMode(mode){
         case 3:
             //alert('3');
             displayModeId = 3;
-            settingsFrame.style.display = "flex";
+
+            searchFrame.style.display = "none";
             contactsFrame.style.display = "none";
             newMailFrame.style.display = "none";
             generatedFrame.style.display = "none";
+            settingsFrame.style.display = "flex";
+
+            searchBarDisplayMode(0);
+            
             //document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
             break;
+        //search Results 
+        case 4:
+            displayModeId = 4;
+            
+            contactsFrame.style.display = "none";
+            newMailFrame.style.display = "none";
+            generatedFrame.style.display = "none";
+            settingsFrame.style.display = "none";
+            searchFrame.style.display = "flex";
+
+            break;
     }
+}
+
+//controls searchbar display, and button placement on the navbar, depending on the display mode (func. displayMode()) 
+function searchBarDisplayMode(searchMode){
+    let searchBarDiv = document.getElementById('searchBarWrap');
+    let searchText = document.getElementById('searchTopTextBox');
+    let searchBtn = document.getElementById('searchTopBtn');
+    let navBtns = document.getElementsByClassName('rightTopBtn');
+
+    //Only clear search bar
+    if(searchMode < 0){
+        searchText.value = "";
+    }
+    //Hide and disable search bar
+    else if(searchMode == 0){
+        searchBarDiv.style.display = "none";
+        searchText.value = "";
+        searchText.readOnly = true;
+        searchBtn.disabled = true;
+    }
+    //Show and enable the searhcbar
+    else if(searchMode > 0){
+        searchBarDiv.style.display = "grid";
+        searchText.readOnly = false;
+        searchBtn.disabled = false;
+
+        //hide all navbar buttons
+        if(searchMode == 1){
+            for(let i = 0; i < navBtns.length; i++){
+                navBtns[i].style.display = "none";
+            }
+        }
+
+        //show all navbar buttons
+        else if(searchMode == 2){
+            for(let i = 0; i < navBtns.length; i++){
+                navBtns[i].style.display = "block";
+            }
+        }
+
+        /*else{
+           
+        }*/
+        
+    }
+}
+
+//show results of search - found contact names, mails
+async function searchBarSubmit(){
+
 }
 
 //load ALL mails
