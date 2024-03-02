@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/contacts.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script src="Scripts/resizeMain.js"></script>
 </head>
 
 <body>
@@ -73,7 +74,7 @@
                     <img src="pictures/white_pfp.png" class="navAccImg">
                 </div>
                 <div class="navAccTextWrap">
-                    <div class="navAccUsername" id="navAccName">Account name</div>
+                    <div class="navAccUsername"><a class="accSettingsLink" id="navAccName" href="#" onclick="displayMode(3)">Account name</a></div>
                     <div class="navAccLogOut"><a class="link" href="login.html">logout</a></div>
                 </div>
             </div>
@@ -112,19 +113,20 @@
 
                 <div class="rightTopGrid">
                     <div>
-                        <button class="rightTopBtn">
-                            <img src="pictures/dots_icon.png" width="35" height="35">
-                        </button>
-                    </div>
-                    <div>
-                        <button class="rightTopBtn">
-                            <img src="pictures/copy_icon.png" width="35" height="35">
+                        <button class="rightTopBtn TopDotsBtn" onclick="MoreAbout()">
+                            <!--<img src="pictures/dots_icon.png" width="35" height="35">-->
                         </button>
                     </div>
 
                     <div>
-                        <button class="rightTopBtn">
-                            <img src="pictures/trash_icon.png" width="35" height="35">
+                        <button class="rightTopBtn TopCopyBtn" onclick="CopyMail()">
+                            <!--<img src="pictures/copy_icon.png" width="35" height="35">-->
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="rightTopBtn TopDeleteBtn" onclick="DeleteMail()">
+                            <!--<img src="pictures/trash_icon.png" width="35" height="35">-->
                         </button>
                     </div>
                 </div>

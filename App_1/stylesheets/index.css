@@ -145,6 +145,15 @@ h1 {
     font-size: 12px;
 }
 
+.accSettingsLink{
+    text-decoration: none;
+    color: white;
+}
+
+.accSettingsLink:hover{
+    text-decoration: underline;
+}
+
 .navAccLogOut{
     font-size: 10px;
 }
@@ -306,10 +315,47 @@ h1 {
     flex-direction: row-reverse;
 }
 
+.rightTopGrid > div{
+    margin-left: 10px;
+}
+
 .rightTopBtn{
     background-color: transparent;
-    border-radius: 40px;
-    border: 1px solid rgb(200, 200, 200);
+    width: 27.5px;
+    height: 27.5px;
+    /**border: 1px solid rgb(200, 200, 200);*/
+    margin-top: 11.5px;
+    outline: none;
+    border: 0;
+}
+
+.TopDotsBtn{
+    background-image: url("../pictures/dots_icon.png");
+    background-size: contain;
+    margin-left: -4.5px;
+}
+
+.TopDotsBtn:hover{
+    background-image: url("../pictures/dots_icon_hover.png");
+}
+
+.TopCopyBtn{
+    background-image: url("../pictures/copy_icon.png");
+    background-size: contain;
+    margin-left: 2px;
+}
+
+.TopCopyBtn:hover{
+    background-image: url("../pictures/copy_icon_hover.png");
+}
+
+.TopDeleteBtn{
+    background-image: url("../pictures/trash_icon.png");
+    background-size: contain;
+}
+
+.TopDeleteBtn:hover{
+    background-image: url("../pictures/trash_icon_hover.png");
 }
 
 /*TOP MENU*/

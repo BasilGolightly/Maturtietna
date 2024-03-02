@@ -1,7 +1,10 @@
 //const{ contextBridge } = require('electron');
+/*const openAIReq = require("openai");
+const openai = new openAIReq.OpenAI();*/
 const { count } = require('console');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
+
 
 //connect to sql DB
 let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -1274,22 +1277,96 @@ function changeFormality(){
 }
 
 async function generateMail(){
-    //get new mail form data
+    //1. get new mail form data
+
     let title = document.getElementById('newMailTextField');
     let recipient = document.getElementById('newRecipentDropDown');
     let purpose = document.getElementById('newMailPurpose');
     let reason = document.getElementById('newReasonTextArea');
-    let formalityItem = document.getElementById('newFormalityCheck').value;
+    //let formalityItem = document.getElementById('newFormalityCheck').value;
     let formal = formality;
+    let formalTextSlo = "";
+    let formalTextEng = "";
 
-    //check text fields if they are filled out (correctly)
-    ////------- TO DO
+    if(formal){
+        formalTextEng = "Formal";
+        formalTextSlo = "Da";
+    }
+    else{
+        formalTextEng = "Informal";
+        formalTextSlo = "Ne";
+    }
 
-    //insert data into prompt
+    let allgood = true;
+
+    //2. check text fields if they are filled out (correctly)
+
+    if(title.value.trim() == ""){
+        allgood = false;
+    }
+
+    if(recipient.selectedIndex == 0){
+        allgood = false;
+    }
+
+    if(purpose.selectedIndex == 0){
+        allgood = false;
+    }
+
+    if(reason.innerHTML.trim() == ""){
+        allgood = false;
+    }
+
+    //3. insert data into prompt
+
     ////------- TO DO (SOVIČ, MAXI)
+    /*
+    let SloPrompt = `
+    Posiljatel: [login_name] //change it to how u fetch the login name
+    Naslovnik: [naslovnik]
+    Zadeva: [zadeva]
+    Formalnost: ${formalTextSlo}
+    Stil: [stil]
+    Dodatne informacije: ${reason}
+    Informacije o posiljatelju: [info id=0] //for the guy sending the email ~required profile~
+    Informacije o naslovniku: [info id=naslovnik] //you see the idea here
 
-    //send request to openai via the API
+    Na osnovi zgoraj navedenih podatkov, prosim ustvari e-mail sporočilo, 
+    ki je prilagojeno želeni stopnji formalnosti in stilu, 
+    uporabi tudi kreativnost ter povezi informacije o uporabniku z sporocilom. 
+    Ce je bilo sporocilo uspesno kreirano, kot zadnji bit verige tvojega izhodnega sporocila dodaj stevilo 1
+    `;*/
+
+    let EngPrompt = `
+    Sender: 
+    Receiver: ${recipient}
+    Subject: ${purpose}
+    Formality: ${formalTextEng}
+    Style/Type: 
+    Extra info: ${reason}
+
+    Sender info:
+    Reciever info:
+
+    With the data above, create an email, that is designed and tailored with the degree of formality mentioned above using the right style/type. 
+    Use your creativity to connect the sender and receivers info into the email as needed and if it makes sense. 
+    If the email was successfully created, make the last bit in the string of the output as the number 1 (add the number at the end)
+    `;
+
+    //4. send request to openai via the API
     ////------- TO DO (SOVIČ, MAXI)
+    try{
+        const generateRequest = await openai.chat.completions.create({
+            messages: [{ role: "system", content: prompt }],
+            model: "gpt-3.5-turbo"
+        });
+
+        console.log(generateRequest);
+    }
+    catch(error){
+        console.log(error);
+        alert("Mail could not be generated. We apologize for the inconvenience.");
+    }
     
     //check if the email is correct - whether chatGPT understood the prompt or not
         //understood - clear text fields, go to mail

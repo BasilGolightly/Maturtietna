@@ -15,7 +15,7 @@ function createWindow1(){
         width: 1128,
         height: 768,
         minHeight: 600,
-        minWidth: 750,
+        minWidth: 850,
         resizable: true
     });
 
