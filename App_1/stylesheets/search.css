@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
 
+#totalCountOutput{
+    font-weight: bold;
+}
+
 .searchFrame{
     display: none;
     flex-direction: column;
@@ -34,6 +38,17 @@
     font-size: 16px;
     font-family: 'Kanit', sans-serif;
 }
+
+.searchMailHead, .searchContactHead{
+    display: flex;
+    flex-direction: row;
+}
+
+.searchContactsResultWrap, .searchMailResultsWrap{
+    display: flex;
+    flex-direction: column;
+}
+
 
 /*
 #searchStringOutput{

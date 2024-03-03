@@ -539,7 +539,7 @@
                         <img src="pictures/search_icon_white.png" class="searchHeadImg">
                     </div>
                     <div class="searchHeadTitle">
-                        <!--Results for -->&raquo;<span id="searchStringOutput">123123</span>&laquo;
+                        <span id="totalCountOutput">0</span> Results for &raquo;<span id="searchStringOutput">123123</span>&laquo;
                     </div>
                 </div>
                 <!--search title-->
@@ -558,8 +558,12 @@
                         <!--Mails results title-->
 
                         <!--Mail results display-->
-                        <div class="searchMailResultsWrap">
+                        <div class="searchMailResultsWrap" id="searchMailResultsWrap">
+                            <!--Mail result-->
+                            <div class="searchMailResultFrame">
 
+                            </div>
+                            <!--Mail result-->
                         </div>
                         <!--Mail results display-->
                     </div>
@@ -577,8 +581,12 @@
                         <!--Contacts results title-->
 
                         <!--Contact results display-->
-                        <div class="searchContactsResultWrap">
-                            
+                        <div class="searchContactsResultWrap" id="searchContactsResultWrap">
+                            <!--Contact result-->
+                            <div class="searchContactResultFrame">
+
+                            </div>
+                            <!--Contact result-->
                         </div>
                         <!--Contact results display-->
                     </div>
@@ -599,11 +607,9 @@
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
 <script>
-    //displayModeAddContacts(-1);
     displayMode(4);
     setupDb();
     loadUserProfile();
-    
 </script>
 <!--script-->
 

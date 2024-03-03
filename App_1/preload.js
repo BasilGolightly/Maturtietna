@@ -595,7 +595,75 @@ function searchBarDisplayMode(searchMode){
 
 //show results of search - found contact names, mails
 async function searchBarSubmit(){
+    let searchBar = document.getElementById('searchTopTextBox');
+    let searchString = searchBar.value.trim();
+    searchBar.value = searchString; 
+    let mailResultCountItem = document.getElementById('mailResultsCount');
+    let contactResultCountItem = document.getElementById('contactsResultCount');
+    let totalCountItem = document.getElementById('totalCountOutput');
+    let mailResultCount = 0, contactResultCount = 0, totalCount = 0;
 
+    //get mails
+    try{
+        let MailsSearchQuery = `SELECT id_mail, id_contact, id_user, title, date_generated, content
+        FROM Mails
+        WHERE title LIKE '%˘${searchString}%'`;
+        MailsSearchQuery = db.prepare(MailsSearchQuery);
+
+        const MailsRows = await SqlAllPromise(MailsSearchQuery);
+
+        if(MailsRows != null){
+            mailResultCount = MailsRows.length;
+            totalCount += mailResultCount;
+
+            //display found mails
+            for(let i = 0; i < MailsRows.length; i++){
+                document.getElementById('searchMailResultsWrap').innerHTML += `
+                <!--Mail result-->
+                <div class="searchMailResultFrame">
+
+                </div>
+                <!--Mail result-->
+                `;
+            }
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+
+    //get contacts
+    try{
+        let ContactsSearchQuery = `SELECT id_contact, id_user, name + ' ' + surname AS fullName, dob, relation, bio
+        FROM Contacts
+        WHERE fullName LIKE '%${searchString}%'`;
+        ContactsSearchQuery = db.prepare(ContactsSearchQuery);
+
+        const Contactrows = await SqlAllPromise(ContactsSearchQuery);
+
+        if(Contactrows != null){
+            contactResultCount = Contactrows.length;
+            totalCount += contactResultCount;
+
+            //display found contacts
+            for(let i = 0; i < Contactrows.length; i++){
+                document.getElementById('searchMailResultsWrap').innerHTML += `
+                <!--Contact result-->
+                <div class="searchContactResultFrame">
+
+                </div>
+                <!--Contact result-->
+                `;
+            }
+        }
+    }
+    catch(error2){
+        console.log(error2);
+    } 
+
+    totalCountItem.innerHTML = totalCount;
+    mailResultCountItem.innerHTML = `(${mailResultCount})`;
+    contactResultCountItem.innerHTML = `(${contactResultCount})`;
 }
 
 //load ALL mails
