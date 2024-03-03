@@ -253,6 +253,7 @@
                 <div class="generatedWindowWrap">
                     <!--generated list-->
                     <div class="generatedWrap" id="generatedWrap">
+                        <!--example mail
                         <div class="generatedLetter" onclick="displayModeGenerated(1)" id="generatedLetter1">
                             <div class="generatedLetterInner">
                                 <div class="generatedLetterTitle" id="titleMail1">
@@ -261,14 +262,24 @@
                                 <div class="generatedLetterDate" id="dateMail1">
                                     3. 02. 2024
                                 </div>
-                            </div>
+                            </div>-->
 
-                            <!--quick peek content-->
+                            <!--quick peek content
                             <div class="generatedLetterContent">
                                 Description nasdadadasd
                             </div>
-                            <!--quick peek content-->
+                            quick peek content-->
+                        <!--
                         </div>
+                        example mail-->
+
+                        <!--NO MAILS FOUND-->
+                        <div class="generatedLetterEmpty" id="generatedLetterEmpty">
+                            <div class="generatedLetterEmptyInner">
+                                No mails found.
+                            </div>
+                        </div>
+                        <!--NO MAILS FOUND-->
                     </div>
                     <!--generated list-->
 
@@ -324,6 +335,7 @@
                         <!--contact count-->
                         
                         <!--contacts-->
+                        <!--
                         <div class="contactFrame" onclick="displayModeAddContacts(1)">
                             <div class="contactName" id="contact1">
                                 Mark Sadnik
@@ -332,8 +344,19 @@
                                 >
                             </div>
                         </div>
+                        -->
                         <!--contacts-->
 
+                        <!--no contacts found-->
+                        <div class="contactListEmpty">
+                            <div class="contactListEmptyImgWrap">
+                                <img src="pictures/contacts_icon_empty.png" class="contactListEmptyImg">
+                            </div>
+                            <div class="contactListEmptyText">
+                                No contacts found.
+                            </div>
+                        </div>
+                        <!--no contacts found-->
                     </div>
                     <!--contacts list-->
 
@@ -365,7 +388,7 @@
                                 Date of birth <span class="red star">*</span>
                             </div>
                             <div>
-                                <input class="addContactDobInput" id="addContactDOB" type="date" onchange="javascript: this.blur()" onkeydown="javascript: this.blur()">
+                                <input class="addContactDobInput" id="addContactDOB" type="date" onchange="this.blur()" onkeydown="javascript: this.blur()">
                             </div>
                         </div>
                         <!--Date of birth-->
@@ -376,7 +399,7 @@
                                 Relation <span class="red star">*</span>
                             </div>
                             <div>
-                                <select class="addContactRelationInput" id="addContactRelation" onchange="javascript: this.blur()">
+                                <select class="addContactRelationInput" id="addContactRelation" onchange="this.blur()">
                                     <option value="0">Sibling</option>
                                     <option value="1">Parent</option>
                                     <option value="2">Child</option>
@@ -410,6 +433,11 @@
                             <div class="addContactSubmitInner">
                                 <button class="addContactSubmitBtn" id="addContactSubmitBtn" onclick="submitContact()">
                                     Save changes
+                                </button>
+                            </div>
+                            <div class="deleteContactSubmitInner" id="deleteWrap" onclick="deleteContact()">
+                                <button class="deleteContactBtn">
+                                    Delete contact
                                 </button>
                             </div>
                         </div>

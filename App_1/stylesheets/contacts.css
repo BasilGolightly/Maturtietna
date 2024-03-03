@@ -115,6 +115,24 @@
     border: 2px solid white;
 }
 
+.contactListEmpty{
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.contactListEmptyImg{
+    width: 100px;
+    height: 100px;
+}
+
+.contactListEmptyText{
+    text-align: center;
+    color: rgb(175, 175, 175);
+    font-size: 12px;
+}
+
 /*.contactsListHeadBtnAdd:hover{
     border: 1px solid white;
 }*/
@@ -258,6 +276,15 @@
     font-size: 13px;
 }
 
+.addContactSubmitWrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.addContactSubmitWrap > div{
+    margin-right: 10px;
+}
+
 .addContactSubmitBtn{
     font-family: 'Kanit', sans-serif;
     color: white;
@@ -266,6 +293,23 @@
     padding: 7.5px;
     outline: none;
     background-color: transparent;
+    font-size: 13px;
+}
+
+.deleteContactBtn{
+    color: rgb(255, 67, 67);
+    background-color: transparent;
+    outline: none;
+    border: 1px solid rgb(255, 67, 67); 
+    font-family: 'Kanit', sans-serif;
+    padding: 7.5px;
+    border-radius: 7.5px;
+    font-size: 13px;
+}
+
+.deleteContactBtn:hover{
+    color: white;
+    background-color: rgb(200, 31, 31);
 }
 
 /*ADD CONTACT*/

@@ -487,6 +487,8 @@ function displayMode(mode){
                 mails[i].style.borderLeft = "3px solid gray";
             }
 
+            loadMails();
+
             newMailFrame.style.display = "none";
             contactsFrame.style.display = "none";
             settingsFrame.style.display = "none";
@@ -505,6 +507,8 @@ function displayMode(mode){
             generatedFrame.style.display = "none";
             settingsFrame.style.display = "none";
             contactsFrame.style.display = "flex";
+
+            loadContacts();
             
             let contacts = document.getElementsByClassName('contactFrame');
             document.getElementById('countContacts').innerHTML = contacts.length;
@@ -608,34 +612,44 @@ async function loadMails(){
 
         //successfull query
         if(rows != null){
-
-            //loop through all rows and write mails to list
-            for(let i = 0; i < rows.length; i++){
-                let content = rows[i].content;
-                let quick_content = content.substring(0, 16) + '...';
-
-                document.getElementById('generatedWrap').innerHTML += `
-
-                <div class="generatedLetter" onclick="displayModeGenerated(${rows[i].id_mail})" id="generatedLetter${rows[i].id_mail}">
-                    <div class="generatedLetterInner">
-                        <div class="generatedLetterTitle" id="titleMail${rows[i].id_mail}">
-                            ${rows[i].title}
-                        </div>
-                        <div class="generatedLetterDate" id="dateMail${rows[i].id_mail}">
-                            ${rows[i].date_generated}
-                        </div>
+            if(rows.length == 0){
+                document.getElementById('generatedWrap').innerHTML = `
+                <div class="generatedLetterEmpty" id="generatedLetterEmpty">
+                    <div class="generatedLetterEmptyInner">
+                        No mails found.
                     </div>
-
-                    <!--quick peek content-->
-                    <div class="generatedLetterContent">
-                        ${quick_content}
-                    </div>
-                    <!--quick peek content-->
                 </div>
-
                 `;
             }
+            else{
+                //loop through all rows and write mails to list
+                for(let i = 0; i < rows.length; i++){
+                    
+                    let content = rows[i].content;
+                    let quick_content = content.substring(0, 16) + '...';
 
+                    document.getElementById('generatedWrap').innerHTML += `
+
+                    <div class="generatedLetter" onclick="displayModeGenerated(${rows[i].id_mail})" id="generatedLetter${rows[i].id_mail}">
+                        <div class="generatedLetterInner">
+                            <div class="generatedLetterTitle" id="titleMail${rows[i].id_mail}">
+                                ${rows[i].title}
+                            </div>
+                            <div class="generatedLetterDate" id="dateMail${rows[i].id_mail}">
+                                ${rows[i].date_generated}
+                            </div>
+                        </div>
+
+                        <!--quick peek content-->
+                        <div class="generatedLetterContent">
+                            ${quick_content}
+                        </div>
+                        <!--quick peek content-->
+                    </div>
+
+                    `;
+                }
+            }
         }
         //unsuccessfull query
         else{
@@ -664,42 +678,58 @@ async function loadContacts(){
         const rows = await SqlAllPromise(query);
 
         //SUCCESSFULL QUERY  
-        if(rows != null){
+        if (rows != null) {
 
-            //loop through contacts and display them
-            for(let i = 0; i < rows.length; i++){
-
-                //display contact count
-                if(i == 0){
-                    document.getElementById('contactList').innerHTML = `
-                    <!--contact count-->
-                        <div class="contactsListHead">
-                            <div class="contactsListHeadCount">
-                                <span id="countContacts">${rows.length}</span> contact(s)
-                            </div>  
-                            <div class="contactsListHeadAdd">
-                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
-                            </div>
-                        </div>
-                    <!--contact count-->
-                    `;
-                }
-
-                //display contact
-                document.getElementById('contactList').innerHTML += `
-
-                <!--contact-->
-                <div class="contactFrame" onclick="displayModeAddContacts(${rows[i].id_contact})">
-                    <div class="contactName" id="contact${rows[i].id_contact}">
-                        ${rows[i].name} ${rows[i].surname}
-                    </div>
-                    <div class="contactArrow">
-                        >
+            //display contact count
+            document.getElementById('contactList').innerHTML = `
+            <!--contact count-->
+                <div class="contactsListHead">
+                    <div class="contactsListHeadCount">
+                        <span id="countContacts">${rows.length}</span> contact(s)
+                    </div>  
+                    <div class="contactsListHeadAdd">
+                        <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
                     </div>
                 </div>
-                <!--contact-->
+            <!--contact count-->
+            `;
 
+            //if no were contacts found, show 'no contacts found' section
+            if(rows.length <= 0){
+                document.getElementById('contactList').innerHTML += `
+                <!--no contacts found-->
+                <div class="contactListEmpty">
+                    <div class="contactListEmptyImgWrap">
+                        <img src="pictures/contacts_icon_empty.png" class="contactListEmptyImg">
+                    </div>
+                    <div class="contactListEmptyText">
+                        No contacts found.
+                    </div>
+                </div>
+                <!--no contacts found-->
                 `;
+            }
+
+            //if contacts were found, display them
+            else{
+                //loop through contacts and display them
+                for (let i = 0; i < rows.length; i++) {
+                    //display contact
+                    document.getElementById('contactList').innerHTML += `
+
+                        <!--contact-->
+                        <div class="contactFrame" onclick="displayModeAddContacts(${rows[i].id_contact})">
+                            <div class="contactName" id="contact${rows[i].id_contact}">
+                                ${rows[i].name} ${rows[i].surname}
+                            </div>
+                            <div class="contactArrow">
+                                >
+                            </div>
+                        </div>
+                        <!--contact-->
+
+                        `;
+                }
             }
         }
 
@@ -1062,9 +1092,9 @@ async function submitContact() {
         allgood = false;
     }
 
-    if (bio.innerHTML.trim() == "") {
+    /*if (bio.innerHTML.trim() == "") {
         allgood = false;
-    }
+    }*/
 
     //check if all inputs were correctly filled out
     if (allgood) {
@@ -1075,14 +1105,15 @@ async function submitContact() {
 
         //INSERT INTO - contact id is -1 or less
         if (contactHiddenId < 0) {
-            
+            console.log("add");
             //try INSERT
             try {
                 let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstName}', '${lastName}', '${dob}', '${relation}', '${bio}')`;
                 const InsertedContactId = await SqlRunPromise(query);
+                //console.log(InsertedContactId);
 
                 //successful query
-                if (InsertedContactId != null) {
+                if (InsertedContactId == undefined) {
                     //after insert, clear fields and display contact
                     firstName.value = "";
                     lastName.value = "";
@@ -1107,14 +1138,19 @@ async function submitContact() {
 
         //UPDATE - contact id is 0 or more
         else {
-
+            console.log("edit");
             //try UPDATE
             try{
                 let query = `UPDATE Contacts
                 SET name = '${firstName}', surname = '${lastName}', dob = '${dob}', relation = '${relation}', bio = '${bio}'
                 WHERE id_contact = '${contactHiddenId}'`;
                 const UpdatedContactId = await SqlRunPromise(query);
+                //console.log(UpdatedContactId);
 
+                //successful update
+                if(UpdatedContactId == undefined){
+                    alert("Contact changes successfully saved.");
+                }
                 //unsuccessful update
                 if(UpdatedContactId == null){
                     alert("Contact changes could not be saved.");
@@ -1135,6 +1171,31 @@ async function submitContact() {
     }
 }
 
+//DELETE CONTACT
+async function deleteContact(){
+    //make sure a contact is even selected
+    if(contactHiddenId > 0){
+        try{
+            let query = `DELETE FROM Contacts
+            WHERE id_contact = '${contactHiddenId}'`;
+            const deletedId = await SqlRunPromise(query);
+
+            //contact deleted, go back to contact list
+            if(deletedId == undefined){
+                displayMode(2);
+            }
+            //contact could not be deleted
+            else{
+                alert("Contact could not be deleted. We apologize for the inconvenience.");
+            }
+        }
+        catch(error){
+            console.log(error);
+            alert("Contact could not be deleted. We apologize for the inconvenience.");
+        }
+    }
+}
+
 //ADD, MODIFY CONTACTS
 async function displayModeAddContacts(contactId){
     displayMode(2);
@@ -1144,6 +1205,7 @@ async function displayModeAddContacts(contactId){
     let relation = document.getElementById('addContactRelation');
     let addBtn = document.getElementById('addContactSubmitBtn');
     let bio = document.getElementById('addContactBio');
+    let delBtn = document.getElementById('deleteWrap');
 
     //ADD contact
     if(contactId < 0){
@@ -1160,8 +1222,9 @@ async function displayModeAddContacts(contactId){
         dob.value = "";
         relation.value = '0';
 
-        //change value of button to ADD CONTACT
+        //change value of button to ADD CONTACT, hide DELETE BUTTON
         addBtn.innerHTML = "Add contact";
+        delBtn.style.display = 'none';
 
         //display add contact, hide contact list 
         document.getElementById('contactList').style.display = 'none';
@@ -1172,6 +1235,8 @@ async function displayModeAddContacts(contactId){
 
         //set selected contact ID to -1¸
         contactHiddenId = -1;
+
+        firstName.select();
     }
 
     //MODIFY contact
@@ -1194,10 +1259,11 @@ async function displayModeAddContacts(contactId){
                 relation.value = row.relation;
 
                 //rewrite title text to "Contacts > [name of contact]"
-                document.getElementById('contactsHeadTitleText').innerHTML = `<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> >${row.name + " " + row.surname}`;
+                document.getElementById('contactsHeadTitleText').innerHTML = `<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> > ${row.name + " " + row.surname}`;
 
-                //change value of button to SAVE CHANGES
+                //change value of button to SAVE CHANGES, show delete button
                 addBtn.innerHTML = "Save changes";
+                delBtn.style.display = 'flex';
 
                 //at the end, display modify contact screen
                 document.getElementById('contactList').style.display = 'none';
@@ -1216,6 +1282,8 @@ async function displayModeAddContacts(contactId){
                 //contactMode = 0;
                 contactHiddenId = -1;
             }
+
+            firstName.select();
         }
         //data not found
         catch(error){

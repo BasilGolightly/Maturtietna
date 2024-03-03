@@ -55,6 +55,19 @@
     overflow-x: hidden;
 }
 
+.generatedLetterEmpty{
+    display: flex;
+    flex: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.generatedLetterEmptyInner{
+    font-size: 12px;
+    color: rgb(175, 175, 175);
+}
+
 .generatedLetter{
     /*border-bottom: 1px solid gray;*/
     display: flex;
