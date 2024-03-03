@@ -1092,6 +1092,10 @@ async function submitContact() {
         allgood = false;
     }
 
+    if (dob.value == ""){
+        allgood = false;
+    }
+
     /*if (bio.innerHTML.trim() == "") {
         allgood = false;
     }*/
@@ -1119,6 +1123,8 @@ async function submitContact() {
                     lastName.value = "";
                     relation.value = '0';
                     bio.innerHTML = "";
+
+                    console.log(InsertedContactId);
 
                     displayModeAddContacts(InsertedContactId);
                 }
@@ -1150,10 +1156,6 @@ async function submitContact() {
                 //successful update
                 if(UpdatedContactId == undefined){
                     alert("Contact changes successfully saved.");
-                }
-                //unsuccessful update
-                if(UpdatedContactId == null){
-                    alert("Contact changes could not be saved.");
                 }
             }
 
