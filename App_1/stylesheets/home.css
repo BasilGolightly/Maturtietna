@@ -1,0 +1,48 @@
+.homeFrame{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Kanit', sans-serif;
+}
+
+.homeHeadWrap{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12.5px;
+}
+
+.homeHeadImg{
+    width: 30px;
+    height: 30px;
+}
+
+.homeHeadTitle{
+    font-size: 18px;
+    padding: 2.5px 7.5px;
+}
+
+.homeFrameContent{
+    background-color: rgb(15, 15, 15);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*TUTORIAL*/
+
+.tutorialHead{
+    display: flex;
+    flex-direction: row;
+    font-size: 17px;
+}
+
+.tutorialImg{
+    width: 25px;
+    height: 25px;
+}
+
+.tutorialTitle{
+    padding: 2.5 7.5px;
+}
+
+/*TUTORIAL*/

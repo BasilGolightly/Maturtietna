@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/contacts.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/search.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/home.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <script src="Scripts/resizeMain.js"></script>
 </head>
@@ -22,7 +23,7 @@
         
         <!--logo-->
         <div class="top_l">
-            <h1 class="logoTitle">M3 email client</h1>
+            <h1 class="logoTitle">M<sup>3</sup> email client</h1>
             <span id="globalIdUser" class="globalIdUser"></span>
         </div>
         <!--logo-->
@@ -39,6 +40,14 @@
                 </div>
             </div>
             -->
+            <div class="listItem" id="homeNavItem" onclick="displayMode(5)">
+                <div>
+                    <img src="pictures/home_icon.png" class="homeIcon navImg" width="" height="">
+                </div>
+                <div>
+                    Home
+                </div>
+            </div>
             <div class="listItem" id="generatedNavItem" onclick="displayMode(1)">
                 <div>
                     <img src="pictures/mail_icon.png" class="generatedIcon navImg" width="" height="">
@@ -144,7 +153,7 @@
         <!--window CONTENT-->
         <div class="rightInner">
             <!--New mail-->
-            <div id="newMailFrame" class="newMailFrame">
+            <div id="newMailFrame" class="newMailFrame windowFrame">
                 <!--new mail title icon-->
                 <div class="newMailHead">
                     <div>
@@ -240,7 +249,7 @@
 
 
             <!--Generated-->
-            <div id="generatedFrame" class="generatedFrame">
+            <div id="generatedFrame" class="generatedFrame windowFrame">
                 <div class="generatedTitle">
                     <div>
                         <img src="pictures/mail_icon.png" class="generatedImg">
@@ -304,7 +313,7 @@
 
 
             <!--Contacts-->
-            <div id="contactsFrame" class="contactsFrame">
+            <div id="contactsFrame" class="contactsFrame windowFrame">
                 
                 <!--contacts title-->
                 <div class="contactsHeadWrap">
@@ -453,7 +462,7 @@
 
 
             <!--Settings-->
-            <div id="settingsFrame" class="settingsFrame">
+            <div id="settingsFrame" class="settingsFrame windowFrame">
 
                 <!--settings title-->
                 <div class="settingsHeadWrap">
@@ -531,7 +540,7 @@
             <!--Settings-->
 
             <!--Search section-->
-            <div class="searchFrame" id="searchFrame">
+            <div class="searchFrame windowFrame" id="searchFrame">
 
                 <!--search title-->
                 <div class="searchHeadWrap">
@@ -595,6 +604,55 @@
 
             </div>
             <!--Search section-->
+
+            <!--Home section-->
+            <div class="homeFrame windowFrame" id="homeFrame">
+                <div class="homeHeadWrap">
+                    <div class="HomeHeadImgWrap">
+                        <img src="pictures/home_icon.png" class="homeHeadImg">
+                    </div>
+                    <div class="homeHeadTitle">
+                        Home
+                    </div>
+                </div>
+
+                <div class="homeFrameContent">
+                    <!--tutorial-->
+                    <div class="tutorialWrap">
+                        <div class="tutorialHead">
+                            <div class="tutorialIconWrap">
+                                <img src="pictures/tutorial_icon.png" class="tutorialImg">
+                            </div>
+                            <div class="tutorialTitle">
+                                First-time tutorial
+                            </div>
+                        </div>
+
+                        <div class="tutorialWrap">
+                            <div class="tutorialListWrap">
+                                [tutorial here]
+                            </div>  
+                            <div class="tutorialBtnWrap">
+                                <button>Make a new contact</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--tutorial-->
+
+                    <!--recent mails-->
+                    <div class="recentMailWrap">
+
+                    </div>
+                    <!--recent mails-->
+
+
+                    <!--recent contacts-->
+                    <div class="recentContactWrap">
+
+                    </div>
+                    <!--recent contacts-->
+                </div>
+            </div>
         </div>
         <!--window CONTENT-->
 

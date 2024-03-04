@@ -414,17 +414,24 @@ function displayMode(mode){
     document.getElementById('addContactDOB').max = date.getFullYear + "-" + date.getMonth() + "-" + date.getDate();
 
     let navItems = document.getElementsByClassName('listItem');
+    let Windowframes = document.getElementsByClassName('windowFrame');
 
     let newMailFrame = document.getElementById('newMailFrame');
     let generatedFrame = document.getElementById('generatedFrame');
     let contactsFrame = document.getElementById('contactsFrame');
     let settingsFrame = document.getElementById('settingsFrame');
     let searchFrame = document.getElementById('searchFrame');
+    let homeFrame = document.getElementById('homeFrame');
     let backgroundNavColor = "rgb(35, 35, 35)";
 
     //reset navbar, such that no list item is glowing
     for(let i = 0; i < navItems.length; i++){
         navItems[i].style.backgroundColor = "transparent";
+    }
+
+    //hide all frames
+    for(let i = 0; i < Windowframes.length; i++){
+        Windowframes[i].style.display = "none";
     }
 
     //check which panel to show
@@ -453,11 +460,7 @@ function displayMode(mode){
             }
 
             document.getElementById('newRecipentDropDown').innerHTML = contactsString;
-            
-            generatedFrame.style.display = "none";
-            contactsFrame.style.display = "none";
-            settingsFrame.style.display = "none";
-            searchFrame.style.display = "none";
+
             newMailFrame.style.display = "flex";
             
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
@@ -489,10 +492,6 @@ function displayMode(mode){
 
             loadMails();
 
-            newMailFrame.style.display = "none";
-            contactsFrame.style.display = "none";
-            settingsFrame.style.display = "none";
-            searchFrame.style.display = "none";
             document.getElementById('generatedWrap').style.display = "flex";
     
             document.getElementById('generatedNavItem').style.backgroundColor = backgroundNavColor;
@@ -502,10 +501,6 @@ function displayMode(mode){
             //alert('2');
             displayModeId = 2;
 
-            searchFrame.style.display = "none";
-            newMailFrame.style.display = "none";
-            generatedFrame.style.display = "none";
-            settingsFrame.style.display = "none";
             contactsFrame.style.display = "flex";
 
             loadContacts();
@@ -524,25 +519,26 @@ function displayMode(mode){
             //alert('3');
             displayModeId = 3;
 
-            searchFrame.style.display = "none";
-            contactsFrame.style.display = "none";
-            newMailFrame.style.display = "none";
-            generatedFrame.style.display = "none";
             settingsFrame.style.display = "flex";
 
-            searchBarDisplayMode(0);
+            //searchBarDisplayMode(0);
             
             //document.getElementById('settingsNavItem').style.backgroundColor = backgroundNavColor;
             break;
         //search Results 
         case 4:
             displayModeId = 4;
-            
-            contactsFrame.style.display = "none";
-            newMailFrame.style.display = "none";
-            generatedFrame.style.display = "none";
-            settingsFrame.style.display = "none";
+
             searchFrame.style.display = "flex";
+
+            break;
+        //home 
+        case 5:
+            displayModeId = 5;
+
+            homeFrame.style.display = "flex";
+
+            document.getElementById('homeNavItem').style.backgroundColor = backgroundNavColor;
 
             break;
     }
