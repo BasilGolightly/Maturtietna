@@ -331,7 +331,7 @@ async function loginDisplayAccounts(){
             for(let i = 0; i < rows.length; i++){
                 document.getElementById('accountsList').innerHTML += `
 
-                <div class="accountWrap">
+                <div class="accountWrap" onclick="loginDisplay(1, ${rows[i].id_user});">
                     <div class="accountInner">
                         <div class="accountName" id="accountName${rows[i].id_user}">
                             ${rows[i].username.trim()}

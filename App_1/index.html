@@ -100,11 +100,12 @@
         <div class="rightTop">
             <div class="rightTopInner">
                 <div class="newMailTopBtnWrap leftTop">
-                    <button class="newMailTopBtn" onclick="displayMode(0)">
-                        <img src="pictures/new_mail_icon.png" width="" height="" class="topBarImg"> New mail
-                    </button>
                     <button class="addContactTopBtn" onclick="displayModeAddContacts(-1)">
                         <img src="pictures/white_pfp_hover.png" width="" height="" class="topBarImg"> New contact
+                    </button>
+
+                    <button class="newMailTopBtn" onclick="displayMode(0)">
+                        <img src="pictures/new_mail_icon.png" width="" height="" class="topBarImg"> New mail
                     </button>
                 </div>
 
@@ -624,15 +625,66 @@
                                 <img src="pictures/tutorial_icon.png" class="tutorialImg">
                             </div>
                             <div class="tutorialTitle">
-                                First-time tutorial
+                                Information &ThickSpace;
+                            </div>
+                            <div class="tutorialHeadCollapse">
+                                <button class="tutorialCollapseBtn"></button>
                             </div>
                         </div>
 
                         <div class="tutorialWrap">
                             <div class="tutorialListWrap">
-                                [tutorial here]
-                            </div>  
-                            <div class="tutorialBtnWrap">
+                                Welcome to the <b>M<sup>3</sup> e-mail app</b>. Using this app you can generate mails with AI (artificial
+                                intelligence) to make writing mails more efficient and less time-consuming.
+                                <br>
+                            
+                                <button class="tutorialChapterBtn" onclick="hideGenerate()">Generating your first mail</button>
+                                
+                                <span id="generateChapter">
+                                    <ol>
+                                        <li>Create a new contact on the &raquo;Add Contacts&laquo; panel</li>
+                            
+                                        <br>
+                            
+                                        <li>Go to the <a class="TutorialLink" href="#" onclick="displayMode(0)">&raquo;New Mail&laquo;</a> section
+                                            (top left of page) and select the contact you just created. Alternatively...
+                                            <ul>
+                                                <li>you could click on the &raquo;New mail&laquo; button when viewing the contact's info</li>
+                                                <li>or click on the mail icon next to the contact when viewing the <a class="TutorialLink" href="#" onclick="displayMode(2)">contact list</a></li>
+                                            </ul>
+                                        </li>
+                            
+                                        <br>
+                            
+                                        <li>Fill the text fields with the correct data. Content of text fields in order top to bottom:
+                                            <ol>
+                                                <li>Title of the new mail - name which will show up in your generated mails list</li>
+                                                <li>Recipient - the person the mail is meant for</li>
+                                                <li>Type or purpose of mail - e. g. apology, invitation</li>
+                                                <li>Reason of mail - why you are writing te mail</li>
+                                                <li>Formality - whether you want your mail to be formal or informal</li>
+                                            </ol>
+                                        </li>
+                            
+                                        <br>
+                            
+                                        <li>Click on the &raquo;Generate mail&laquo; button to generate the mail. The generation itself will take a
+                                            moment.</li>
+                            
+                                        <br>
+                            
+                                        <li>Once the mail is generated, the app will let you know if the AI understood your input data.
+                                            <ul>
+                                                <li>If it did, it will redirect you to the mail</li>
+                                                <li>If not, an error message will appear, prompting you to double check your inputs.</li>
+                                            </ul>
+                                        </li>
+                            
+                                    </ol>
+                                </span>
+                            
+                            </div>
+                            <div class="tutorialBtnWrap"> 
                                 <button>Make a new contact</button>
                             </div>
                         </div>
@@ -664,8 +716,9 @@
 <script src="preload.js"></script>
 <script src="Scripts/inputFormatting.js"></script>
 <script src="Scripts/displayShowHide.js"></script>
+<script src="Scripts/tutorial.js"></script>
 <script>
-    displayMode(4);
+    displayMode(5);
     setupDb();
     loadUserProfile();
 </script>
