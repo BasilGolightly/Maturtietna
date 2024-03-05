@@ -1,5 +1,25 @@
+let showTutorial = true;
 let showGenerate = true;
 let showContact = true;
+let showMails = true;
+
+function hideTutorial(){
+    let tutorial = document.getElementById('tutorialWrap');
+    let img = document.getElementById('tutorialHideImg');
+
+    //hide
+    if(showTutorial){
+        showTutorial = false;
+        tutorial.style.display = "none";
+        img.src = "pictures/arrow_up.png";
+    }
+    //show
+    else{
+        showTutorial = true;
+        tutorial.style.display = "flex";
+        img.src = "pictures/arrow_down.png";
+    }
+}
 
 function hideGenerate(){
     let generateChapter = document.getElementById('generateChapter');
@@ -36,5 +56,23 @@ function hideContact(){
         contactChapter.style.display = 'grid';
         contactBtn.innerHTML = `<img src="pictures/arrow_down.png" class="tutorialArrowIcon" width="" height=""> Contacts`;
         showContact = true;
+    }
+}
+
+function hideMails(){
+    let mailsChapter = document.getElementById('recentMailContent');
+    let img = document.getElementById('recentMailsHideImg');
+
+    //hide
+    if(showMails){
+        img.src = "pictures/arrow_up.png";
+        mailsChapter.style.display = "none";
+        showMails = false;
+    }
+    //show
+    else{
+        img.src = "pictures/arrow_down.png";
+        mailsChapter.style.display = "flex";
+        showMails = true;
     }
 }

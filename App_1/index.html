@@ -620,19 +620,19 @@
                 <div class="homeFrameContent">
                     <!--tutorial-->
                     <div class="tutorialWrap">
-                        <div class="tutorialHead">
-                            <div class="tutorialIconWrap">
+                        <div class="tutorialHead" onclick="hideTutorial()">
+                            <div class="tutorialIconWrap" >
                                 <img src="pictures/tutorial_icon.png" class="tutorialImg">
                             </div>
                             <div class="tutorialTitle">
                                 Information &ThickSpace;
                             </div>
                             <div class="tutorialHeadCollapse">
-                                <button class="tutorialCollapseBtn"></button>
+                                <button class="tutorialCollapseBtn"><img src="pictures/arrow_down.png" id="tutorialHideImg"></button>
                             </div>
                         </div>
 
-                        <div class="tutorialWrap">
+                        <div class="tutorialWrap" id="tutorialWrap">
                             <div class="tutorialListWrap">
                                 Welcome to the <b>M<sup>3</sup> e-mail app</b>. Using this app you can generate mails with AI (artificial
                                 intelligence) to make writing mails more efficient and less time-consuming.
@@ -700,8 +700,22 @@
                     <!--tutorial-->
 
                     <!--recent mails-->
-                    <div class="recentMailWrap">
+                    <div class="recentMailWrap" onclick="hideMails()">
+                        <div class="recentMailHead">
+                            <div class="recentMailIconWrap">
+                                <img src="pictures/mail_icon.png" class="recentMailsIcon">
+                            </div>
+                            <div class="recentMailTitle">
+                                Recent mails &ThickSpace;
+                            </div>
+                            <div class="recentMailCollapse">
+                                <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png" id="recentMailsHideImg"></button>
+                            </div>
+                        </div>
 
+                        <div class="recentMailContent" id="recentMailContent"> 
+                            Recent Mails
+                        </div>
                     </div>
                     <!--recent mails-->
 
@@ -730,7 +744,9 @@
     setupDb();
     loadUserProfile();
     hideGenerate();
-    hideContact()
+    hideContact();
+    hideTutorial();
+    hideMails();
 </script>
 <!--script-->
 

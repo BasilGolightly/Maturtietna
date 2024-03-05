@@ -28,6 +28,10 @@
     flex-direction: column;
 }
 
+.homeFrameContent > div{
+    margin-bottom: 5px;
+}
+
 /*TUTORIAL*/
 
 .tutorialHead{
@@ -42,7 +46,7 @@
 }
 
 .tutorialTitle{
-    padding: 2.5 7.5px;
+    padding: 0 7.5px;
 }
 
 .tutorialWrap{
@@ -68,6 +72,46 @@
     font-weight: bold;
 }
 
+.tutorialCollapseBtn, .mailsCollapseBtn{
+    background-color: transparent;
+    color: white;
+    outline: none;
+    border: none;
+}
 
+.tutorialHead:hover, .recentMailHead:hover{
+    font-weight: bold;
+}
+
+#tutorialHideImg, #recentMailsHideImg{
+    background-color: transparent;
+    color: white;
+    width: 10px;
+    height: 10px;
+}
 
 /*TUTORIAL*/
+
+/*RECENT MAILS*/
+
+.recentMailWrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.recentMailHead{
+    display: flex;
+    flex-direction: row;
+}
+
+.recentMailsIcon{
+    width: 20px;
+    height: 20px;
+}
+
+.recentMailTitle{
+    font-size: 17px;
+    padding: 0 7.5px;
+}
+
+/*RECENT MAILS*/
