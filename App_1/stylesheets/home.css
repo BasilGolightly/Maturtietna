@@ -60,10 +60,14 @@
     background-color: transparent;
     outline: none;
     border: none;
+    padding-top: 5px;
 }
 
 .tutorialChapterBtn:hover{
-    text-decoration: underline;
+    /*text-decoration: underline;*/
+    font-weight: bold;
 }
+
+
 
 /*TUTORIAL*/

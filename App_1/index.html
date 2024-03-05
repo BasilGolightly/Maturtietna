@@ -636,9 +636,10 @@
                             <div class="tutorialListWrap">
                                 Welcome to the <b>M<sup>3</sup> e-mail app</b>. Using this app you can generate mails with AI (artificial
                                 intelligence) to make writing mails more efficient and less time-consuming.
+                                
                                 <br>
-                            
-                                <button class="tutorialChapterBtn" onclick="hideGenerate()">Generating your first mail</button>
+
+                                <button class="tutorialChapterBtn" id="tutorialChapterBtn" onclick="hideGenerate()"><img src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height=""> Generating your first mail</button>
                                 
                                 <span id="generateChapter">
                                     <ol>
@@ -682,10 +683,17 @@
                             
                                     </ol>
                                 </span>
-                            
+
+                                <br>
+
+                                <button class="tutorialChapterBtn" id="tutorialContactBtn" onclick="hideContact()"><img src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height=""> Contacts</button>
+
+                                <span id="contactChapter">
+                                    <p>Contacts tab</p>
+                                </span>
                             </div>
                             <div class="tutorialBtnWrap"> 
-                                <button>Make a new contact</button>
+                                <!--<button>Make a new contact</button>-->
                             </div>
                         </div>
                     </div>
@@ -700,7 +708,7 @@
 
                     <!--recent contacts-->
                     <div class="recentContactWrap">
-
+                        
                     </div>
                     <!--recent contacts-->
                 </div>
@@ -721,6 +729,8 @@
     displayMode(5);
     setupDb();
     loadUserProfile();
+    hideGenerate();
+    hideContact()
 </script>
 <!--script-->
 

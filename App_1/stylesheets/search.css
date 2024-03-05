@@ -49,6 +49,15 @@
     flex-direction: column;
 }
 
+#generateChapter{
+    display: grid;
+}
+
+
+.tutorialArrowIcon{
+    width: 10px;
+    height: 10px;
+}
 
 /*
 #searchStringOutput{
