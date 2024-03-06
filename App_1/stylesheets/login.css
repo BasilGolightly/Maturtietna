@@ -139,7 +139,7 @@ body {
 
 .mainBottomInner{
     height: 100%;
-    flex: 100%;
+    flex: 50%;
 }
 
 .registerLink{

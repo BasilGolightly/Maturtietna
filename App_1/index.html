@@ -205,6 +205,7 @@
                             <div class="newMailPurposeTextField">
                                 <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
                                     <option value="0">Select purpose of mail</option>
+                                    <option value="invite">Invitation</option>
                                     <option value="apology">Apology</option>
                                 </select>
                                 <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
@@ -625,7 +626,7 @@
                                 <img src="pictures/tutorial_icon.png" class="tutorialImg">
                             </div>
                             <div class="tutorialTitle">
-                                Information &ThickSpace;
+                                Information
                             </div>
                             <div class="tutorialHeadCollapse">
                                 <button class="tutorialCollapseBtn"><img src="pictures/arrow_down.png" id="tutorialHideImg"></button>
@@ -706,7 +707,7 @@
                                 <img src="pictures/mail_icon.png" class="recentMailsIcon">
                             </div>
                             <div class="recentMailTitle">
-                                Recent mails &ThickSpace;
+                                Recent mails
                             </div>
                             <div class="recentMailCollapse">
                                 <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png" id="recentMailsHideImg"></button>
@@ -714,15 +715,34 @@
                         </div>
 
                         <div class="recentMailContent" id="recentMailContent"> 
-                            Recent Mails
+                            <div class="recentMailInner">
+                                No mails found.
+                            </div>
                         </div>
                     </div>
                     <!--recent mails-->
 
 
                     <!--recent contacts-->
-                    <div class="recentContactWrap">
-                        
+                    <div class="recentContactWrap bottomFrame">
+                        <div class="recentContactHead">
+                            <div class="recentContactImgWrap">
+                                <img src="pictures/white_pfp.png" class="recentContactImg">
+                            </div>
+                            <div class="recentContactTitle">
+                                Recent contacts
+                            </div>
+                            <div class="recentContactCollapse">
+                                <button class="contactCollapseBtn" id="contactCollapseBtn"><img src="pictures/arrow_up.png" id="recentContactHideImg"></button>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="recentContactContent" id="recentContactChapter">
+                            <div>
+                                No contacts recently used.
+                            </div>
+                        </div>
+                        -->
                     </div>
                     <!--recent contacts-->
                 </div>

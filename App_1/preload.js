@@ -686,6 +686,8 @@ async function loadMails(){
                 `;
             }
             else{
+                document.getElementById('generatedWrap').innerHTML = "";
+
                 //loop through all rows and write mails to list
                 for(let i = 0; i < rows.length; i++){
                     
@@ -700,7 +702,7 @@ async function loadMails(){
                                 ${rows[i].title}
                             </div>
                             <div class="generatedLetterDate" id="dateMail${rows[i].id_mail}">
-                                ${rows[i].date_generated}
+                                ${(rows[i].date_generated).replaceAll("-", ".")}
                             </div>
                         </div>
 
@@ -1367,6 +1369,7 @@ async function displayModeGenerated(mailId){
 
     let mails = document.getElementsByClassName('generatedLetter');
     let selectedMail = document.getElementById('generatedLetter' + mailId);
+    selectedMail.style.borderLeft = "5px solid gray";
 
     for(let i = 0; i < mails.length; i++){
         mails[i].style.borderLeft = "3px solid gray";
@@ -1381,7 +1384,8 @@ async function displayModeGenerated(mailId){
     //select mail - SHOW MAIL
     else{
         selectedMailId = mailId;
-        selectedMail.style.borderLeft = "5px solid gray";
+        //alert("ba");
+        //selectedMail.style.borderLeft = "5px solid gray";
 
         //query for mail
         try{
@@ -1436,15 +1440,13 @@ async function displayModeGenerated(mailId){
                             </div>
                         </div>
                         <div class="selectedMailTopRight">
-                            ${row.date_generated}
+                            ${(row.date_generated).replaceAll("-", ".")}
                         </div>
                     </div>
                     <!--mail title-->
 
                     <!--mail content-->
-                    <div class="selectedMailMiddle">
-                        ${row.content}
-                    </div>
+                    <div class="selectedMailMiddle">${(row.content).trim()}</div>
                     <!--mail content-->
                 </div>
                 `; 
