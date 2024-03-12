@@ -175,7 +175,10 @@
 }
 
 .selectedMailMiddle{
+    font-size: 13px;
     white-space: pre-wrap;
+    max-height: 100%;
+    overflow: auto;
 }
 
 .selectedMailTopTitle{

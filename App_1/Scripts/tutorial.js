@@ -2,6 +2,7 @@ let showTutorial = true;
 let showGenerate = true;
 let showContact = true;
 let showMails = true;
+let showNewMailHelp = false;
 
 function hideTutorial(){
     let tutorial = document.getElementById('tutorialWrap');
@@ -74,5 +75,21 @@ function hideMails(){
         img.src = "pictures/arrow_down.png";
         mailsChapter.style.display = "flex";
         showMails = true;
+    }
+}
+
+
+function newMailHelp(){
+    let newMailHelp = document.getElementById('newMailHelp');
+
+    //hide
+    if(showNewMailHelp){
+        newMailHelp.style.display = 'none';
+        showNewMailHelp = false;
+    }
+    //show
+    else{
+        newMailHelp.style.display = 'flex';
+        showNewMailHelp = true;
     }
 }

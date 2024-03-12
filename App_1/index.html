@@ -173,27 +173,15 @@
                             <img src="pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
                         </div>
                         <div class="NewMailTextDiv">
-                            <input type="text" name="NewMailTitle" id="newMailTextField" class="newMailTextField" maxlength="30" placeholder="Title" value="New mail">
+                            <input type="text" name="NewMailTitle" id="newMailTextField" class="newMailTextField" maxlength="30" placeholder="Title" value="Title"><span class="newMailStar">*</span>
                         </div>
+                        <!--
                         <div class="CreateMailDiv">
                             <button class="NewMailSubmitBtn" id="NewMailSubmitBtn" onclick="generateMail()"></button>
                         </div>
+                        -->
                     </div>
                     <!--new mail title-->
-
-                    <!--recipient-->
-                    <div class="newMailRecipient">
-                        <div class="NewRecipientIcon">
-                            <button class="NewRecipientBtn"></button>
-                        </div>
-                        <div class="NewRecipientTextDiv">
-                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown">
-                                <option value="0">Select recipient</option>
-                                <option value="1">Recipient 1</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!--recipient-->
 
                     <!--purpose-->
                     <div class="newMailPurpose">
@@ -204,45 +192,98 @@
                             </div>
                             <div class="newMailPurposeTextField">
                                 <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
-                                    <option value="0">Select purpose of mail</option>
+                                    <option value="0">Select type of mail</option>
                                     <option value="invite">Invitation</option>
                                     <option value="apology">Apology</option>
-                                </select>
+                                </select><span class="newMailStar">*</span>
                                 <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
                             </div>
+                            <!--formality-->
+                            <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
+                                <div class="newMailFormalitySwitch">
+                                    <label class="newFormalitySwitch switch">
+                                        <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
+                                            onchange="changeFormality()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="newFormalityOutput" id="newFormalityOutput">
+                                    Formal
+                                </div>
+                            </div>
+                            <!--formality-->
+
+                            <!--
                             <div class="newMailPurposeExtra">
                                 <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                             </div>
+                            -->
                         </div>
                         <!--purpose general-->
-
-                        <!--reason-->
-                        <div class="newReason newPurposeBottom" id="newReason">
-                            <div class="newReasonTitleField">
-                                Reason
-                            </div>
-                            <div class="newMailReasonTextField">
-                                <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 chars" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
-                            </div>
-                        </div>
-                        <!--reason-->
-
-                        <!--formality-->
-                        <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
-                            <div class="newMailFormalitySwitch">
-                                <label class="newFormalitySwitch switch">
-                                    <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
-                                        onchange="changeFormality()">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                            <div class="newFormalityOutput" id="newFormalityOutput">
-                                Formal
-                            </div>
-                        </div>
-                        <!--formality-->
                     </div>
                     <!--purpose-->
+
+                    <!--recipient-->
+                    <div class="newMailRecipient">
+                        <div class="NewRecipientIcon">
+                            <button class="NewRecipientBtn" onclick="displayModeAddContacts(-1)"></button>
+                        </div>
+                        <div class="NewRecipientTextDiv">
+                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown">
+                                <option value="0">Select recipient</option>
+                                <option value="1">Recipient 1</option>
+                            </select><span class="newMailStar">*</span>
+                        </div>
+                        <div class="newMailAddContactWrap">
+                            <div>
+                                <!--
+                                <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="newMailAddContactBtnImg" width="" height=""> <span class="newMailAddContactBtnText">New contact</span></button>
+                                -->
+
+                                <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"></button>
+                            </div>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--recipient-->
+
+                    <!--reason-->
+                    <div class="newReason" id="newReason">
+                        <div class="newReasonTitleField">
+                            <div>
+                                <img src="pictures/write_icon.png" class="purposeImg">
+                            </div>
+                            <div class="newPurposeTitle">
+                                Purpose for writing mail <span class="newMailStar">*</span>
+                            </div>
+                            
+                        </div>
+                        <div class="newMailReasonTextField">
+                            <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 characters, required" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
+                        </div>
+                    </div>
+                    <!--reason-->
+
+                    
+
+                    <!--generate new mail-->
+                    <div class="newMailGenerate">
+                        <div class="newMailBtnWrap">
+                            <div>
+                                <button class="newMailGenerateBtn" id="NewMailSubmitBtn" onclick="generateMail()">Generate</button>
+                            </div>
+                            <div>
+                                <button class="newMailHelpBtn" id="newMailHelpBtn" onclick="newMailHelp()"></button>
+                            </div>
+                        </div>
+
+                        <div class="newMailHelpText" id="newMailHelp" style="display: none;">
+                            <span style="color: rgb(255, 28, 28);">*</span> = required data
+                        </div>
+                    </div>
+                    <!--generate new mail-->
 
                 </div>
 
@@ -619,8 +660,54 @@
                 </div>
 
                 <div class="homeFrameContent">
+                    <!--recent mails-->
+                    <div class="recentMailWrap" onclick="hideMails()">
+                        <div class="recentMailHead">
+                            <div class="recentMailIconWrap">
+                                <img src="pictures/mail_icon.png" class="recentMailsIcon">
+                            </div>
+                            <div class="recentMailTitle">
+                                Recent mails
+                            </div>
+                            <div class="recentMailCollapse">
+                                <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png" id="recentMailsHideImg"></button>
+                            </div>
+                        </div>
+
+                        <div class="recentMailContent" id="recentMailContent"> 
+                            <div class="recentMailInner">
+                                No mails found.
+                            </div>
+                        </div>
+                    </div>
+                    <!--recent mails-->
+
+
+                    <!--recent contacts-->
+                    <div class="recentContactWrap">
+                        <div class="recentContactHead">
+                            <div class="recentContactImgWrap">
+                                <img src="pictures/white_pfp.png" class="recentContactImg">
+                            </div>
+                            <div class="recentContactTitle">
+                                Recent contacts
+                            </div>
+                            <div class="recentContactCollapse">
+                                <button class="contactCollapseBtn" id="contactCollapseBtn"><img src="pictures/arrow_up.png" id="recentContactHideImg"></button>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="recentContactContent" id="recentContactChapter">
+                            <div>
+                                No contacts recently used.
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                    <!--recent contacts-->
+
                     <!--tutorial-->
-                    <div class="tutorialWrap">
+                    <div class="tutorialWrap" class="bottomHomeFrame">
                         <div class="tutorialHead" onclick="hideTutorial()">
                             <div class="tutorialIconWrap" >
                                 <img src="pictures/tutorial_icon.png" class="tutorialImg">
@@ -699,52 +786,6 @@
                         </div>
                     </div>
                     <!--tutorial-->
-
-                    <!--recent mails-->
-                    <div class="recentMailWrap" onclick="hideMails()">
-                        <div class="recentMailHead">
-                            <div class="recentMailIconWrap">
-                                <img src="pictures/mail_icon.png" class="recentMailsIcon">
-                            </div>
-                            <div class="recentMailTitle">
-                                Recent mails
-                            </div>
-                            <div class="recentMailCollapse">
-                                <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png" id="recentMailsHideImg"></button>
-                            </div>
-                        </div>
-
-                        <div class="recentMailContent" id="recentMailContent"> 
-                            <div class="recentMailInner">
-                                No mails found.
-                            </div>
-                        </div>
-                    </div>
-                    <!--recent mails-->
-
-
-                    <!--recent contacts-->
-                    <div class="recentContactWrap bottomFrame">
-                        <div class="recentContactHead">
-                            <div class="recentContactImgWrap">
-                                <img src="pictures/white_pfp.png" class="recentContactImg">
-                            </div>
-                            <div class="recentContactTitle">
-                                Recent contacts
-                            </div>
-                            <div class="recentContactCollapse">
-                                <button class="contactCollapseBtn" id="contactCollapseBtn"><img src="pictures/arrow_up.png" id="recentContactHideImg"></button>
-                            </div>
-                        </div>
-                        <!--
-                        <div class="recentContactContent" id="recentContactChapter">
-                            <div>
-                                No contacts recently used.
-                            </div>
-                        </div>
-                        -->
-                    </div>
-                    <!--recent contacts-->
                 </div>
             </div>
         </div>
@@ -760,13 +801,14 @@
 <script src="Scripts/displayShowHide.js"></script>
 <script src="Scripts/tutorial.js"></script>
 <script>
-    displayMode(5);
     setupDb();
+    loadContacts();
     loadUserProfile();
     hideGenerate();
     hideContact();
     hideTutorial();
     hideMails();
+    displayMode(0);
 </script>
 <!--script-->
 

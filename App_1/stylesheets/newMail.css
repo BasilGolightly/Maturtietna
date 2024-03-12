@@ -67,11 +67,11 @@
     height: 30px;
     background-color: transparent;
     border: 1px solid transparent;
-    border-bottom: 1px solid white;
     outline: none;
     color: white;
+    border-bottom: 1px solid white;
     padding-bottom: 0;
-    width: 50ch;
+    width: 47.5ch;
     font-family: 'Kanit', sans-serif;
 }
 
@@ -122,7 +122,8 @@
 }
 
 .newRecipientDropDown:hover {
-    border-bottom: 1px solid white;
+    /*border-bottom: 1px solid white;*/
+    font-weight: bold;
 }
 
 .newRecipientDropDown option {
@@ -161,7 +162,8 @@
 }
 
 .newPurposeDropDown:hover{
-    border-bottom: 1px solid white;
+    /*border-bottom: 1px solid white;*/
+    font-weight: bold;
 }
 
 .newExtraBtn {
@@ -212,10 +214,129 @@
     width: 50ch;
     height: 13ch;
     min-height: 5ch;
+    padding: 5px;
 }
 
 .newReasonTitleField{
+    display: flex;
+    flex-direction: row;
     font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.newPurposeTitle{
+    margin-top: 5px;
+}
+
+.newReasonTitleField > div{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.newMailReasonTextField{
+    margin-left: 5px;
+}
+
+.newReason{
+    padding: 5px;
+}
+
+.purposeImg{
+    width: 30px;
+    height: 30px;
+}
+
+.newMailGenerate{
+    margin-left: 10px;
+}
+
+.newMailBtnWrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.newMailBtnWrap > div{
+    margin-right: 5px;
+}
+
+.newMailGenerateBtn{
+    font-family: 'Kanit', sans-serif;
+    color: white;
+    border: 1px solid white;
+    border-radius: 7.5px;
+    padding: 7.5px;
+    outline: none;
+    background-color: transparent;
+    font-size: 13px;
+}
+
+.newMailGenerateBtn:hover{
+    background-color: #0042bd;
+}
+
+.newMailStar{
+    font-size: 10px;
+    color: rgb(255, 28, 28) !important;
+    vertical-align: super; 
+}
+
+.newMailHelpText{
+    font-size: 11px;
+    color: lightgray;
+    padding-top: 10px;
+}
+
+.newMailHelpBtn{
+    width: 25px;
+    height: 25px;
+    background-image: url("../pictures/help_icon.png");
+    background-size: contain;
+    background-color: transparent;
+    border-radius: 25px;
+    margin-top: 5px;
+    border: none;
+}
+
+.newMailHelpBtn:hover{
+    background-color: rgb(50, 50, 50);
+}
+
+.newMailAddContactWrap{
+    flex: content;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.newMailAddContactBtn{
+    display: inline;
+    background-color: transparent;
+    background-image: url("../pictures/white_pfp_hover.png");
+    background-size: cover;
+    padding: 5px;
+    margin-left: 70px;
+    margin-top: 5px;
+    border-radius: 30px;
+    border: 1px solid white;
+    color: white;
+    font-family: 'Kanit', sans-serif;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+}
+
+/*
+.newMailAddContactBtnImg{
+    width: 20px;
+    height: 20px;
+}
+
+.newMailAddContactBtnText{
+    padding: none;
+}
+*/
+.newMailAddContactBtn:hover{
+    background-color: #02394a;
 }
 
 /*NEW MAIL*/

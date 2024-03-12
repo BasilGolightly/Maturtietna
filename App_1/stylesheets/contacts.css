@@ -296,6 +296,10 @@
     font-size: 13px;
 }
 
+.addContactSubmitBtn:hover{
+    background-color: #0042bd;
+}
+
 .deleteContactBtn{
     color: rgb(255, 67, 67);
     background-color: transparent;

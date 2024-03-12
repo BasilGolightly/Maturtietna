@@ -408,7 +408,8 @@ function readLoginFile(){
 let displayModeId = -1;
 let selectedMailId = 0;
 
-function displayMode(mode){
+async function displayMode(mode){
+    let idUser = document.getElementById('globalIdUser').innerHTML.trim();
     let date = new Date();
     date.setFullYear(date.getFullYear() - 10);
     document.getElementById('addContactDOB').max = date.getFullYear + "-" + date.getMonth() + "-" + date.getDate();
@@ -442,25 +443,46 @@ function displayMode(mode){
             displayModeId = 0;
 
             let contactsString = ``;
-            let contactNames = document.getElementsByClassName('contactName');
 
-            for(let i = -1; i < contactNames.length; i++){
-                if(i == -1){
-                    contactsString = `<option value="0">-Select recipient-</option>`;
+            loadContacts();
+            /*
+            try{
+                let query = `SELECT id_contact, name, surname 
+                FROM Contacts
+                WHERE id_user = '${idUser}'`;
+                const contacts = await SqlAllPromise(query);
+                console.log(contacts);
+                for(let i = 0; i < contacts.length; i++){
+                    if(i == 0){
+                        contactsString = `<option value="0">Select recipient</option>`;
+                    }
+                    contactsString += `<option value="${contacts[i].id_contact}">${contacts[i].name + " " + contacts[i].surname}</option>`;
                 }
-                else{
-                    //id = 'contact1'
-                    let contactId = contactNames[i].id;
-                    contactId = contactId.substring(7, contactId.length);
-                    contactsString += `
-                    <option value="${contactId}">${contactNames[i].innerHTML.trim()}</option>
-                    `;
+            }
+            catch(error){
+                console.log("gettingContactsNewMailError: " + error);
+                let contactNames = document.getElementsByClassName('contactName');
+
+                for(let i = -1; i < contactNames.length; i++){
+                    if(i == -1){
+                        contactsString = `<option value="0">Select recipient</option>`;
+                    }
+                    else{
+                        //id = 'contact1'
+                        let contactId = contactNames[i].id;
+                        contactId = contactId.substring(7, contactId.length);
+                        contactsString += `
+                        <option value="${contactId}">${contactNames[i].innerHTML.trim()}</option>
+                        `;
+                    }
+                    
                 }
+
                 
             }
-
+            
             document.getElementById('newRecipentDropDown').innerHTML = contactsString;
-
+            */
             newMailFrame.style.display = "flex";
             
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
@@ -550,43 +572,6 @@ function searchBarDisplayMode(searchMode){
     let searchText = document.getElementById('searchTopTextBox');
     let searchBtn = document.getElementById('searchTopBtn');
     let navBtns = document.getElementsByClassName('rightTopBtn');
-
-    //Only clear search bar
-    if(searchMode < 0){
-        searchText.value = "";
-    }
-    //Hide and disable search bar
-    else if(searchMode == 0){
-        searchBarDiv.style.display = "none";
-        searchText.value = "";
-        searchText.readOnly = true;
-        searchBtn.disabled = true;
-    }
-    //Show and enable the searhcbar
-    else if(searchMode > 0){
-        searchBarDiv.style.display = "grid";
-        searchText.readOnly = false;
-        searchBtn.disabled = false;
-
-        //hide all navbar buttons
-        if(searchMode == 1){
-            for(let i = 0; i < navBtns.length; i++){
-                navBtns[i].style.display = "none";
-            }
-        }
-
-        //show all navbar buttons
-        else if(searchMode == 2){
-            for(let i = 0; i < navBtns.length; i++){
-                navBtns[i].style.display = "block";
-            }
-        }
-
-        /*else{
-           
-        }*/
-        
-    }
 }
 
 //show results of search - found contact names, mails
@@ -780,6 +765,9 @@ async function loadContacts(){
             else{
                 //loop through contacts and display them
                 for (let i = 0; i < rows.length; i++) {
+                    if(i == 0){
+                        document.getElementById('newRecipentDropDown').innerHTML = `<option value="0">Select recipient</option>`;
+                    }
                     //display contact
                     document.getElementById('contactList').innerHTML += `
 
@@ -794,7 +782,11 @@ async function loadContacts(){
                         </div>
                         <!--contact-->
 
-                        `;
+                    `;
+
+                    document.getElementById('newRecipentDropDown').innerHTML += `
+                        <option value="${rows[i].id_contact}">${rows[i].name} ${rows[i].surname}</option>
+                    `;
                 }
             }
         }
