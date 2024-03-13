@@ -5,34 +5,53 @@ let loginPage = document.getElementById('loginPromptWrap');
 let loginNameOut = document.getElementById('loginName');
 let forName = document.getElementById('forName');
 let idLogin = document.getElementById('idLogin');
+let serverLogin = document.getElementById('serverLogin');
 
 function loginDisplay(mode, accId){
+    for(let i = 0; i < document.getElementsByClassName('loginWrap').length; i++){
+        document.getElementsByClassName('loginWrap')[i].style.display = 'none';
+    }
+
     switch(mode){
         //show account list - BACK BUTTON
         case 0:
             forName.innerHTML = "";
             loginNameOut.innerHTML = "";
-            loginPage.style.display = "none";
             idLogin.innerHTML = "";
-            accList.style.display = "grid";
+            
             loginDisplayMode = 0;
+
             document.getElementById('passwordTextField').value = "";
             document.getElementById('errorLogin').innerHTML = "";
+
+            accList.style.display = "grid";
             break;
         //password prompt - selected account
         case 1:
             if(accId > -1){
-                loginDisplayMode = 1;
-                accList.style.display = "none";
-                loginPage.style.display = "flex";
                 idLogin.innerHTML = accId;
+
+                loginDisplayMode = 1;
+
                 let username = document.getElementById('accountName' + accId).innerHTML.trim();
-                forName = "for ";
+                //forName = "for ";
                 loginNameOut.innerHTML = username;
+
+                loginPage.style.display = "flex";
             }
             else{
                 loginDisplay(0, -1);
             }
+            break;
+        
+        case 2:
+            forName.innerHTML = "";
+            loginNameOut.innerHTML = "Sever login";
+            idLogin.innerHTML = "";
+
+            serverLogin.style.display = 'flex';
+
+            loginDisplayMode = 2;
             break;
     }
 }
@@ -52,6 +71,19 @@ function checkLoginPassword(el){
 function togglePassLogin(){
     let passField = document.getElementById('passwordTextField');
     let btn = document.getElementById('showPassBtn');
+    if(passField.type == 'text'){
+        passField.type = 'password';
+        btn.innerHTML = "(Show)";
+    }
+    else{
+        passField.type = 'text';
+        btn.innerHTML = "(Hide)";
+    }
+}
+
+function togglePassLogin2(){
+    let passField = document.getElementById('serverPassword');
+    let btn = document.getElementById('serverPassShowBtn');
     if(passField.type == 'text'){
         passField.type = 'password';
         btn.innerHTML = "(Show)";

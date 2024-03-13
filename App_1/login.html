@@ -28,7 +28,7 @@
             <!--accounts list-->
             <div class="mainInner">
                 <!--accounts-->
-                <div class="accountsList" id="accountsList">
+                <div class="accountsList loginWrap" id="accountsList">
                     <!--ACC EXAMPLE
                     <div class="accountWrap">
                         <div class="accountInner">
@@ -47,7 +47,7 @@
                 <!--accounts-->
 
                 <!--login-->
-                <div class="loginPromptWrap" id="loginPromptWrap">
+                <div class="loginPromptWrap loginWrap" id="loginPromptWrap">
                     <div class="loginPromptTitle">
                         Password
                     </div>
@@ -80,6 +80,46 @@
                     </div>
                 </div>
                 <!--login-->
+
+                <!--server login-->
+                <div class="serverPromptLoginWrap loginWrap" id="serverLogin">
+                    <div class="serverLoginUsernameWrap">
+                        <div class="serverLoginUsernameTitle">
+                            Username
+                        </div>
+                        <div class="serverLoginUsernamePromptWrap">
+                            <div class="serverLoginUsernamePromptInner">
+                                <input type="text" class="serverLoginUsernamePrompt" id="serverUsername" placeholder="username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="serverLoginPasswordWrap">
+                        <div class="serverLoginUsernameTitle">
+                            Password
+                        </div>
+                        <div class="serverLoginPasswordPromptWrap">
+                            <div class="serverLoginPasswordPromptInner">
+                                <input type="password" class="serverLoginPasswordPrompt" id="serverPassword" placeholder="password">
+                            </div>
+                            <div class="serverLoginPassShow">
+                                <button class="serverLoginPassShowBtn" id="serverPassShowBtn">(Show)</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="serverLoginMenuWrap">
+                        <div class="serverLoginMenuInnerLeft">
+                            <button class="backBtn" onclick="loginDisplay(0, -1)">
+                                Back to accounts
+                            </button>
+                        </div>
+                        <div class="serverLoginMenuInnerRight">
+                            <button class="submitLoginBtn" id="submitLoginBtn" onclick="" disabled>
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--server login-->
             </div>
             <!--accounts list-->
     
@@ -89,7 +129,7 @@
                     <a href="register.html" class="registerLink" id="registerLink">Add account (max. 5)</a>
                 </div>
                 <div class="mainBottomServer" id="">
-                    <a href="#" class="registerLink" id="">Login to server</a>
+                    <a href="#" class="registerLink" id="" onclick="loginDisplay(2, -1);">Login to server</a>
                 </div>
             </div>
             <!--add account-->

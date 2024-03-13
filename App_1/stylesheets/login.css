@@ -285,3 +285,87 @@ body {
 }
 */
 
+/*SERVER LOGIN*/
+
+.serverPromptLoginWrap{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    justify-content: center;
+    text-align: center;
+}
+
+.serverPromptLoginWrap > div{
+    margin-bottom: 15px;
+}
+
+.serverLoginUsernamePrompt, .serverLoginPasswordPrompt{
+    color: white;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    font-family: 'Kanit', sans-serif;
+    padding-bottom: 5px;
+}
+
+.serverLoginUsernamePrompt{
+    border-bottom: 1px solid white;
+    width: 100%;
+}
+
+.serverLoginPasswordPromptWrap{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid white;
+}
+
+.serverLoginPasswordPromptInner{
+    display: grid;
+    justify-content: left;
+    flex: 66%;
+}
+
+.serverLoginUsernameTitle{
+    margin-bottom: 5px;
+}
+
+.serverLoginPassShow{
+    display: grid;
+    flex: 33%;
+    justify-content: right;
+}
+
+.serverLoginPassShowBtn{
+    font-family: 'Kanit', sans-serif;
+    color: gray;
+    font-size: 13px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.serverLoginMenuWrap{
+    /*
+    display: flex;
+    flex-direction: row;
+    */
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 50% 50%;
+    width: 100%;
+}
+
+.serverLoginMenuInnerLeft{
+    display: grid;
+    justify-content: left;
+    /*flex: 50%;*/
+}
+
+.serverLoginMenuInnerRight{
+    display: grid;
+    justify-content: right;
+    /*flex: 50%;*/
+}
+
+/*SERVER LOGIN*/
+
