@@ -20,7 +20,7 @@
 <body>
     <!--NAVBAR-->
     <div class="left">
-        
+
         <!--logo-->
         <div class="top_l">
             <h1 class="logoTitle">M<sup>3</sup> email client</h1>
@@ -84,7 +84,8 @@
                     <img src="pictures/white_pfp.png" class="navAccImg">
                 </div>
                 <div class="navAccTextWrap">
-                    <div class="navAccUsername"><a class="accSettingsLink" id="navAccName" href="#" onclick="displayMode(3)">Account name</a></div>
+                    <div class="navAccUsername"><a class="accSettingsLink" id="navAccName" href="#"
+                            onclick="displayMode(3)">Account name</a></div>
                     <div class="navAccLogOut"><a class="link" href="login.html">logout</a></div>
                 </div>
             </div>
@@ -112,12 +113,16 @@
                 <div class="middleTop">
                     <div class="searchBarWrap" id="searchBarWrap">
                         <div>
-                            <button class="searchTopBtn" id="searchTopBtn">
+                            <button class="searchTopBtn" id="searchTopBtn" onclick="searchBarSubmit()">
                                 <img src="pictures/search_icon.webp" class="searchTopImg">
                             </button>
                         </div>
                         <div>
-                            <input type="text" placeholder="search..." id="searchTopTextBox" class="searchTopTextBox" maxlength="50">
+                            <input type="text" placeholder="search..." id="searchTopTextBox" class="searchTopTextBox"
+                                maxlength="50" oninput="searchBarCheckInput()">
+                        </div>
+                        <div>
+                            <button class="TopClearBtn" id="clearBtnDiv" onclick="searchBarClear()"></button>
                         </div>
                     </div>
                 </div>
@@ -141,10 +146,8 @@
                         </button>
                     </div>
 
-                    <div>
-                        <button class="rightTopBtn1 TopClearBtn" onclick="searchBarDisplayMode(0)">
-
-                        </button>
+                    <div >
+                        
                     </div>
                 </div>
             </div>
@@ -154,26 +157,48 @@
         <!--window CONTENT-->
         <div class="rightInner">
             <!--New mail-->
+            <!--<div id="newMailFrame" class="newMailFrame windowFrame">-->
             <div id="newMailFrame" class="newMailFrame windowFrame">
                 <!--new mail title icon-->
                 <div class="newMailHead">
-                    <div>
-                        <img src="pictures/new_mail_icon.png" class="newMailHeadImg">
+                    <div class="newMailLeft">
+                        <div>
+                            <img src="pictures/new_mail_icon.png" class="newMailHeadImg">
+                        </div>
+                        <div id="newMailHeadTitleText" class="newMailHeadTitleText">
+                            Create new mail
+                        </div>
                     </div>
-                    <div id="newMailHeadTitleText" class="newMailHeadTitleText">
-                        Create new mail
+                    <div class="newMailRight">
+                        <div>
+                            <button class="newMailNavBtn" id="fullscreenBtn"></button>
+                        </div>
+                        <div>
+                            <button class="newMailNavBtn" id="hideNewMail"></button>
+                        </div>
                     </div>
+                    
                 </div>
                 <!--new mail title icon-->
+
                 <div class="newMailWrap">
 
                     <!--new mail title-->
-                    <div class="newMailTitle inlineTextDiv">
-                        <div class="NewMailIcon">
-                            <img src="pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
+                    <div class="newMailTitle">
+                        <div class="newMailTitleTop newMailTop">
+                            <!--
+                            <div class="NewMailIcon">
+                                <img src="pictures/title_mail_icon.png" class="newMailTitleImg" width="" height="">
+                            </div>-->
+                            <div>
+                                Title <span class="newMailStar">*</span>
+                            </div>
                         </div>
-                        <div class="NewMailTextDiv">
-                            <input type="text" name="NewMailTitle" id="newMailTextField" class="newMailTextField" maxlength="30" placeholder="Title" value="Title"><span class="newMailStar">*</span>
+                        <div>
+                            <div class="NewMailTextDiv">
+                                <input type="text" name="NewMailTitle" id="newMailTextField" class="newMailTextField"
+                                    maxlength="30" placeholder="Title of mail">
+                            </div>
                         </div>
                         <!--
                         <div class="CreateMailDiv">
@@ -186,17 +211,27 @@
                     <!--purpose-->
                     <div class="newMailPurpose">
                         <!--purpose general-->
-                        <div class="newPurposeTop">
-                            <div class="NewPurposeIcon">
-                                <button class="newPurposeBtn"></button>
+                        <div class="NewPurposeTop newMailTop">
+                            <div class="newPurposeTopTitle">
+                                <!--
+                                <div>
+                                    <button class="newPurposeBtn"></button>
+                                </div>
+                                -->
+                                <div>
+                                    Type of mail <span class="newMailStar">*</span>
+                                </div>
                             </div>
-                            <div class="newMailPurposeTextField">
+                        </div>
+                        <div class="newMailPurposeTextField">
+                            <div>
+                                <!--Type dropdown-->
                                 <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
                                     <option value="0">Select type of mail</option>
                                     <option value="invite">Invitation</option>
                                     <option value="apology">Apology</option>
-                                </select><span class="newMailStar">*</span>
-                                <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
+                                </select>
+                                <!--Type dropdown-->
                             </div>
                             <!--formality-->
                             <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
@@ -213,66 +248,81 @@
                             </div>
                             <!--formality-->
 
-                            <!--
+                            <!--<input type="text" name="newMailPurpose" classs="newPurposeTextField" value="Purpose" placeholder="Purpose">-->
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <!--
                             <div class="newMailPurposeExtra">
                                 <button id="newExtraBtn" class="newExtraBtn" onclick="showPurposeMenu()"></button>
                             </div>
                             -->
-                        </div>
-                        <!--purpose general-->
                     </div>
                     <!--purpose-->
 
                     <!--recipient-->
                     <div class="newMailRecipient">
-                        <div class="NewRecipientIcon">
-                            <button class="NewRecipientBtn" onclick="displayModeAddContacts(-1)"></button>
+                        <div class="NewRecipientTop newMailTop">
+                            <!--
+                            <div>
+                                <button class="NewRecipientBtn" onclick="displayModeAddContacts(-1)"></button>
+                            </div>
+                            -->
+                            <div class="newRecipientTitle">
+                                Recipient <span class="newMailStar">*</span>
+                            </div>
                         </div>
                         <div class="NewRecipientTextDiv">
                             <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown">
                                 <option value="0">Select recipient</option>
                                 <option value="1">Recipient 1</option>
-                            </select><span class="newMailStar">*</span>
+                            </select>
                         </div>
+                        <!--
                         <div class="newMailAddContactWrap">
                             <div>
-                                <!--
                                 <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="newMailAddContactBtnImg" width="" height=""> <span class="newMailAddContactBtnText">New contact</span></button>
-                                -->
 
                                 <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"></button>
                             </div>
                             <div>
-                                
+
                             </div>
                         </div>
+                        -->
                     </div>
                     <!--recipient-->
 
                     <!--reason-->
                     <div class="newReason" id="newReason">
-                        <div class="newReasonTitleField">
+                        <div class="newReasonTitleField newMailTop">
+                            <!--
                             <div>
                                 <img src="pictures/write_icon.png" class="purposeImg">
                             </div>
+                            -->
                             <div class="newPurposeTitle">
                                 Purpose for writing mail <span class="newMailStar">*</span>
                             </div>
-                            
+
                         </div>
                         <div class="newMailReasonTextField">
-                            <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 characters, required" maxlength="200" id="newReasonTextArea" onblur="onBlurReasonTextBox()"></textarea>
+                            <textarea name="newReason" class="newReasonTextField"
+                                placeholder="Max. 200 characters, required" maxlength="200" id="newReasonTextArea"
+                                onblur="onBlurReasonTextBox()"></textarea>
                         </div>
                     </div>
                     <!--reason-->
 
-                    
+
 
                     <!--generate new mail-->
                     <div class="newMailGenerate">
                         <div class="newMailBtnWrap">
                             <div>
-                                <button class="newMailGenerateBtn" id="NewMailSubmitBtn" onclick="generateMail()">Generate</button>
+                                <button class="newMailGenerateBtn" id="NewMailSubmitBtn"
+                                    onclick="generateMail()">Generate</button>
                             </div>
                             <div>
                                 <button class="newMailHelpBtn" id="newMailHelpBtn" onclick="newMailHelp()"></button>
@@ -298,7 +348,8 @@
                         <img src="pictures/mail_icon.png" class="generatedImg">
                     </div>
                     <div class="generatedTitleText" id="generatedTitleText">
-                        <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span class="generatedTitleCount" id="generatedTitleCount"></span>
+                        <a onclick="displayMode(1)" href="#" class="titleLink">Generated mails</a> <span
+                            class="generatedTitleCount" id="generatedTitleCount"></span>
                     </div>
                 </div>
 
@@ -316,7 +367,7 @@
                                 </div>
                             </div>-->
 
-                            <!--quick peek content
+                        <!--quick peek content
                             <div class="generatedLetterContent">
                                 Description nasdadadasd
                             </div>
@@ -357,7 +408,7 @@
 
             <!--Contacts-->
             <div id="contactsFrame" class="contactsFrame windowFrame">
-                
+
                 <!--contacts title-->
                 <div class="contactsHeadWrap">
                     <div>
@@ -368,10 +419,10 @@
                     </div>
                 </div>
                 <!--contacts title-->
-                
+
                 <!--contacts wrap-->
                 <div class="contactsWrap">
-                    
+
                     <!--contacts list-->
                     <div class="contactsListWrap" id="contactList">
 
@@ -379,13 +430,15 @@
                         <div class="contactsListHead">
                             <div class="contactsListHeadCount">
                                 <span id="countContacts"></span> contact(s)
-                            </div>  
+                            </div>
                             <div class="contactsListHeadAdd">
-                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span class="contactAddBtnText"></span></button>
+                                <button class="contactsListHeadBtnAdd" onclick="displayModeAddContacts(-1)"><img
+                                        src="pictures/white_pfp_hover.png" class="contactsAddBtnImg"> <span
+                                        class="contactAddBtnText"></span></button>
                             </div>
                         </div>
                         <!--contact count-->
-                        
+
                         <!--contacts-->
                         <!--
                         <div class="contactFrame" onclick="displayModeAddContacts(1)">
@@ -422,13 +475,15 @@
                             </div>
                             <div class="addContactLastNameWrap">
                                 <div>
-                                    <input type="text" class="addContactTextField" id="addContactFirstName" placeholder="First name">
+                                    <input type="text" class="addContactTextField" id="addContactFirstName"
+                                        placeholder="First name">
                                 </div>
                                 <div class="addContactComa">
                                     ,
                                 </div>
                                 <div>
-                                    <input type="text" class="addContactTextField" id="addContactLastName" placeholder="Surname">
+                                    <input type="text" class="addContactTextField" id="addContactLastName"
+                                        placeholder="Surname">
                                 </div>
                             </div>
                         </div>
@@ -440,7 +495,8 @@
                                 Date of birth <span class="red star">*</span>
                             </div>
                             <div>
-                                <input class="addContactDobInput" id="addContactDOB" type="date" onchange="this.blur()" onkeydown="javascript: this.blur()">
+                                <input class="addContactDobInput" id="addContactDOB" type="date" onchange="this.blur()"
+                                    onkeydown="javascript: this.blur()">
                             </div>
                         </div>
                         <!--Date of birth-->
@@ -475,10 +531,11 @@
                                 Bio (optional)
                             </div>
                             <div class="addContactBioTextWrap">
-                                <textarea class="addContactBioText" id="addContactBio" placeholder="max. 250 char" onclick="setCursorTextArea(this)"></textarea>
+                                <textarea class="addContactBioText" id="addContactBio" placeholder="max. 250 char"
+                                    onclick="setCursorTextArea(this)"></textarea>
                             </div>
                         </div>
-                        <!--Bio-->  
+                        <!--Bio-->
 
                         <!--Submit-->
                         <div class="addContactSubmitWrap">
@@ -520,7 +577,7 @@
 
                 <!--settings content-->
                 <div class="settingContentWrap">
-                    
+
                     <!--account settings-->
                     <div class="accSettingsWrap">
 
@@ -528,7 +585,7 @@
                             Account Settings
                         </div>
 
-                        <table class="accSettingsContent"> 
+                        <table class="accSettingsContent">
 
                             <!--username-->
                             <tr class="accSettingsUsernameWrap">
@@ -537,11 +594,13 @@
                                 </td>
 
                                 <td class="accSettingsUsernameInner">
-                                    <input type="text" class="accSettingsUsernameTextField" id="accSettingsUsernameTextField" readonly>
+                                    <input type="text" class="accSettingsUsernameTextField"
+                                        id="accSettingsUsernameTextField" readonly>
                                 </td>
 
                                 <td class="accSettingsUsernameBtnWrap">
-                                    <button class="changeUsernameBtn" id="changeUsernameBtn" onclick="changeUsername()">Edit</button>
+                                    <button class="changeUsernameBtn" id="changeUsernameBtn"
+                                        onclick="changeUsername()">Edit</button>
                                 </td>
                             </tr>
                             <!--username-->
@@ -553,13 +612,17 @@
                                 </td>
 
                                 <td class="accSettingsPasswordInner">
-                                    <input type="password" style="display: none;" class="accSettingsNewPassTextField" id="accSettingsNewPassTextField" placeholder="12 characters minimum"> 
-                                    <input type="password" style="display: none;" class="accSettingsEnterPassTextField" id="accSettingsEnterPassTextField" placeholder="enter password...">
-                                    <input type="password" class="accSettingsPasswordTextField" id="accSettingsPasswordTextField" readonly>
+                                    <input type="password" style="display: none;" class="accSettingsNewPassTextField"
+                                        id="accSettingsNewPassTextField" placeholder="12 characters minimum">
+                                    <input type="password" style="display: none;" class="accSettingsEnterPassTextField"
+                                        id="accSettingsEnterPassTextField" placeholder="enter password...">
+                                    <input type="password" class="accSettingsPasswordTextField"
+                                        id="accSettingsPasswordTextField" readonly>
                                 </td>
 
                                 <td class="accSettingsPasswordBtnWrap">
-                                    <button class="changePassBtn" id="changePassBtn" onclick="changePass()">Edit</button>
+                                    <button class="changePassBtn" id="changePassBtn"
+                                        onclick="changePass()">Edit</button>
                                 </td>
                             </tr>
                             <!--password-->
@@ -575,7 +638,7 @@
 
                     </div>
                     <!--account settings-->
-                    
+
                 </div>
                 <!--settings content-->
 
@@ -591,7 +654,8 @@
                         <img src="pictures/search_icon_white.png" class="searchHeadImg">
                     </div>
                     <div class="searchHeadTitle">
-                        <span id="totalCountOutput">0</span> Results for &raquo;<span id="searchStringOutput">123123</span>&laquo;
+                        <span id="totalCountOutput">0</span> Results for &raquo;<span
+                            id="searchStringOutput">123123</span>&laquo;
                     </div>
                 </div>
                 <!--search title-->
@@ -670,11 +734,12 @@
                                 Recent mails
                             </div>
                             <div class="recentMailCollapse">
-                                <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png" id="recentMailsHideImg"></button>
+                                <button class="mailsCollapseBtn"><img src="pictures/arrow_up.png"
+                                        id="recentMailsHideImg"></button>
                             </div>
                         </div>
 
-                        <div class="recentMailContent" id="recentMailContent"> 
+                        <div class="recentMailContent" id="recentMailContent">
                             <div class="recentMailInner">
                                 No mails found.
                             </div>
@@ -693,7 +758,8 @@
                                 Recent contacts
                             </div>
                             <div class="recentContactCollapse">
-                                <button class="contactCollapseBtn" id="contactCollapseBtn"><img src="pictures/arrow_up.png" id="recentContactHideImg"></button>
+                                <button class="contactCollapseBtn" id="contactCollapseBtn"><img
+                                        src="pictures/arrow_up.png" id="recentContactHideImg"></button>
                             </div>
                         </div>
                         <!--
@@ -709,78 +775,93 @@
                     <!--tutorial-->
                     <div class="tutorialWrap" class="bottomHomeFrame">
                         <div class="tutorialHead" onclick="hideTutorial()">
-                            <div class="tutorialIconWrap" >
+                            <div class="tutorialIconWrap">
                                 <img src="pictures/tutorial_icon.png" class="tutorialImg">
                             </div>
                             <div class="tutorialTitle">
                                 Information
                             </div>
                             <div class="tutorialHeadCollapse">
-                                <button class="tutorialCollapseBtn"><img src="pictures/arrow_down.png" id="tutorialHideImg"></button>
+                                <button class="tutorialCollapseBtn"><img src="pictures/arrow_down.png"
+                                        id="tutorialHideImg"></button>
                             </div>
                         </div>
 
                         <div class="tutorialWrap" id="tutorialWrap">
                             <div class="tutorialListWrap">
-                                Welcome to the <b>M<sup>3</sup> e-mail app</b>. Using this app you can generate mails with AI (artificial
+                                Welcome to the <b>M<sup>3</sup> e-mail app</b>. Using this app you can generate mails
+                                with AI (artificial
                                 intelligence) to make writing mails more efficient and less time-consuming.
-                                
+
                                 <br>
 
-                                <button class="tutorialChapterBtn" id="tutorialChapterBtn" onclick="hideGenerate()"><img src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height=""> Generating your first mail</button>
-                                
+                                <button class="tutorialChapterBtn" id="tutorialChapterBtn" onclick="hideGenerate()"><img
+                                        src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height="">
+                                    Generating your first mail</button>
+
                                 <span id="generateChapter">
                                     <ol>
                                         <li>Create a new contact on the &raquo;Add Contacts&laquo; panel</li>
-                            
+
                                         <br>
-                            
-                                        <li>Go to the <a class="TutorialLink" href="#" onclick="displayMode(0)">&raquo;New Mail&laquo;</a> section
+
+                                        <li>Go to the <a class="TutorialLink" href="#"
+                                                onclick="displayMode(0)">&raquo;New Mail&laquo;</a> section
                                             (top left of page) and select the contact you just created. Alternatively...
                                             <ul>
-                                                <li>you could click on the &raquo;New mail&laquo; button when viewing the contact's info</li>
-                                                <li>or click on the mail icon next to the contact when viewing the <a class="TutorialLink" href="#" onclick="displayMode(2)">contact list</a></li>
+                                                <li>you could click on the &raquo;New mail&laquo; button when viewing
+                                                    the contact's info</li>
+                                                <li>or click on the mail icon next to the contact when viewing the <a
+                                                        class="TutorialLink" href="#" onclick="displayMode(2)">contact
+                                                        list</a></li>
                                             </ul>
                                         </li>
-                            
+
                                         <br>
-                            
-                                        <li>Fill the text fields with the correct data. Content of text fields in order top to bottom:
+
+                                        <li>Fill the text fields with the correct data. Content of text fields in order
+                                            top to bottom:
                                             <ol>
-                                                <li>Title of the new mail - name which will show up in your generated mails list</li>
+                                                <li>Title of the new mail - name which will show up in your generated
+                                                    mails list</li>
                                                 <li>Recipient - the person the mail is meant for</li>
                                                 <li>Type or purpose of mail - e. g. apology, invitation</li>
                                                 <li>Reason of mail - why you are writing te mail</li>
                                                 <li>Formality - whether you want your mail to be formal or informal</li>
                                             </ol>
                                         </li>
-                            
+
                                         <br>
-                            
-                                        <li>Click on the &raquo;Generate mail&laquo; button to generate the mail. The generation itself will take a
+
+                                        <li>Click on the &raquo;Generate mail&laquo; button to generate the mail. The
+                                            generation itself will take a
                                             moment.</li>
-                            
+
                                         <br>
-                            
-                                        <li>Once the mail is generated, the app will let you know if the AI understood your input data.
+
+                                        <li>Once the mail is generated, the app will let you know if the AI understood
+                                            your input data.
                                             <ul>
                                                 <li>If it did, it will redirect you to the mail</li>
-                                                <li>If not, an error message will appear, prompting you to double check your inputs.</li>
+                                                <li>If not, an error message will appear, prompting you to double check
+                                                    your inputs.</li>
                                             </ul>
                                         </li>
-                            
+
                                     </ol>
                                 </span>
 
                                 <br>
 
-                                <button class="tutorialChapterBtn" id="tutorialContactBtn" onclick="hideContact()"><img src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height=""> Contacts</button>
+                                <button class="tutorialChapterBtn" id="tutorialContactBtn" onclick="hideContact()"><img
+                                        src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height="">
+                                    Contacts</button>
 
                                 <span id="contactChapter">
                                     <p>Contacts tab</p>
                                 </span>
                             </div>
-                            <div class="tutorialBtnWrap"> 
+                            <div class="tutorialBtnWrap">
                                 <!--<button>Make a new contact</button>-->
                             </div>
                         </div>
@@ -801,6 +882,7 @@
 <script src="Scripts/displayShowHide.js"></script>
 <script src="Scripts/tutorial.js"></script>
 <script>
+
     setupDb();
     loadContacts();
     loadUserProfile();
@@ -809,6 +891,7 @@
     hideTutorial();
     hideMails();
     displayMode(0);
+    //displayModeAddContacts(-1);
 </script>
 <!--script-->
 

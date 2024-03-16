@@ -242,6 +242,7 @@ h1 {
 }
 
 .rightInner{
+    position: relative;
     flex: 92.5%;
     width: 93%;
     padding-left: 2.5vw;
@@ -267,7 +268,7 @@ h1 {
     border: 1px solid gray;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 40px auto;
+    grid-template-columns: 40px auto 30px;
     margin-top: 2.5px;
     height: 35px;
     padding: 2.5px 10px;
@@ -330,6 +331,16 @@ h1 {
     border: 0;
 }
 
+.TopClearBtn{
+    display: none;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    margin-top: 7.5px;
+    outline: none;
+    border: 0;
+}
+
 .TopDotsBtn{
     background-image: url("../pictures/dots_icon.png");
     background-size: contain;
@@ -360,7 +371,7 @@ h1 {
 }
 
 .TopClearBtn{
-    background-image: url("../pictures/cancel_icon.png");
+    background-image: url("../pictures/cancel_icon_grey.png");
     background-size: contain;
 }
 
