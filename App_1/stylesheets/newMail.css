@@ -3,16 +3,63 @@
 .newMailFrame {
     float: right;
     position: absolute;
-    top: 30%;
-    left: 60vw;
-    width: 500px;
-    height: 500px;
+    /*top: auto;*/
+    /*left: auto;*/
+    bottom: 4vh;
+    right: 0px;
+    width: 20vw;
+    /*max-width: 400px;
+    min-width: 365px;
+    min-width: 15vw;*/
+    height: auto;
+    /*width: 100%;*/
     display: none;
     flex-direction: column;
     font-family: 'Kanit', sans-serif;;
     background-color: rgb(15, 15, 15);
     border-radius: 15px;
+    border: 1px solid white;
 }
+
+.newMailPurposeTextField{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    width: 17.5vw;
+}
+
+.purposeLeft{
+    display: grid;
+    justify-content: left;
+    text-align: left;
+}
+
+.purposeRight{
+    display: grid;
+    justify-content: right;
+    text-align: right;
+}
+
+
+@media screen and (max-width: 1300px) {
+    .newMailPurposeTextField{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .purposeLeft{
+        display: grid;
+        justify-content: left;
+        text-align: left;
+    }
+    
+    .purposeRight{
+        display: grid;
+        justify-content: left;
+        text-align: left;
+    }
+}
+
 
 .NewPurposeTop{
     display: flex;
@@ -25,25 +72,67 @@
 }   
 
 #newMailHeadTitleText{
-    padding: 2.5px 7.5px;
+    padding: 0.25vh 0.5vw;
 }
 
 .newMailTop{
-    margin-bottom: 5px;
+    margin-bottom: 0.5vh;
 }
 
 .newMailHead{
     display: flex;
     flex-direction: row;
     justify-content: right;
-    font-size: 18px;
+    /*font-size: 18px;*/
+    font-size: 16px;
     font-family: 'Kanit', sans-serif;
     margin-bottom: 0;
-    padding: 15px 15px 0 15px;
+    /*padding: 15px 15px 0 15px;*/
+    padding: 15px 1vw 0 15px;
 }
 
+.newMailNavBtn{
+    outline: none;
+    background-color: transparent;
+    /*
+    width: 20px;
+    height: 20px;
+    */
+    width: 15px;
+    height: 15px;
+    border: none;
+    margin: 5px;
+    transition: 0.1s;
+}
+
+.newMailNavBtn:hover{
+    transition: 0.25s;
+    /*
+    width: 22.5px;
+    height: 22.5px;
+    */
+    width: 17.5px;
+    height: 17.5px;
+}
+
+#fullscreenBtn{
+    background-image: url("../pictures/full_icon.png");
+    background-size: contain;
+}
+
+#hideNewMail{
+    background-image: url("../pictures/cancel_icon.png");
+    background-size: contain;
+}
+
+#minimizeBtn{
+    background-image: url("../pictures/minimize_icon.png");
+    background-size: contain;
+}
+
+
 .newMailLeft{
-    flex: 50%;
+    flex: 75%;
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -53,7 +142,7 @@
 .newMailRight{
     display: flex;
     flex-direction: row;
-    flex: 50%;
+    flex: 25%;
     justify-content: right;
     text-align: right;
 }
@@ -66,14 +155,14 @@
     border-radius: 15px;
 }
 
-.newMailWrap > div{
-    margin-bottom: 15px;
+.newMailCh{
+    margin-bottom: 0.35vh;
 }
 
 .newMailTitle{
     display: flex;
     flex-direction: column;
-    margin-bottom: 12.5px !important;
+    /*margin-bottom: 12.5px !important;*/
 }
 
 .newMailTitleImg {
@@ -84,7 +173,7 @@
 .newMailTitleTop{
     display: flex;
     flex-direction: row;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .newMailTitleTop > div{
@@ -98,7 +187,7 @@
     outline: none;
     color: white;
     border-bottom: 1px solid white;
-    width: 47.5ch;
+    width: 17.5vw;
     font-family: 'Kanit', sans-serif;
 }
 
@@ -144,7 +233,8 @@
 }
 
 .newRecipientDropDown{
-    font-size: 15px;
+    /*font-size: 15px;*/
+    font-size: 14px;
     padding: 5px;
     transition: 0.1s;
     background-color: transparent;
@@ -187,13 +277,9 @@
     background-image: url("../pictures/question_mark_icon_hover.png");
 }
 
-.newMailPurposeTextField{
-    display: flex;
-    flex-direction: row;
-}
-
 .newPurposeDropDown{
-    font-size: 15px;
+    font-size: 14px;
+    /*font-size: 15px;*/
     transition: 0.1s;
     color: white;
     background-color: transparent;
@@ -236,7 +322,6 @@
 }
 
 .newPurposeBottom{
-    margin-left: 175px;
     margin-top: 5px;
 }
 
@@ -252,7 +337,8 @@
 .newPurposeTopTitle{
     display: flex;
     flex-direction: row;
-    font-size: 18px;
+    font-size: 16px;
+    /*font-size: 18px;*/
 }
 
 .newPurposeTopTitle > div{
@@ -282,8 +368,8 @@
     background-color: transparent;
     outline: none;
     resize: none;
-    width: 50ch;
-    height: 13ch;
+    width: 17.5vw;
+    height: 10vh;
     min-height: 5ch;
     padding: 5px;
 }
@@ -300,12 +386,14 @@
     display: flex;
     flex-direction: row;
     font-size: 14px;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
+    margin-bottom: 0.25vh;
 }
 
 .newPurposeTitle{
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 16px;
+    /*font-size: 18px;*/
 }
 
 .newReasonTitleField > div{
@@ -332,8 +420,8 @@
 }
 
 .newRecipientTitle{
-    font-size: 18px;
-
+    font-size: 16px;
+    /*font-size: 18px;*/
 }
 
 .NewRecipientTop{
@@ -409,32 +497,6 @@
 
 .newMailAddContactBtn:hover{
     background-color: #02394a;
-}
-
-.newMailNavBtn{
-    outline: none;
-    background-color: transparent;
-    width: 20px;
-    height: 20px;
-    border: none;
-    margin: 5px;
-    transition: 0.1s;
-}
-
-.newMailNavBtn:hover{
-    transition: 0.25s;
-    width: 22.5px;
-    height: 22.5px;
-}
-
-#fullscreenBtn{
-    background-image: url("../pictures/full_icon.png");
-    background-size: contain;
-}
-
-#hideNewMail{
-    background-image: url("../pictures/cancel_icon.png");
-    background-size: contain;
 }
 
 /*NEW MAIL*/

@@ -4,7 +4,7 @@ const openai = new openAIReq.OpenAI();*/
 const { count } = require('console');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-
+const apiKey = "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";
 
 //connect to sql DB
 let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -405,8 +405,9 @@ function readLoginFile() {
 
 /*-------------------------------------HOMEPAGE-------------------------------------*/
 
-let displayModeId = -1;
+let displayModeId = 0;
 let selectedMailId = 0;
+let isFullScreen = true;
 
 async function displayMode(mode) {
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
@@ -435,54 +436,25 @@ async function displayMode(mode) {
         Windowframes[i].style.display = "none";
     }
 
+    //hide new mail window if it is in fullscreen mode
+    if(isFullScreen && newMailFrame.style.display != 'none'){
+        newMailFrame.style.display = 'none';
+    }
+    
+
     //check which panel to show
     switch (mode) {
         //new email
         case 0:
-            if(displayModeId != 0) displayMode(displayModeId);
-
             let contactsString = ``;
 
             loadContacts();
-            /*
-            try{
-                let query = `SELECT id_contact, name, surname 
-                FROM Contacts
-                WHERE id_user = '${idUser}'`;
-                const contacts = await SqlAllPromise(query);
-                console.log(contacts);
-                for(let i = 0; i < contacts.length; i++){
-                    if(i == 0){
-                        contactsString = `<option value="0">Select recipient</option>`;
-                    }
-                    contactsString += `<option value="${contacts[i].id_contact}">${contacts[i].name + " " + contacts[i].surname}</option>`;
-                }
-            }
-            catch(error){
-                console.log("gettingContactsNewMailError: " + error);
-                let contactNames = document.getElementsByClassName('contactName');
 
-                for(let i = -1; i < contactNames.length; i++){
-                    if(i == -1){
-                        contactsString = `<option value="0">Select recipient</option>`;
-                    }
-                    else{
-                        //id = 'contact1'
-                        let contactId = contactNames[i].id;
-                        contactId = contactId.substring(7, contactId.length);
-                        contactsString += `
-                        <option value="${contactId}">${contactNames[i].innerHTML.trim()}</option>
-                        `;
-                    }
-                    
-                }
+            fullScreenNewMails();
+    
+            newMailFrame.style.display = "flex";    
 
-                
-            }
-            
-            document.getElementById('newRecipentDropDown').innerHTML = contactsString;
-            */
-            newMailFrame.style.display = "flex";
+            if(displayModeId != 0) displayMode(displayModeId);
 
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
@@ -561,6 +533,77 @@ async function displayMode(mode) {
 
             break;
     }
+}
+
+function fullScreenNewMails(){
+    let screenBtn = document.getElementById('fullscreenBtn');
+    let newMailFrame = document.getElementById('newMailFrame');
+    let newMailHead = document.getElementById('newMailHead');
+    let newMailChapters = document.getElementsByClassName('newMailCh');
+    //minimize
+    if(isFullScreen){
+        screenBtn.style.backgroundImage = "url('pictures/full_icon.png')"; 
+        newMailFrame.style.cssText = `
+        display: flex;
+        float: right;
+        position: absolute;
+        bottom: 4vh;
+        right: 0px;
+        width: 20vw;
+        height: auto;
+        flex-direction: column;
+        font-family: 'Kanit', sans-serif;;
+        background-color: rgb(15, 15, 15);
+        border-radius: 15px;
+        border: 1px solid white;
+        `;
+        newMailHead.style.padding = '15px 1vw 0 15px';
+        for(let i = 0; i < newMailChapters.length; i++){
+
+        }
+        newMailFrame.style.display = 'flex';
+
+        isFullScreen = false;
+    }
+    //fullscreen
+    else{
+        screenBtn.style.backgroundImage = "url('pictures/minimize_icon.png')"; 
+        newMailFrame.style.cssText = `
+        display: flex;
+        float: none;
+        position: static;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        font-family: 'Kanit', sans-serif;;
+        background-color: transparent;
+        border-radius: 15px;
+        border: none;
+        `;
+        newMailHead.style.padding = '15px 15px 15px 0';
+        let Windowframes = document.getElementsByClassName('windowFrame');
+        //hide all frames
+        for (let i = 0; i < Windowframes.length; i++) {
+            Windowframes[i].style.display = "none";
+        }
+        newMailFrame.style.display = 'flex';
+
+        isFullScreen = true;
+    }
+}
+
+function exitNewMails(){
+    document.getElementById('newMailFrame').style.display = 'none';
+    if(displayModeId === 0){
+        alert("ba");
+        displayMode(5);
+    }
+    else{
+        alert("ba2");
+        displayMode(displayModeId);
+    }   
 }
 
 //controls searchbar display, and button placement on the navbar, depending on the display mode (func. displayMode()) 

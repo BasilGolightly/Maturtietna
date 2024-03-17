@@ -146,7 +146,7 @@
                         </button>
                     </div>
 
-                    <div >
+                    <div>
                         
                     </div>
                 </div>
@@ -158,9 +158,9 @@
         <div class="rightInner">
             <!--New mail-->
             <!--<div id="newMailFrame" class="newMailFrame windowFrame">-->
-            <div id="newMailFrame" class="newMailFrame windowFrame">
+            <div id="newMailFrame" class="newMailFrame">
                 <!--new mail title icon-->
-                <div class="newMailHead">
+                <div class="newMailHead" id="newMailHead">
                     <div class="newMailLeft">
                         <div>
                             <img src="pictures/new_mail_icon.png" class="newMailHeadImg">
@@ -170,11 +170,16 @@
                         </div>
                     </div>
                     <div class="newMailRight">
-                        <div>
-                            <button class="newMailNavBtn" id="fullscreenBtn"></button>
+                        <!--
+                        <div id="minimizeScreenNewMails">
+                            <button class="newMailNavBtn" id="minimizeBtn"></button>
+                        </div>
+                        -->
+                        <div id="fullScreenNewMails">
+                            <button class="newMailNavBtn" id="fullscreenBtn" onclick="fullScreenNewMails()"></button>
                         </div>
                         <div>
-                            <button class="newMailNavBtn" id="hideNewMail"></button>
+                            <button class="newMailNavBtn" id="hideNewMail" onclick="exitNewMails()"></button>
                         </div>
                     </div>
                     
@@ -184,7 +189,7 @@
                 <div class="newMailWrap">
 
                     <!--new mail title-->
-                    <div class="newMailTitle">
+                    <div class="newMailTitle newMailCh">
                         <div class="newMailTitleTop newMailTop">
                             <!--
                             <div class="NewMailIcon">
@@ -209,7 +214,7 @@
                     <!--new mail title-->
 
                     <!--purpose-->
-                    <div class="newMailPurpose">
+                    <div class="newMailPurpose newMailCh">
                         <!--purpose general-->
                         <div class="NewPurposeTop newMailTop">
                             <div class="newPurposeTopTitle">
@@ -224,7 +229,7 @@
                             </div>
                         </div>
                         <div class="newMailPurposeTextField">
-                            <div>
+                            <div class="purposeLeft">
                                 <!--Type dropdown-->
                                 <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
                                     <option value="0">Select type of mail</option>
@@ -234,7 +239,7 @@
                                 <!--Type dropdown-->
                             </div>
                             <!--formality-->
-                            <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap">
+                            <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap purposeRight">
                                 <div class="newMailFormalitySwitch">
                                     <label class="newFormalitySwitch switch">
                                         <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
@@ -262,7 +267,7 @@
                     <!--purpose-->
 
                     <!--recipient-->
-                    <div class="newMailRecipient">
+                    <div class="newMailRecipient newMailCh">
                         <div class="NewRecipientTop newMailTop">
                             <!--
                             <div>
@@ -295,7 +300,7 @@
                     <!--recipient-->
 
                     <!--reason-->
-                    <div class="newReason" id="newReason">
+                    <div class="newReason newMailCh" id="newReason">
                         <div class="newReasonTitleField newMailTop">
                             <!--
                             <div>
@@ -318,7 +323,7 @@
 
 
                     <!--generate new mail-->
-                    <div class="newMailGenerate">
+                    <div class="newMailGenerate newMailCh">
                         <div class="newMailBtnWrap">
                             <div>
                                 <button class="newMailGenerateBtn" id="NewMailSubmitBtn"
@@ -890,7 +895,7 @@
     hideContact();
     hideTutorial();
     hideMails();
-    displayMode(0);
+    displayMode(5);
     //displayModeAddContacts(-1);
 </script>
 <!--script-->
