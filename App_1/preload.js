@@ -72,6 +72,8 @@ function setupDb() {
         title NVARCHAR(50) NOT NULL,
         date_generated DATE NOT NULL,
         content TEXT NOT NULL,
+        type NVARCHAR(50) NOT NULL,
+        reason TEXT NOT NULL,
         CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
         CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
@@ -623,11 +625,11 @@ function fullScreenNewMails(){
 function exitNewMails(){
     document.getElementById('newMailFrame').style.display = 'none';
     if(displayModeId === 0){
-        alert("ba");
+        //alert("ba");
         displayMode(5);
     }
     else{
-        alert("ba2");
+        //alert("ba2");
         displayMode(displayModeId);
     }   
 }
@@ -1290,8 +1292,6 @@ async function submitContact() {
                     bio.innerHTML = "";
                     gender.value = 'm';
 
-                    console.log(InsertedContactId);
-
                     displayModeAddContacts(InsertedContactId);
                 }
                 //unsuccessful
@@ -1422,8 +1422,6 @@ async function displayModeAddContacts(contactId) {
 
             //query successful - FILL FORM
             if (row != null) {
-                alert("load contact success");
-
                 firstName.value = row.name;
                 lastName.value = row.surname;
                 bio.innerHTML = row.bio;
@@ -1460,10 +1458,8 @@ async function displayModeAddContacts(contactId) {
         }
         //data not found
         catch (error) {
-            console.log(error);
             //contactMode = 0;
             contactHiddenId = -1;
-            alert("Error loading contact info");
         }
     }
 }
@@ -1494,7 +1490,7 @@ async function displayModeGenerated(mailId) {
 
         //query for mail
         try {
-            let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content
+            let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content, type, reason
             FROM Mails
             WHERE id_mail = '${mailId}'`;
 
@@ -1507,7 +1503,7 @@ async function displayModeGenerated(mailId) {
                 let contactName = "";
 
                 try {
-                    let contactQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio 
+                    let contactQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender 
                     FROM Contacts 
                     WHERE id_contact = '${row.id_contact}'`;
 
@@ -1526,8 +1522,14 @@ async function displayModeGenerated(mailId) {
                 //if name could not be resolved - show contact as 'Contact X'
                 catch (error2) {
                     console.log("Contact name error: " + error2);
-                    contactName = "Contact " + row.id_contact;
+                    contactName = "Contact (ID: " + row.id_contact + ")";
                 }
+
+                let dateArr = (row.date_generated).split('-');
+                let dateYear = dateArr[0];
+                let dateMonth = dateArr[1];
+                let dateDay = dateArr[2];
+                let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`; 
 
                 //FILL RIGHT WINDOW WITH MAIL CONTENT
                 document.getElementById('generatedMailWrap').innerHTML = `
@@ -1538,21 +1540,30 @@ async function displayModeGenerated(mailId) {
                     <div class="selectedMailTop">
                         <div class="selectedMailTopLeft">  
                             <div class="selectedMailTopTitle">
-                                ${row.title}
+                                ${row.title} <span style='font-size: 14px;'>(${row.type})</span>
                             </div>
                             <div class="selectedMailTopContact">
-                                <span style="font-size: 13px">to</span> <a onclick="displayModeAddContacts(${row.id_contact})" href="#">${contactName}</a>
+                                <span style="font-size: 13px">to</span> <a onclick="displayModeAddContacts(${row.id_contact})" href="#" class='generatedContactLink'>${contactName}</a>
                             </div>
                         </div>
                         <div class="selectedMailTopRight">
-                            ${(row.date_generated).replaceAll("-", ".")}
+                            ${formattedDate}
                         </div>
                     </div>
                     <!--mail title-->
 
                     <!--mail content-->
-                    <div class="selectedMailMiddle">${(row.content).trim()}</div>
+                    <div class="selectedMailMiddle" id="selectedMailMiddle">${(row.content).trim()}</div>
                     <!--mail content-->
+
+                    <!--mail reason-->
+                    <div class="selectedMailReason" id="selectedMailReason">
+                        <div class="selectedMailReasonTop">
+                            Reason for writing mail
+                        </div>
+                        <div class="selectedMailReasonContent">&raquo;${row.reason}&laquo;</div>
+                    </div>
+                    <!--mail reason-->
                 </div>
                 `;
 
@@ -1616,56 +1627,97 @@ async function generateMail() {
 
     if (title.value.trim() == "") {
         allgood = false;
+        console.log("title");
     }
 
-    if (recipient.selectedIndex == 0) {
+    if (recipient.value == 0) {
         allgood = false;
+        console.log("rec");
     }
 
-    if (purpose.selectedIndex == 0) {
+    if (purpose.value == 0) {
         allgood = false;
+        console.log("type");
     }
 
-    if (reason.innerHTML.trim() == "") {
+    if (reason.value.trim() == "") {
         allgood = false;
+        console.log("reason / purpose for writing");
     }
 
     //3. insert data into prompt
 
-    try{
-        let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender`;
-        const contactData = SqlGetPromise(query);
+    if(allgood){
+        try{
+            let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender
+            FROM Contacts
+            WHERE id_contact = '${recipient.value}'`;
+            const contactData = await SqlGetPromise(query);
 
-        if(contactData != null){
+            if(contactData != null){
+                let name = contactData.name, surname = contactData.surname;
+                let dob = contactData.dob, relation = ", my " + contactData.relation; 
+                let bio = contactData.bio;
+                let gender = 'male'; 
+    
+                if(contactData.gender == 'f'){
+                    gender = 'female';
+                }
+    
+                if(relation == "other") relation = "";
+    
+                if(bio != "") bio = `Extra info about reciever: '${bio}'` 
+    
+                let recipientDesc = `${name} ${surname}${relation}`;
+    
+                let EngPrompt = `
+                Receiver: ${recipientDesc} (${gender}${relation})
+                Date of birth of receiver (year/month/day): ${dob} 
+                ${bio}
+                Formality: ${formalTextEng}
+                Type of mail: ${purpose.value}
+                Reason for writing mail: '${reason.value.trim()}'
+                
+    
+                Sender info: 
+                Reciever info:
+    
+                With the data above, create an email, that is designed and tailored with the degree of formality mentioned above using the right style/type. 
+                Use your creativity to connect the sender and receivers info into the email as needed and if it makes sense. 
+                If the email was successfully created, make the last bit in the string of the output as the number 1 (add the number at the end)
+                `;
+                console.log(EngPrompt);
 
+                try {
+                    const generateRequest = await openai.chat.completions.create({
+                        messages: [{ role: "system", content: EngPrompt }],
+                        model: "gpt-3.5-turbo"
+                    });
+            
+                    console.log(generateRequest.choices[0].message.content);
+                }
+                catch (error) {
+                    console.log(error);
+                    alert("Mail could not be generated. We apologize for the inconvenience.");
+                }
+            }
+        }
+        catch(error){
+            console.log(error);
         }
     }
-    catch(error){
-
+    else{
+        alert("All inputs have to be filled out properly.");
     }
+    
 
+    
 
-    let EngPrompt = `
-    Sender: 
-    Receiver: ${recipient}
-    Subject: ${purpose}
-    Formality: ${formalTextEng}
-    Style/Type: 
-    Extra info: ${reason}
-
-    Sender info:
-    Reciever info:
-
-    With the data above, create an email, that is designed and tailored with the degree of formality mentioned above using the right style/type. 
-    Use your creativity to connect the sender and receivers info into the email as needed and if it makes sense. 
-    If the email was successfully created, make the last bit in the string of the output as the number 1 (add the number at the end)
-    `;
-
-    //4. send request to openai via the API
-    ////------- TO DO (SOVIČ, MAXI)
+    //4. send request to openai via the API 
+    /*
     try {
         const generateRequest = await openai.chat.completions.create({
-            messages: [{ role: "system", content: prompt }],
+            messages: [{ role: "system", content: EngPrompt }],
             model: "gpt-3.5-turbo"
         });
 
@@ -1675,7 +1727,7 @@ async function generateMail() {
         console.log(error);
         alert("Mail could not be generated. We apologize for the inconvenience.");
     }
-
+    */
     //check if the email is correct - whether chatGPT understood the prompt or not
     //understood - clear text fields, go to mail
     //didn't understand - display "Your input data could not be understood by the AI"

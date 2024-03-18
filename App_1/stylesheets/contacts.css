@@ -216,7 +216,7 @@
     border-left: 7.5px solid white;
 }
 
-.addContactRelationInput{
+.addContactRelationInput, .genderSelect{
     background-color: transparent;
     color: white;
     font-size: 15px;
@@ -227,6 +227,17 @@
     outline: none;
     transition: 0.1s;
     font-family: 'Kanit', sans-serif;
+}
+
+.genderSelect:hover{
+    border-left: 7.5px solid white;
+    transition: 0.1s;
+    background-color: rgb(60, 40, 0);
+}
+
+.genderSelect:focus{
+    background-color: transparent;
+    border-left: 7.5px solid white;
 }
 
 .addContactRelationInput:hover{
@@ -240,7 +251,7 @@
     border-left: 7.5px solid white;
 }
 
-.addContactRelationInput > option{
+.addContactRelationInput > option, .genderSelect > option{
     background-color: transparent;
     color: black;
 }

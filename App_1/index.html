@@ -233,7 +233,7 @@
                                 <!--Type dropdown-->
                                 <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
                                     <option value="0">Select type of mail</option>
-                                    <option value="invite">Invitation</option>
+                                    <option value="invitation">Invitation</option>
                                     <option value="apology">Apology</option>
                                 </select>
                                 <!--Type dropdown-->
@@ -313,9 +313,7 @@
 
                         </div>
                         <div class="newMailReasonTextField">
-                            <textarea name="newReason" class="newReasonTextField"
-                                placeholder="Max. 200 characters, required" maxlength="200" id="newReasonTextArea"
-                                onblur="onBlurReasonTextBox()"></textarea>
+                            <textarea name="newReason" class="newReasonTextField" placeholder="Max. 200 characters, required" maxlength="200" id="newReasonTextArea"></textarea>
                         </div>
                     </div>
                     <!--reason-->
@@ -501,7 +499,7 @@
                             </div>
                             <div class="addContactGenderInner">
                                 <div>
-                                    <select id="genderSelect" class="genderSelect">
+                                    <select id="genderSelect" class="genderSelect" oninput="this.blur()">
                                         <option value="m">Male</option>
                                         <option value="f">Female</option>
                                     </select>

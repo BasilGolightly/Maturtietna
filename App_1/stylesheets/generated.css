@@ -175,10 +175,33 @@
 }
 
 .selectedMailMiddle{
+    display: grid;
     font-size: 13px;
     white-space: pre-wrap;
+    height: 100%;
+    overflow: auto;
+}
+
+.selectedMailReason{
+    display: none;
+    grid-template-columns: auto;
+    grid-template-rows: 50px auto;
     max-height: 100%;
     overflow: auto;
+}
+
+.selectedMailReasonContent{
+    width: 100%;
+    white-space: pre-wrap;
+    font-size: 13px;
+}
+
+.selectedMailReasonTop{
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    font-size: 15px;
+    text-decoration: underline;
 }
 
 .selectedMailTopTitle{
@@ -237,6 +260,18 @@
     .generatedLetterContent{
         font-size: 12px;
     }
+}
+
+.generatedContactLink{
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Kanit', sans-serif;
+}
+
+.generatedContactLink:hover{
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 /*GENERATED*/
