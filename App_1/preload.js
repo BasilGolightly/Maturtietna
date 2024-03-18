@@ -1,10 +1,21 @@
 //const{ contextBridge } = require('electron');
 /*const openAIReq = require("openai");
 const openai = new openAIReq.OpenAI();*/
+
 const { count } = require('console');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-const apiKey = "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";
+const ApiKey = "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";
+/*
+import OpenAI from "openai";
+const openai = new OpenAI({
+    apiKey: ApiKey
+});
+*/
+const { OpenAI } = require("openai");
+const openai = new OpenAI({ apiKey: ApiKey, dangerouslyAllowBrowser: true });
+
+/*------------------------REQUIRE-----------------------*/
 
 //connect to sql DB
 let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -22,6 +33,7 @@ function setupDb() {
         id_user INTEGER PRIMARY KEY AUTOINCREMENT,
         username NVARCHAR(50) NOT NULL,
         password NVARCHAR(255) NOT NULL,
+        lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
         firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1'))
     );`, (err) => {
         if (err) {
@@ -38,9 +50,10 @@ function setupDb() {
         id_user INTEGER NOT NULL,
         name NVARCHAR(50) NOT NULL,
         surname NVARCHAR(50) NOT NULL,
-        dob DATE NOT NULL,
-        relation INTEGER NOT NULL,
+        dob DATETIME NOT NULL,
+        relation NVARCHAR(50) NOT NULL,
         bio TEXT,
+        gender NVARCHAR(10) NOT NULL CHECK(gender IN('m', 'f')),
         CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
         if (err) {
@@ -139,6 +152,32 @@ function SqlAllPromise(query) {
     })
 }
 
+//EXECUTE INSERT INTO FOR NEW USER AND RETURN THE NEW ID IF SUCCESSFUL
+function SqlRegisterPromise(query) {
+    return new Promise((resolve, reject) => {
+
+        db.run(query, function (err) {
+            //failed DML
+            if (err) {
+                reject(err);
+            }
+
+            resolve(this.lastID);
+        })
+    })
+}
+
+//PREPARE 
+/*
+function SqlPreparePromise(query){
+    return new Promise((resolve, reject) => {
+        db.prepare(query, (err, result) => {
+
+        }
+    })
+}
+*/
+
 /*-------------------------------------SQL FUNCTIONS-------------------------------------*/
 
 /*-------------------------------------REGISTER-------------------------------------*/
@@ -208,26 +247,11 @@ function registerCheck() {
     }
 }
 
-//EXECUTE INSERT INTO FOR NEW USER AND RETURN THE NEW ID IF SUCCESSFUL
-function SqlRegisterPromise(query) {
-    return new Promise((resolve, reject) => {
-
-        db.run(query, function (err) {
-            //failed DML
-            if (err) {
-                reject(err);
-            }
-
-            resolve(this.lastID);
-        })
-    })
-}
-
 //INSERT INTO USERS 
 async function register(username, password) {
     try {
         //insert into users table
-        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', '1')`);
+        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', 'en', '1')`);
         console.log("New account ID: " + id);
 
         //write to intermediary JSON file
@@ -411,9 +435,6 @@ let isFullScreen = true;
 
 async function displayMode(mode) {
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
-    let date = new Date();
-    date.setFullYear(date.getFullYear() - 10);
-    document.getElementById('addContactDOB').max = date.getFullYear + "-" + date.getMonth() + "-" + date.getDate();
 
     let navItems = document.getElementsByClassName('listItem');
     let Windowframes = document.getElementsByClassName('windowFrame');
@@ -559,7 +580,7 @@ function fullScreenNewMails(){
         `;
         newMailHead.style.padding = '15px 1vw 0 15px';
         for(let i = 0; i < newMailChapters.length; i++){
-
+            newMailChapters[i].style.fontSize = '16px';
         }
         newMailFrame.style.display = 'flex';
 
@@ -584,6 +605,11 @@ function fullScreenNewMails(){
         `;
         newMailHead.style.padding = '15px 15px 15px 0';
         let Windowframes = document.getElementsByClassName('windowFrame');
+       
+        for(let i = 0; i < newMailChapters.length; i++){
+            newMailChapters[i].style.fontSize = '18px';
+        }
+        
         //hide all frames
         for (let i = 0; i < Windowframes.length; i++) {
             Windowframes[i].style.display = "none";
@@ -1217,6 +1243,7 @@ async function submitContact() {
     let dob = document.getElementById('addContactDOB');
     let relation = document.getElementById('addContactRelation');
     let bio = document.getElementById('addContactBio');
+    let gender = document.getElementById('genderSelect');
 
     let allgood = true;
 
@@ -1238,27 +1265,30 @@ async function submitContact() {
 
     //check if all inputs were correctly filled out
     if (allgood) {
-        firstName = firstName.value.trim();
-        lastName = lastName.value.trim();
-        relation = relation.value;
-        bio = bio.innerHTML.trim();
+        let firstNameVar = firstName.value.trim();
+        let lastNameVar = lastName.value.trim();
+        let relationVar = relation.value;
+        let bioVar = bio.innerHTML.trim();
+        let dobVar = dob.value.trim();
+        let genderVar = gender.value.trim();
 
         //INSERT INTO - contact id is -1 or less
         if (contactHiddenId < 0) {
             console.log("add");
             //try INSERT
             try {
-                let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstName}', '${lastName}', '${dob}', '${relation}', '${bio}')`;
-                const InsertedContactId = await SqlRunPromise(query);
+                let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstNameVar}', '${lastNameVar}', '${dobVar}', '${relationVar}', '${bioVar}', '${genderVar}')`;
+                const InsertedContactId = await SqlRegisterPromise(query);
                 //console.log(InsertedContactId);
-
+                console.log(InsertedContactId);
                 //successful query
-                if (InsertedContactId == undefined) {
+                if (InsertedContactId != undefined) {
                     //after insert, clear fields and display contact
                     firstName.value = "";
                     lastName.value = "";
-                    relation.value = '0';
+                    relation.value = 'sibling';
                     bio.innerHTML = "";
+                    gender.value = 'm';
 
                     console.log(InsertedContactId);
 
@@ -1284,7 +1314,7 @@ async function submitContact() {
             //try UPDATE
             try {
                 let query = `UPDATE Contacts
-                SET name = '${firstName}', surname = '${lastName}', dob = '${dob}', relation = '${relation}', bio = '${bio}'
+                SET name = '${firstNameVar}', surname = '${lastNameVar}', dob = '${dobVar}', relation = '${relationVar}', bio = '${bioVar}', gender = '${genderVar}'
                 WHERE id_contact = '${contactHiddenId}'`;
                 const UpdatedContactId = await SqlRunPromise(query);
                 //console.log(UpdatedContactId);
@@ -1344,7 +1374,10 @@ async function displayModeAddContacts(contactId) {
     let addBtn = document.getElementById('addContactSubmitBtn');
     let bio = document.getElementById('addContactBio');
     let delBtn = document.getElementById('deleteWrap');
+    let gender = document.getElementById('genderSelect');
 
+    dob.value = '';
+    gender.value = 'm';
     //ADD contact
     if (contactId < 0) {
         //rewrite title text to "contacts > add"
@@ -1358,7 +1391,7 @@ async function displayModeAddContacts(contactId) {
         lastName.value = "";
         bio.innerHTML = "";
         dob.value = "";
-        relation.value = '0';
+        relation.value = 'sibling';
 
         //change value of button to ADD CONTACT, hide DELETE BUTTON
         addBtn.innerHTML = "Add contact";
@@ -1381,7 +1414,7 @@ async function displayModeAddContacts(contactId) {
     else {
         //get contact data from id
         try {
-            let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio 
+            let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender
             FROM Contacts 
             WHERE id_contact = '${contactId}'`;
 
@@ -1395,6 +1428,8 @@ async function displayModeAddContacts(contactId) {
                 lastName.value = row.surname;
                 bio.innerHTML = row.bio;
                 relation.value = row.relation;
+                dob.value = row.dob;
+                gender.value = row.gender;
 
                 //rewrite title text to "Contacts > [name of contact]"
                 document.getElementById('contactsHeadTitleText').innerHTML = `<a class='titleLink' href='#' onclick='displayMode(2)'>Contacts</a> > ${row.name + " " + row.surname}`;
@@ -1455,7 +1490,7 @@ async function displayModeGenerated(mailId) {
     else {
         selectedMailId = mailId;
         //alert("ba");
-        //selectedMail.style.borderLeft = "5px solid gray";
+        selectedMail.style.borderLeft = "5px solid gray";
 
         //query for mail
         try {
@@ -1563,11 +1598,10 @@ async function generateMail() {
     let purpose = document.getElementById('newMailPurpose');
     let reason = document.getElementById('newReasonTextArea');
     //let formalityItem = document.getElementById('newFormalityCheck').value;
-    let formal = formality;
     let formalTextSlo = "";
     let formalTextEng = "";
 
-    if (formal) {
+    if (formality) {
         formalTextEng = "Formal";
         formalTextSlo = "Da";
     }
@@ -1598,23 +1632,18 @@ async function generateMail() {
 
     //3. insert data into prompt
 
-    ////------- TO DO (SOVIČ, MAXI)
-    /*
-    let SloPrompt = `
-    Posiljatel: [login_name] //change it to how u fetch the login name
-    Naslovnik: [naslovnik]
-    Zadeva: [zadeva]
-    Formalnost: ${formalTextSlo}
-    Stil: [stil]
-    Dodatne informacije: ${reason}
-    Informacije o posiljatelju: [info id=0] //for the guy sending the email ~required profile~
-    Informacije o naslovniku: [info id=naslovnik] //you see the idea here
+    try{
+        let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender`;
+        const contactData = SqlGetPromise(query);
 
-    Na osnovi zgoraj navedenih podatkov, prosim ustvari e-mail sporočilo, 
-    ki je prilagojeno želeni stopnji formalnosti in stilu, 
-    uporabi tudi kreativnost ter povezi informacije o uporabniku z sporocilom. 
-    Ce je bilo sporocilo uspesno kreirano, kot zadnji bit verige tvojega izhodnega sporocila dodaj stevilo 1
-    `;*/
+        if(contactData != null){
+
+        }
+    }
+    catch(error){
+
+    }
+
 
     let EngPrompt = `
     Sender: 

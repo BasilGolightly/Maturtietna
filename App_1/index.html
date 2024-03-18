@@ -494,14 +494,32 @@
                         </div>
                         <!--first + last name-->
 
+                        <!--gender-->
+                        <div class="addContactGenderWrap">
+                            <div class="addContactGenderTitle addContactTitle">
+                                Gender <span class="red star">*</span>
+                            </div>
+                            <div class="addContactGenderInner">
+                                <div>
+                                    <select id="genderSelect" class="genderSelect">
+                                        <option value="m">Male</option>
+                                        <option value="f">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--gender-->
+
                         <!--Date of birth-->
                         <div class="addContactDateOfBirthWrap">
                             <div class="addContactDateOfBirthTitle addContactTitle">
                                 Date of birth <span class="red star">*</span>
                             </div>
                             <div>
+                                <!--
                                 <input class="addContactDobInput" id="addContactDOB" type="date" onchange="this.blur()"
-                                    onkeydown="javascript: this.blur()">
+                                    onkeydown="javascript: this.blur()">-->
+                                <input class="addContactDobInput" id="addContactDOB" type="date">
                             </div>
                         </div>
                         <!--Date of birth-->
@@ -512,19 +530,19 @@
                                 Relation <span class="red star">*</span>
                             </div>
                             <div>
-                                <select class="addContactRelationInput" id="addContactRelation" onchange="this.blur()">
-                                    <option value="0">Sibling</option>
-                                    <option value="1">Parent</option>
-                                    <option value="2">Child</option>
-                                    <option value="3">Grandchild</option>
-                                    <option value="4">Grandparent</option>
-                                    <option value="5">Uncle / aunt</option>
-                                    <option value="6">Nephew / Niece</option>
-                                    <option value="7">Cousin</option>
-                                    <option value="8">Relative</option>
-                                    <option value="9">Acquaintance</option>
-                                    <option value="10">Friend</option>
-                                    <option value="11">Other</option>
+                                <select class="addContactRelationInput" id="addContactRelation" oninput="this.blur()">
+                                    <option value="sibling">Sibling</option>
+                                    <option value="parent">Parent</option>
+                                    <option value="child">Child</option>
+                                    <option value="grandchild">Grandchild</option>
+                                    <option value="grandparent">Grandparent</option>
+                                    <option value="uncle">Uncle / aunt</option>
+                                    <option value="nephew">Nephew / Niece</option>
+                                    <option value="cousin">Cousin</option>
+                                    <option value="relative">Relative</option>
+                                    <option value="acquaintance">Acquaintance</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                         </div>

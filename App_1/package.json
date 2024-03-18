@@ -13,7 +13,7 @@
     "electron": "^28.2.5"
   },
   "dependencies": {
-    "openai": "^4.28.4",
+    "openai": "^4.29.1",
     "sql.js": "^1.10.2",
     "sqlite3": "^5.1.7"
   }
