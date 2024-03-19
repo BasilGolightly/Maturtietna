@@ -27,14 +27,16 @@ let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
     }
 });
 
-function setupDb() {
+async function setupDb() {
     //CREATE USERS TABLE
     db.run(`CREATE TABLE IF NOT EXISTS Users(
         id_user INTEGER PRIMARY KEY AUTOINCREMENT,
-        username NVARCHAR(50) NOT NULL,
+        username NVARCHAR(50) UNIQUE NOT NULL,
         password NVARCHAR(255) NOT NULL,
         lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
-        firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1'))
+        firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
+        firstName NVARCHAR(50) NOT NULL,
+        lastName NVARCHAR(50) NOT NULL
     );`, (err) => {
         if (err) {
             console.error(err.message);
@@ -243,9 +245,14 @@ function registerCheck() {
     }
     */
 
+    //fullname check
+    if(firstName == "" || lastName == ""){
+        allgood = false;
+    }
+
     //if all is in proper format, proceed with register
     if (allgood) {
-        register(username, password);
+        register(username, password, firstName, lastName);
     }
     //if not, output error
     else {
@@ -254,10 +261,11 @@ function registerCheck() {
 }
 
 //INSERT INTO USERS 
-async function register(username, password) {
+async function register(username, password, firstName, lastName) {
+
     try {
         //insert into users table
-        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', 'en', '1')`);
+        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', 'en', '1', '${firstName}', '${lastName}')`);
         console.log("New account ID: " + id);
 
         //write to intermediary JSON file
@@ -927,7 +935,7 @@ async function loadUserProfile() {
             document.getElementById('accSettingsUsernameTextField').value = obj.UserName;
 
             try {
-                let query = `SELECT firstTime, password 
+                let query = `SELECT firstTime, password, firstName, lastName  
                 FROM Users
                 WHERE id_user = '${obj.Id}'`;
                 const row = await SqlGetPromise(query);
@@ -936,6 +944,8 @@ async function loadUserProfile() {
                 //successful query for password
                 if (row != null) {
                     document.getElementById('accSettingsPasswordTextField').value = row.password;
+                    document.getElementById('globalFirstName').innerHTML = row.firstName;
+                    document.getElementById('globalLastName').innerHTML = row.lastName;
                 }
             }
             catch (error) {
@@ -1653,6 +1663,8 @@ async function generateMail() {
 
     if(allgood){
         try{
+            let firstName = document.getElementById('globalFirstName').innerHTML;
+            let lastName = document.getElementById('globalLastName').innerHTML;
             let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender
             FROM Contacts
             WHERE id_contact = '${recipient.value}'`;
@@ -1683,7 +1695,7 @@ async function generateMail() {
                 Reason for writing mail: '${reason.value.trim()}'
                 
     
-                Sender info: 
+                Sender: ${firstName} ${lastName}
                 Reciever info:
     
                 With the data above, create an email, that is designed and tailored with the degree of formality mentioned above using the right style/type. 

@@ -20,7 +20,7 @@ h1 {
     font-size: 20px;
 }
 
-.globalIdUser{
+.globalIdUser, .globalFirstName, .globalLastName{
     display: none;
 }
 
