@@ -76,6 +76,7 @@ async function setupDb() {
         content TEXT NOT NULL,
         type NVARCHAR(50) NOT NULL,
         reason TEXT NOT NULL,
+        formality NVARCHAR(25) NOT NULL CHECK(formality IN('Formal', 'Informal', 'informal', 'formal')),
         CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
         CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
@@ -161,6 +162,20 @@ function SqlRegisterPromise(query) {
     return new Promise((resolve, reject) => {
 
         db.run(query, function (err) {
+            //failed DML
+            if (err) {
+                reject(err);
+            }
+
+            resolve(this.lastID);
+        })
+    })
+}
+
+function SqlRegisterPromise(query, arr) {
+    return new Promise((resolve, reject) => {
+
+        db.run(query, arr, function (err) {
             //failed DML
             if (err) {
                 reject(err);
@@ -669,6 +684,15 @@ function searchBarClear() {
     searchBar.value = "";
     document.getElementById('clearBtnDiv').style.display = 'none';
     displayMode(displayModeId);
+    searchBar.focus();
+}
+
+function searchBarDelete(){
+
+}
+
+function searchBarCopy(){
+    
 }
 
 //show results of search - found contact names, mails
@@ -733,7 +757,7 @@ async function searchBarSubmit() {
                 contactResultCount = Contactrows.length;
                 totalCount += contactResultCount;
 
-                console.log(Contactrows);
+                //console.log(Contactrows);
                 //display found contacts
                 for (let i = 0; i < Contactrows.length; i++) {
                     document.getElementById('searchContactsResultWrap').innerHTML += `
@@ -792,7 +816,13 @@ async function loadMails() {
                 for (let i = 0; i < rows.length; i++) {
 
                     let content = rows[i].content;
-                    let quick_content = content.substring(0, 16) + '...';
+                    let quick_content = content.substring(0, 30) + '...';
+
+                    let dateArr = (rows[i].date_generated).split('-');
+                    let dateYear = dateArr[0];
+                    let dateMonth = dateArr[1];
+                    let dateDay = dateArr[2];
+                    let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`; 
 
                     document.getElementById('generatedWrap').innerHTML += `
 
@@ -802,7 +832,7 @@ async function loadMails() {
                                 ${rows[i].title}
                             </div>
                             <div class="generatedLetterDate" id="dateMail${rows[i].id_mail}">
-                                ${(rows[i].date_generated).replaceAll("-", ".")}
+                                ${formattedDate}
                             </div>
                         </div>
 
@@ -1284,7 +1314,7 @@ async function submitContact() {
         let firstNameVar = firstName.value.trim();
         let lastNameVar = lastName.value.trim();
         let relationVar = relation.value;
-        let bioVar = bio.innerHTML.trim();
+        let bioVar = bio.value.trim();
         let dobVar = dob.value.trim();
         let genderVar = gender.value.trim();
 
@@ -1293,8 +1323,9 @@ async function submitContact() {
             console.log("add");
             //try INSERT
             try {
-                let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstNameVar}', '${lastNameVar}', '${dobVar}', '${relationVar}', '${bioVar}', '${genderVar}')`;
-                const InsertedContactId = await SqlRegisterPromise(query);
+                //let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstNameVar}', '${lastNameVar}', '${dobVar}', '${relationVar}', '${bioVar}', '${genderVar}')`;
+                let query = `INSERT INTO Contacts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)`;
+                const InsertedContactId = await SqlRegisterPromise(query, [`${idUser}`, `${firstNameVar}`, `${lastNameVar}`, `${dobVar}`, `${relationVar}`, `${bioVar}`, `${genderVar}`]);
                 //console.log(InsertedContactId);
                 console.log(InsertedContactId);
                 //successful query
@@ -1484,7 +1515,7 @@ async function displayModeGenerated(mailId) {
 
     let mails = document.getElementsByClassName('generatedLetter');
     let selectedMail = document.getElementById('generatedLetter' + mailId);
-    selectedMail.style.borderLeft = "5px solid gray";
+    console.log(mailId);
 
     for (let i = 0; i < mails.length; i++) {
         mails[i].style.borderLeft = "3px solid gray";
@@ -1492,12 +1523,14 @@ async function displayModeGenerated(mailId) {
 
     //deselect - HIDE MAIL
     if (selectedMailId == mailId) {
+        console.log("deselect");
         selectedMail.style.borderLeft = "3px solid gray";
         selectedMailId = 0;
     }
 
     //select mail - SHOW MAIL
     else {
+        console.log("select");
         selectedMailId = mailId;
         //alert("ba");
         selectedMail.style.borderLeft = "5px solid gray";
@@ -1687,30 +1720,27 @@ async function generateMail() {
     
                 if(relation == "other") relation = "";
     
-                if(bio != "") bio = `Extra info about reciever: '${bio}'` 
-                console.log("Bio: " + bio);
-    
                 let recipientDesc = `${name} ${surname}${relation}`;
     
                 let EngPrompt = `Receiver: ${recipientDesc} (${gender}${relation})
                 Date of birth of receiver (year/month/day): ${dob} 
-                ${bio}
+                Extra info about receiver: ${bio}
                 Formality: ${formalTextEng}
                 Type of mail: ${purpose.value}
                 Reason for writing mail: '${reason.value.trim()}'
-                
-    
-                Sender: ${firstName} ${lastName}
-                Reciever info:
-    
+
+                My name (sender name): ${firstName} ${lastName}
+
                 With the data above, create an email, that is designed and tailored with the degree of formality mentioned above using the right style/type. 
                 Use your creativity to connect the sender and receivers info into the email as needed and if it makes sense. 
-                If the email was successfully created, make the last bit in the string of the output as the number 1 (add the number at the end)
+                If the email was successfully created, make the last bit in the string of the output as the number 1 (add the number at the end).  
+                If any information is missing, indicate it as '2' instead of '1' at the end of the output. 
+                If the email is not making sense or is incomplete indicate with "3" instead of "1".
                 `;
                 console.log(EngPrompt);
-
+                let generateBtn = document.getElementById('NewMailSubmitBtn');
                 try {
-                    let generateBtn = document.getElementById('NewMailSubmitBtn');
+                    
                     generateBtn.innerHTML = "Generating <img src='pictures/loading_icon_2.gif' id='generateLoadingImg'>"
                     const generateRequest = await openai.chat.completions.create({
                         messages: [{ role: "system", content: EngPrompt }],
@@ -1718,20 +1748,37 @@ async function generateMail() {
                     });
                     
                     let ReturnedMail = generateRequest.choices[0].message.content.trimEnd(); 
-                    //console.log(ReturnedMail);
+                    console.log(ReturnedMail);
 
                     //success
                     if(ReturnedMail.substring(ReturnedMail.length - 1) == '1'){
                         ReturnedMail = ReturnedMail.substring(0, ReturnedMail.length - 1).trimEnd();
                         console.log(ReturnedMail);
                         let idUser = document.getElementById('globalIdUser').innerHTML;
-                        try{
-                            let saveQuery = `INSERT INTO Mails 
-                            VALUES(NULL, '${recipient.value}', '${idUser}', '${title.value}', '', '${ReturnedMail}', '${purpose.value}', '${reason.value}')`;
-                            const savedMail = await SqlRegisterPromise(saveQuery);
+                        const date = new Date();
+                        let day = date.getDate();
+                        let month = date.getMonth() + 1;
+                        let year = date.getFullYear();
+
+                        /*let formal = '1';
+                        if(!formality) formal = '0';*/
+
+                        let saveQuery = `INSERT INTO Mails VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+                        try{    
+                            const savedMail = await SqlRegisterPromise(saveQuery, [`${recipient.value}`, `${idUser}`, `${title.value}`, `${year}-${month}-${day}`, `${ReturnedMail}`, `${purpose.value}`, `${reason.value}`, `${formalTextEng}`]);
+
+                            if(savedMail != null){
+                                await loadMails();
+                                await displayModeGenerated(savedMail);
+                            }
+                            else{
+                                displayMode(1);
+                            }
                         }
                         catch(error){
                             console.log("insert mail error: " + error);
+                            console.log(saveQuery);
                             alert("Mail could not be saved.");
                         }
                     }
@@ -1745,17 +1792,6 @@ async function generateMail() {
                     else{
                         alert("The AI could not understand your inputs. Please double check them.");
                     }
-                    /*
-                    try{
-                        let saveQuery = `INSERT INTO Mails 
-                        VAULES()`;
-                        const savedMail = await SqlRegisterPromise(Savequery);
-                    }
-                    catch(error){
-                        console.log("insert mail error: " + error);
-                        alert("Mail could not be saved.");
-                    }
-                    */
 
                     generateBtn.innerHTML = "Generate";
                 }
@@ -1779,27 +1815,7 @@ async function generateMail() {
     title.disabled = false;
     purpose.disabled = false;
     reason.disabled = false;
-    
-
-    //4. send request to openai via the API 
-    /*
-    try {
-        const generateRequest = await openai.chat.completions.create({
-            messages: [{ role: "system", content: EngPrompt }],
-            model: "gpt-3.5-turbo"
-        });
-
-        console.log(generateRequest);
-    }
-    catch (error) {
-        console.log(error);
-        alert("Mail could not be generated. We apologize for the inconvenience.");
-    }
-    */
-    //check if the email is correct - whether chatGPT understood the prompt or not
-    //understood - clear text fields, go to mail
-    //didn't understand - display "Your input data could not be understood by the AI"
+    title.focus();
 }
-
 
 /*-------------------------------------HOMEPAGE-------------------------------------*/

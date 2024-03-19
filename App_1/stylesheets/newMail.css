@@ -299,16 +299,16 @@
 }
 
 .newPurposeDropDown:hover{
-    transition: ease-in 0.1s;
-    border-left: 7px solid white;
+    transition: 0.1s;
+    border-left: 7.5px solid white;
     font-weight: bold;
     background-color: rgb(40, 0, 40);
 }
 
 .newPurposeDropDown:focus{
-    border-left: 7px solid white;
+    border-left: 7.5px solid white;
     font-weight: bold;
-    background-color: transparent
+    background-color: transparent;
 }
 
 .newExtraBtn {

@@ -69,14 +69,12 @@
 }
 
 .generatedLetter{
-    /*border-bottom: 1px solid gray;*/
     display: flex;
     flex-direction: column;
     text-align: left;
-    /*height: 100px;*/
     max-height: 75px;
     height: auto;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     padding: 7.5px 7.5px 7.5px 7.5px;
     width: 95%;
     border-left: 3px solid gray;
@@ -206,7 +204,6 @@
 
 .selectedMailTopTitle{
     font-size: 18px;
-    font-weight: bold;
     font-family: 'Kanit', sans-serif;
 }
 

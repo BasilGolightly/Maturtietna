@@ -233,7 +233,7 @@
                         <div class="newMailPurposeTextField">
                             <div class="purposeLeft">
                                 <!--Type dropdown-->
-                                <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose">
+                                <select class="newPurposeDropDown" name="newMailPurpose" id="newMailPurpose" oninput="javascript: this.blur()">
                                     <option value="0">Select type of mail</option>
                                     <option value="invitation">Invitation</option>
                                     <option value="apology">Apology</option>
@@ -281,9 +281,8 @@
                             </div>
                         </div>
                         <div class="NewRecipientTextDiv">
-                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown">
+                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown" oninput="javascript: this.blur()">
                                 <option value="0">Select recipient</option>
-                                <option value="1">Recipient 1</option>
                             </select>
                         </div>
                         <!--
