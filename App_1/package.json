@@ -10,7 +10,7 @@
   "author": "Mark Sadnik",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.2.5"
+    "electron": "^28.2.7"
   },
   "dependencies": {
     "openai": "^4.29.1",

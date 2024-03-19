@@ -195,7 +195,9 @@ function registerCheck() {
     let allgood = true;
     let username = document.getElementById('newUsername').value.trim();
     let password = document.getElementById('passwordtextBox1').value.trim();
-    let repeatPass = document.getElementById('passwordtextBox2').value.trim();
+    let firstName = document.getElementById('newFirstName').value.trim();
+    let lastName = document.getElementById('newLastName').value.trim();
+    //let repeatPass = document.getElementById('passwordtextBox2').value.trim();
 
     //username check
     if (username == "") {
@@ -234,10 +236,12 @@ function registerCheck() {
     }
 
     //repeat pass check
+    /*
     if (repeatPass != password || repeatPass.trim() === '') {
         error += "Passwords do not match";
         allgood = false;
     }
+    */
 
     //if all is in proper format, proceed with register
     if (allgood) {
