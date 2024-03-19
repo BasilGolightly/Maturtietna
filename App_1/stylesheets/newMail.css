@@ -42,6 +42,10 @@
 
 
 @media screen and (max-width: 1300px) {
+    /*.newMailFrame{
+        width: 30vw;
+    }*/
+
     .newMailPurposeTextField{
         display: flex;
         flex-direction: column;
@@ -497,6 +501,17 @@
 
 .newMailAddContactBtn:hover{
     background-color: #02394a;
+}
+
+#generateLoadingImg{
+    width: 12.5px;
+    height: 12.5px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    /*margin-top: 5px;*/
 }
 
 /*NEW MAIL*/

@@ -1662,6 +1662,11 @@ async function generateMail() {
     //3. insert data into prompt
 
     if(allgood){
+        recipient.disabled = true;
+        title.disabled = true;
+        purpose.disabled = true;
+        reason.disabled = true;
+
         try{
             let firstName = document.getElementById('globalFirstName').innerHTML;
             let lastName = document.getElementById('globalLastName').innerHTML;
@@ -1683,11 +1688,11 @@ async function generateMail() {
                 if(relation == "other") relation = "";
     
                 if(bio != "") bio = `Extra info about reciever: '${bio}'` 
+                console.log("Bio: " + bio);
     
                 let recipientDesc = `${name} ${surname}${relation}`;
     
-                let EngPrompt = `
-                Receiver: ${recipientDesc} (${gender}${relation})
+                let EngPrompt = `Receiver: ${recipientDesc} (${gender}${relation})
                 Date of birth of receiver (year/month/day): ${dob} 
                 ${bio}
                 Formality: ${formalTextEng}
@@ -1705,28 +1710,75 @@ async function generateMail() {
                 console.log(EngPrompt);
 
                 try {
+                    let generateBtn = document.getElementById('NewMailSubmitBtn');
+                    generateBtn.innerHTML = "Generating <img src='pictures/loading_icon_2.gif' id='generateLoadingImg'>"
                     const generateRequest = await openai.chat.completions.create({
                         messages: [{ role: "system", content: EngPrompt }],
                         model: "gpt-3.5-turbo"
                     });
-            
-                    console.log(generateRequest.choices[0].message.content);
+                    
+                    let ReturnedMail = generateRequest.choices[0].message.content.trimEnd(); 
+                    //console.log(ReturnedMail);
+
+                    //success
+                    if(ReturnedMail.substring(ReturnedMail.length - 1) == '1'){
+                        ReturnedMail = ReturnedMail.substring(0, ReturnedMail.length - 1).trimEnd();
+                        console.log(ReturnedMail);
+                        let idUser = document.getElementById('globalIdUser').innerHTML;
+                        try{
+                            let saveQuery = `INSERT INTO Mails 
+                            VALUES(NULL, '${recipient.value}', '${idUser}', '${title.value}', '', '${ReturnedMail}', '${purpose.value}', '${reason.value}')`;
+                            const savedMail = await SqlRegisterPromise(saveQuery);
+                        }
+                        catch(error){
+                            console.log("insert mail error: " + error);
+                            alert("Mail could not be saved.");
+                        }
+                    }
+
+                    //missing info
+                    else if(ReturnedMail.substring(ReturnedMail.length - 1) == '2'){
+                        alert("There is not enough information to generate the mail. Please provide the necessary info.");
+                    }
+
+                    //failed mail
+                    else{
+                        alert("The AI could not understand your inputs. Please double check them.");
+                    }
+                    /*
+                    try{
+                        let saveQuery = `INSERT INTO Mails 
+                        VAULES()`;
+                        const savedMail = await SqlRegisterPromise(Savequery);
+                    }
+                    catch(error){
+                        console.log("insert mail error: " + error);
+                        alert("Mail could not be saved.");
+                    }
+                    */
+
+                    generateBtn.innerHTML = "Generate";
                 }
                 catch (error) {
                     console.log(error);
+                    generateBtn.innerHTML = "Generate";
                     alert("Mail could not be generated. We apologize for the inconvenience.");
                 }
             }
         }
         catch(error){
             console.log(error);
+            alert("Mail could not be generated. We apologize for the inconvenience.");
         }
     }
     else{
         alert("All inputs have to be filled out properly.");
     }
     
-
+    recipient.disabled = false;
+    title.disabled = false;
+    purpose.disabled = false;
+    reason.disabled = false;
     
 
     //4. send request to openai via the API 
