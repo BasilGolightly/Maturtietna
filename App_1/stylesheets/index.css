@@ -322,6 +322,7 @@ h1 {
 }
 
 .rightTopBtn, .rightTopBtn1{
+    display: none;
     background-color: transparent;
     width: 27.5px;
     height: 27.5px;

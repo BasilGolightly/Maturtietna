@@ -1,20 +1,24 @@
-//#006786
-//0 - NEW EMAIL
-//1 - GENERATED
-//2 - CONTACTS
-//3 - SETTINGS
-/*let displayModeId = -1;
-let selectedMailId = 0;
-let date = new Date();
-date.setFullYear(date.getFullYear() - 10);
-document.getElementById('addContactDOB').max = date.getFullYear + "-" + date.getMonth() + "-" + date.getDate();
+const { readdirSync } = require("original-fs");
 
-let navItems = document.getElementsByClassName('listItem');
+let reasonShown = false;
 
-let newMailFrame = document.getElementById('newMailFrame');
-let generatedFrame = document.getElementById('generatedFrame');
-let contactsFrame = document.getElementById('contactsFrame');
-let settingsFrame = document.getElementById('settingsFrame');
-let backgroundNavColor = "rgb(35, 35, 35)";
-//let xFrame = document.getElementById('');
-*/
+function showHideReason(){
+    let btn = document.getElementById('generatedMailReasonBtn');
+    let reason = document.getElementById('selectedMailReason');
+    let content = document.getElementById('selectedMailMiddle');
+
+    //Hide
+    if(reasonShown){
+        content.style.display = "flex";
+        reason.style.display = "none";
+        btn.innerHTML = `Show reason <img class="reasonImg" src="pictures/help_icon.png">`;
+        reasonShown = false;
+    }
+    //Show
+    else{
+        content.style.display = "none";
+        reason.style.display = "flex";
+        btn.innerHTML = `Hide reason <img class="reasonImg" src="pictures/help_icon.png">`;
+        reasonShown = true;
+    }   
+}

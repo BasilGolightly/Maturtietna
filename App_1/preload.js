@@ -681,18 +681,37 @@ function searchBarCheckInput() {
 
 function searchBarClear() {
     let searchBar = document.getElementById('searchTopTextBox');
+    let navBtns = document.getElementsByClassName('rightTopBtn');
     searchBar.value = "";
     document.getElementById('clearBtnDiv').style.display = 'none';
     displayMode(displayModeId);
     searchBar.focus();
+    
+    for(let i = 0; i < navBtns.length; i++){
+        navBtns[i].style.display = "none";
+    }
 }
 
 function searchBarDelete(){
+    //delete mail
+    if(selectedMailId > 0){
 
+    }
+    //delete contact
+    else if(contactHiddenId > 0){
+
+    }
 }
 
 function searchBarCopy(){
-    
+    //copy mail
+    if(selectedMailId > 0){
+
+    }
+    //copy contact
+    else if(contactHiddenId > 0){
+
+    }
 }
 
 //show results of search - found contact names, mails
@@ -1515,7 +1534,7 @@ async function displayModeGenerated(mailId) {
 
     let mails = document.getElementsByClassName('generatedLetter');
     let selectedMail = document.getElementById('generatedLetter' + mailId);
-    console.log(mailId);
+    //console.log(mailId);
 
     for (let i = 0; i < mails.length; i++) {
         mails[i].style.borderLeft = "3px solid gray";
@@ -1523,14 +1542,19 @@ async function displayModeGenerated(mailId) {
 
     //deselect - HIDE MAIL
     if (selectedMailId == mailId) {
-        console.log("deselect");
+        //console.log("deselect");
         selectedMail.style.borderLeft = "3px solid gray";
         selectedMailId = 0;
+
+        let navBtns = document.getElementsByClassName('rightTopBtn');
+        for(let i = 0; i < navBtns.length; i++){
+            navBtns[i].style.display = "none";
+        }
     }
 
     //select mail - SHOW MAIL
     else {
-        console.log("select");
+        //console.log("select");
         selectedMailId = mailId;
         //alert("ba");
         selectedMail.style.borderLeft = "5px solid gray";
@@ -1587,14 +1611,19 @@ async function displayModeGenerated(mailId) {
                     <div class="selectedMailTop">
                         <div class="selectedMailTopLeft">  
                             <div class="selectedMailTopTitle">
-                                ${row.title} <span style='font-size: 14px;'>(${row.type})</span>
+                                ${row.title} <span id="generatedTypeMail">(${row.type})</span>
                             </div>
                             <div class="selectedMailTopContact">
                                 <span style="font-size: 13px">to</span> <a onclick="displayModeAddContacts(${row.id_contact})" href="#" class='generatedContactLink'>${contactName}</a>
                             </div>
                         </div>
                         <div class="selectedMailTopRight">
-                            ${formattedDate}
+                            <div>
+                                ${formattedDate}
+                            </div>
+                            <div>
+                                <button id="generatedMailReasonBtn" class="generatedMailReasonBtn" onclick="showHideReason()">Show reason <img class="reasonImg" src="pictures/help_icon.png"></button>
+                            </div>
                         </div>
                     </div>
                     <!--mail title-->
@@ -1616,6 +1645,8 @@ async function displayModeGenerated(mailId) {
 
                 //CHANGE HEAD TEXT TO 'Generated mail > [title of mail]'
                 document.getElementById('generatedTitleText').innerHTML = `<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > ${row.title}`;
+                document.getElementById('TopDeleteBtn').style.display = "flex";
+                document.getElementById('TopCopyBtn').style.display = "flex";
             }
 
             //mail not found
