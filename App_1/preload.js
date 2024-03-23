@@ -3,6 +3,7 @@
 const openai = new openAIReq.OpenAI();*/
 
 const { count } = require('console');
+const { clipboard } = require('electron');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const ApiKey = "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";
@@ -36,7 +37,8 @@ async function setupDb() {
         lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
         firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
         firstName NVARCHAR(50) NOT NULL,
-        lastName NVARCHAR(50) NOT NULL
+        lastName NVARCHAR(50) NOT NULL,
+        date_registered DATETIME
     );`, (err) => {
         if (err) {
             console.error(err.message);
@@ -56,6 +58,7 @@ async function setupDb() {
         relation NVARCHAR(50) NOT NULL,
         bio TEXT,
         gender NVARCHAR(10) NOT NULL CHECK(gender IN('m', 'f')),
+        date_created DATETIME,
         CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
     );`, (err) => {
         if (err) {
@@ -252,14 +255,6 @@ function registerCheck() {
         }
     }
 
-    //repeat pass check
-    /*
-    if (repeatPass != password || repeatPass.trim() === '') {
-        error += "Passwords do not match";
-        allgood = false;
-    }
-    */
-
     //fullname check
     if(firstName == "" || lastName == ""){
         allgood = false;
@@ -280,7 +275,13 @@ async function register(username, password, firstName, lastName) {
 
     try {
         //insert into users table
-        const id = await SqlRegisterPromise(`INSERT INTO Users VALUES(null, '${username}', '${password}', 'en', '1', '${firstName}', '${lastName}')`);
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        let query = `INSERT INTO Users VALUES(null, ?, ?, 'en', '1', ?, ?, ?)`
+        const id = await SqlRegisterPromise(query, [`${username}`, `${password}`, `${firstName}`, `${lastName}`, `${year}-${month}-${day}`]);
         console.log("New account ID: " + id);
 
         //write to intermediary JSON file
@@ -556,6 +557,10 @@ async function displayMode(mode) {
             //document.getElementById('selectedContact').style.display = 'none';
             document.getElementById('addContact').style.display = 'none';
             document.getElementById('contactList').style.display = 'flex';
+
+            //hide copy and delete buttons
+            document.getElementById('TopDeleteBtn').style.display = "none";
+            document.getElementById('TopCopyBtn').style.display = "none";
             break;
         //settings
         case 3:
@@ -661,6 +666,8 @@ function exitNewMails(){
     }   
 }
 
+/*--------------------------SEARCH BAR--------------------------*/
+
 //controls searchbar display, and button placement on the navbar, depending on the display mode (func. displayMode()) 
 function searchBarCheckInput() {
     let searchBarDiv = document.getElementById('searchBarWrap');
@@ -692,26 +699,69 @@ function searchBarClear() {
     }
 }
 
-function searchBarDelete(){
+async function searchBarDelete(){
     //delete mail
     if(selectedMailId > 0){
-
+        let query = `DELETE FROM Mails
+        WHERE id_mail = ?`;
+        try{
+            const deleteMailresult = await SqlRegisterPromise(query, [`${selectedMailId}`]);
+            await loadMails();
+            displayMode(1);
+        }
+        catch(err){
+            alert("Mail failed to delete");
+            console.log(err);
+        }
     }
     //delete contact
     else if(contactHiddenId > 0){
-
+        let query = `DELETE FROM Contacts
+        WHERE id_contact = ?`;
+        try{
+            const deleteContactResult = await SqlRegisterPromise(query, [`${contactHiddenId}`]);
+            await loadContacts();
+            displayMode(2);
+        }
+        catch(err){
+            alert("Contact could not be deleted");
+            console.log(err);
+        }
     }
 }
 
-function searchBarCopy(){
+async function searchBarCopy(){
     //copy mail
     if(selectedMailId > 0){
-
+        let mailContent = document.getElementById('selectedMailMiddle').innerHTML.trim();
+        await navigator.clipboard.writeText(mailContent);
+        alert("Mail copied");
     }
     //copy contact
     else if(contactHiddenId > 0){
-
+        let contactQuery = `SELECT name, surname, gender, relation FROM Contacts WHERE id_contact = '${contactHiddenId}'`;
+        try{
+            const contactResult = await SqlGetPromise(contactQuery);
+            if(contactResult != null){
+                let fullName = `${contactResult.name} ${contactResult.surname}`;
+                let relation = `${contactResult.relation}`;
+                let gender = `male`;
+                if(contactResult.gender == 'f') gender = `female`;
+                let copyText = `${fullName}, ${gender}, ${relation}`;
+                await navigator.clipboard.writeText(copyText);
+                alert("Contact copied: " + copyText);
+            }
+            else alert("Contact could not be copied");
+        }
+        catch(err){
+            console.log(err);
+            alert("Contact could not be copied");
+        }
     }
+}
+
+function searchBarMore(){
+
 }
 
 //show results of search - found contact names, mails
@@ -804,6 +854,8 @@ async function searchBarSubmit() {
     }
 
 }
+
+/*--------------------------SEARCH BAR--------------------------*/
 
 //load ALL mails
 async function loadMails() {
@@ -1342,9 +1394,13 @@ async function submitContact() {
             console.log("add");
             //try INSERT
             try {
+                let date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
                 //let query = `INSERT INTO Contacts VALUES(NULL, '${idUser}', '${firstNameVar}', '${lastNameVar}', '${dobVar}', '${relationVar}', '${bioVar}', '${genderVar}')`;
-                let query = `INSERT INTO Contacts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)`;
-                const InsertedContactId = await SqlRegisterPromise(query, [`${idUser}`, `${firstNameVar}`, `${lastNameVar}`, `${dobVar}`, `${relationVar}`, `${bioVar}`, `${genderVar}`]);
+                let query = `INSERT INTO Contacts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                const InsertedContactId = await SqlRegisterPromise(query, [`${idUser}`, `${firstNameVar}`, `${lastNameVar}`, `${dobVar}`, `${relationVar}`, `${bioVar}`, `${genderVar}`, `${year}-${month}-${day}`]);
                 //console.log(InsertedContactId);
                 console.log(InsertedContactId);
                 //successful query
@@ -1377,16 +1433,24 @@ async function submitContact() {
             console.log("edit");
             //try UPDATE
             try {
+                let date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
                 let query = `UPDATE Contacts
-                SET name = '${firstNameVar}', surname = '${lastNameVar}', dob = '${dobVar}', relation = '${relationVar}', bio = '${bioVar}', gender = '${genderVar}'
+                SET name = ?, surname = ?, dob = ?, relation = ?, bio = ?, gender = ?, date_created = ?
                 WHERE id_contact = '${contactHiddenId}'`;
-                const UpdatedContactId = await SqlRunPromise(query);
+                const UpdatedContactId = await SqlRegisterPromise(query, [`${firstNameVar}`, `${lastNameVar}`, `${dobVar}`, `${relationVar}`, `${bioVar}`, `${genderVar}`, `${year}-${month}-${day}`]);
                 //console.log(UpdatedContactId);
 
+                console.log(UpdatedContactId);
+
                 //successful update
+                /*
                 if (UpdatedContactId == undefined) {
                     alert("Contact changes successfully saved.");
                 }
+                */
             }
 
             //unsuccessful UPDATE
@@ -1509,6 +1573,10 @@ async function displayModeAddContacts(contactId) {
 
                 //set selected contact id 
                 contactHiddenId = contactId;
+
+                //display copy and delete buttons
+                document.getElementById('TopDeleteBtn').style.display = "flex";
+                document.getElementById('TopCopyBtn').style.display = "flex";
             }
 
             //query not successful
@@ -1645,6 +1713,8 @@ async function displayModeGenerated(mailId) {
 
                 //CHANGE HEAD TEXT TO 'Generated mail > [title of mail]'
                 document.getElementById('generatedTitleText').innerHTML = `<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > ${row.title}`;
+                
+                //display copy and delete buttons
                 document.getElementById('TopDeleteBtn').style.display = "flex";
                 document.getElementById('TopCopyBtn').style.display = "flex";
             }
