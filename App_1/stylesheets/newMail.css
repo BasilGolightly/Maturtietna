@@ -35,11 +35,68 @@
 }
 
 .purposeRight{
-    display: grid;
+    display: flex;
+    flex-direction: row;
     justify-content: right;
     text-align: right;
+    width: auto;
 }
 
+.newPurposeBottomInner{
+    display: flex;
+    flex-direction: row;
+}
+
+.newPurposeBottomInner > div{
+    margin-left: 5px;
+}
+
+.NewRecipientBottom{
+    display: flex;
+    flex-direction: row;
+}
+
+.NewRecipientTextDiv{
+    width: 10vw;
+    justify-content: left;
+    text-align: left;
+}
+
+.NewRecipientAdd{
+    width: 7.5vw;
+    display: flex;
+    justify-content: right;
+    font-size: 14px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.NewRecipientAddInner{
+    display: flex;
+    flex-direction: row;
+}
+
+.NewRecipientAddInner > div{
+    margin: 2.5px;
+}
+
+
+.newMailAddContactBtn{
+    display: inline;
+    background-color: transparent;
+    background-image: url("../pictures/white_pfp_hover.png");
+    background-size: cover;
+    border-radius: 25px;
+    border: 1px solid white;
+    color: white;
+    font-family: 'Kanit', sans-serif;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+}
+
+.newMailAddContactBtn:hover{
+    background-color: #02394a;
+}
 
 @media screen and (max-width: 1300px) {
     /*.newMailFrame{
@@ -61,6 +118,12 @@
         display: grid;
         justify-content: left;
         text-align: left;
+    }
+
+    .NewRecipientBottom{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
     }
 }
 
@@ -329,10 +392,6 @@
     margin-top: 5px;
 }
 
-.newPurposeBottom > div{
-    margin-right: 5px;
-}
-
 .newMailPurpose{
     display: grid;
     margin-bottom: 0px;
@@ -482,27 +541,6 @@
     justify-content: left;
 }
 
-.newMailAddContactBtn{
-    display: inline;
-    background-color: transparent;
-    background-image: url("../pictures/white_pfp_hover.png");
-    background-size: cover;
-    padding: 5px;
-    margin-left: 70px;
-    margin-top: 5px;
-    border-radius: 30px;
-    border: 1px solid white;
-    color: white;
-    font-family: 'Kanit', sans-serif;
-    vertical-align: middle;
-    width: 30px;
-    height: 30px;
-}
-
-.newMailAddContactBtn:hover{
-    background-color: #02394a;
-}
-
 #generateLoadingImg{
     width: 12.5px;
     height: 12.5px;
@@ -513,5 +551,6 @@
     margin: 0;
     /*margin-top: 5px;*/
 }
+
 
 /*NEW MAIL*/

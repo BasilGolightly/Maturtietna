@@ -242,16 +242,19 @@
                             </div>
                             <!--formality-->
                             <div class="newFormality newPurposeBottom newMailFormalitySwitchWrap purposeRight">
-                                <div class="newMailFormalitySwitch">
-                                    <label class="newFormalitySwitch switch">
-                                        <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
-                                            onchange="changeFormality()">
-                                        <span class="slider round"></span>
-                                    </label>
+                                <div class="newPurposeBottomInner">
+                                    <div class="newMailFormalitySwitch">
+                                        <label class="newFormalitySwitch switch">
+                                            <input type="checkbox" name="newFormality" checked id="newFormalityCheck"
+                                                onchange="changeFormality()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="newFormalityOutput" id="newFormalityOutput">
+                                        Formal
+                                    </div>
                                 </div>
-                                <div class="newFormalityOutput" id="newFormalityOutput">
-                                    Formal
-                                </div>
+                                
                             </div>
                             <!--formality-->
 
@@ -280,23 +283,24 @@
                                 Recipient <span class="newMailStar">*</span>
                             </div>
                         </div>
-                        <div class="NewRecipientTextDiv">
-                            <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown" oninput="javascript: this.blur()">
-                                <option value="0">Select recipient</option>
-                            </select>
-                        </div>
-                        <!--
-                        <div class="newMailAddContactWrap">
-                            <div>
-                                <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"><img src="pictures/white_pfp_hover.png" class="newMailAddContactBtnImg" width="" height=""> <span class="newMailAddContactBtnText">New contact</span></button>
 
-                                <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"></button>
+                        <div class="NewRecipientBottom">
+                            <div class="NewRecipientTextDiv">
+                                <select name="newMailRecipient" class="newRecipientDropDown" id="newRecipentDropDown" oninput="javascript: this.blur()">
+                                    <option value="0">Select recipient</option>
+                                </select>
                             </div>
-                            <div>
-
+                            <div class="NewRecipientAdd">
+                                <div class="NewRecipientAddInner">
+                                    <div class="NewRecipientBtnText">
+                                        Add contact
+                                    </div>
+                                    <div>
+                                        <button class="newMailAddContactBtn" onclick="displayModeAddContacts(-1)"></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        -->
                     </div>
                     <!--recipient-->
 
