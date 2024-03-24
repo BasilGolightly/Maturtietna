@@ -290,7 +290,7 @@
                                     <option value="0">Select recipient</option>
                                 </select>
                             </div>
-                            <div class="NewRecipientAdd">
+                            <div class="NewRecipientAdd" onclick="displayModeAddContacts(-1)">
                                 <div class="NewRecipientAddInner">
                                     <div class="NewRecipientBtnText">
                                         Add contact
@@ -703,7 +703,15 @@
                         <div class="searchMailResultsWrap" id="searchMailResultsWrap">
                             <!--Mail result-->
                             <div class="searchMailResultFrame">
+                                <div class="searchMailResultFrame">
+                                    <div class="mailResultLeft">
 
+                                    </div>
+
+                                    <div class="mailResultRight">
+
+                                    </div>
+                                </div>
                             </div>
                             <!--Mail result-->
                         </div>
@@ -712,7 +720,7 @@
                     <!--Mails results-->
 
                     <!--Contact results-->
-                    <div class="searchContactWrap">
+                    <div class="searchContactWrap" id="searchContactWrap">
 
                         <!--Contacts results title-->
                         <div class="searchContactHead">
@@ -726,7 +734,15 @@
                         <div class="searchContactsResultWrap" id="searchContactsResultWrap">
                             <!--Contact result-->
                             <div class="searchContactResultFrame">
+                                <div class="searchContactResultFrameInner">
+                                    <div class="contactResultLeft">
 
+                                    </div>
+
+                                    <div class="contactResultRight">
+
+                                    </div>
+                                </div>
                             </div>
                             <!--Contact result-->
                         </div>
@@ -908,7 +924,6 @@
 <script src="Scripts/displayShowHide.js"></script>
 <script src="Scripts/tutorial.js"></script>
 <script>
-
     setupDb();
     loadContacts();
     loadUserProfile();
@@ -916,7 +931,7 @@
     hideContact();
     hideTutorial();
     hideMails();
-    displayMode(5);
+    displayMode(4);
     //displayModeAddContacts(-1);
 </script>
 <!--script-->
