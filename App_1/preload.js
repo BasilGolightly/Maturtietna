@@ -1,18 +1,9 @@
-//const{ contextBridge } = require('electron');
-/*const openAIReq = require("openai");
-const openai = new openAIReq.OpenAI();*/
-
 const { count } = require('console');
 const { clipboard } = require('electron');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const ApiKey = "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";
-/*
-import OpenAI from "openai";
-const openai = new OpenAI({
-    apiKey: ApiKey
-});
-*/
+
 const { OpenAI } = require("openai");
 const openai = new OpenAI({ apiKey: ApiKey, dangerouslyAllowBrowser: true });
 
@@ -1870,6 +1861,11 @@ async function generateMail() {
                             const savedMail = await SqlRegisterPromise(saveQuery, [`${recipient.value}`, `${idUser}`, `${title.value}`, `${year}-${month}-${day}`, `${ReturnedMail}`, `${purpose.value}`, `${reason.value}`, `${formalTextEng}`]);
 
                             if(savedMail != null){
+                                recipient.value = 0;
+                                title.value = "";
+                                purpose.value = 0;
+                                reason.value = "";
+
                                 await loadMails();
                                 await displayModeGenerated(savedMail);
                             }
