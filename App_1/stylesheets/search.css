@@ -66,6 +66,9 @@
 }
 
 .searchMailResultFrame{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     border-top: 1px solid #016b92;
     border-bottom: 1px solid #016b92;
     padding: 5px 10px;
@@ -73,6 +76,69 @@
 
 .searchMailResultFrame:hover{
     background-color: #016b92;
+}
+
+.searchMailResultInner{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+}
+
+.resultContactLink{
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.resultContactLink:hover{
+    text-decoration: underline;
+}
+
+.mailResultBottom{
+    font-size: 11px;
+}
+
+.mailResultLeft{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    justify-content: left;
+    text-align: left;
+}
+
+.mailResultArrow{
+    display: inline;
+    vertical-align: middle;
+    font-size: 20px;
+    font-family: 'Kanit', sans-serif;
+    /*margin-top: 4.5px;*/
+}
+
+.mailResultIcon{
+    margin-top: 5px;
+    height: 25px;
+    width: 35px;
+}
+
+.mailResultExtra{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    margin-right: 15px;
+    font-size: 11px;
+    margin-top: 2.5px;
+}
+
+.mailResultDate{
+
+}
+
+.mailResultRight{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-content: right;
+    text-align: right;
 }
 
 .searchContactResultFrame{

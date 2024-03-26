@@ -22,3 +22,11 @@ function showHideReason(){
         reasonShown = true;
     }   
 }
+
+function hoverMailResult(){
+    document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_hover.png';
+}
+
+function exitMailResult(){
+
+}
