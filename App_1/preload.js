@@ -766,17 +766,17 @@ async function searchBarSubmit() {
     let mailResultCount = 0, contactResultCount = 0, totalCount = 0;
 
     if (searchString.length > 0) {
-        alert(searchString);
+        //alert(searchString);
 
         document.getElementById('searchMailResultsWrap').innerHTML = '';
         document.getElementById('searchContactsResultWrap').innerHTML = '';
 
         //get mails
         try {
-            let MailsSearchQuery = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, content, name, surname
+            let MailsSearchQuery = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, content, name, surname, type
             FROM Mails m JOIN Contacts c
                 ON m.id_contact = c.id_contact
-            WHERE title LIKE '%˘${searchString}%'`;
+            WHERE title LIKE '%${searchString}%'`;
             //MailsSearchQuery = db.prepare(MailsSearchQuery);
 
             const MailsRows = await SqlAllPromise(MailsSearchQuery);
@@ -785,15 +785,48 @@ async function searchBarSubmit() {
                 mailResultCount = MailsRows.length;
                 totalCount += mailResultCount;
 
+                document.getElementById('searchMailResultsWrap').innerHTML = "";
+
                 //display found mails
                 for (let i = 0; i < MailsRows.length; i++) {
+                    const tempDate = new Date();
+                    let day = tempDate.getDate();
+                    let month = tempDate.getMonth() + 1;
+                    let year = tempDate.getFullYear();
+
                     document.getElementById('searchMailResultsWrap').innerHTML += `
-                    <!--Mail result-->
-                    <div class="searchMailResultFrame">
-                        ${MailsRows[i].title}
-                        To: ${MailsRows[i].name} ${MailsRows[i].surname}
-                    </div>
-                    <!--Mail result-->
+                        <!--Mail result-->
+                            <div class="searchMailResultFrame" onclick="displayModeGenerated(${MailsRows[i].id_mail})" onmouseover="hoverMailResult()" onmouseout="exitMailResult()">
+                                <div class="searchMailResultInner">
+                                    <div class="mailResultLeft">
+                                        <div class="mailResultTop">
+                                            <div class="mailResultTitle">
+                                                ${MailsRows[i].title}
+                                            </div>
+                                        </div>
+                                        <div class="mailResultBottom" onclick="displayModeAddContacts(${MailsRows[i].id_contact})">
+                                            <div>
+                                                to <a href="#" class="resultContactLink">${MailsRows[i].name} ${MailsRows[i].surname}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mailResultRight">
+                                        <div class="mailResultExtra">
+                                            <div class="mailResultDate">
+                                                ${day}. ${month}. ${year}
+                                            </div>
+                                            <div>
+                                                ${MailsRows[i].type}
+                                            </div>
+                                        </div>
+                                        <div class="mailResultArrow">
+                                            <img src="pictures/generated_mail_icon_neutral.png" id="mailResultIcon" class="mailResultIcon">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--Mail result-->
                     `;
                 }
             }
@@ -805,27 +838,53 @@ async function searchBarSubmit() {
 
         //get contacts
         try {
-            let ContactsSearchQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio, name + ' ' + surname AS full_name
+            let ContactsSearchQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio, name + ' ' + surname AS full_name, gender
             FROM Contacts
             WHERE name LIKE '%${searchString}%' OR surname LIKE '%${searchString}%' 
             OR full_name LIKE '%${searchString}%'`;
             //ContactsSearchQuery = db.prepare(ContactsSearchQuery);
-
             const Contactrows = await SqlAllPromise(ContactsSearchQuery);
 
             if (Contactrows != null) {
                 contactResultCount = Contactrows.length;
                 totalCount += contactResultCount;
 
+                document.getElementById('searchContactsResultWrap').innerHTML = "";
+
                 //console.log(Contactrows);
                 //display found contacts
                 for (let i = 0; i < Contactrows.length; i++) {
+                    let gender = "Male";
+                    if(Contactrows[i].gender == 'f' || Contactrows[i].gender == 'F') gender = "Female";
+
                     document.getElementById('searchContactsResultWrap').innerHTML += `
-                    <!--Contact result-->
-                    <div class="searchContactResultFrame" onclick="displayModeAddContacts(${Contactrows[i].id_contact})">
-                        ${Contactrows[i].name} ${Contactrows[i].surname}
-                    </div>
-                    <!--Contact result-->
+                        <!--Contact result-->
+                            <div class="searchContactResultFrame" onclick="displayModeAddContacts(${Contactrows[i].id_contact})">
+                                <div class="searchContactResultFrameInner">
+                                    <div class="contactResultLeft">
+                                        <div class="contactResultTop">
+                                            <div class="contactResulTitle">
+                                                ${Contactrows[i].name} ${Contactrows[i].surname}
+                                            </div>
+                                        </div>
+                                        <div class="contactResultBottom">
+                                            <div>
+                                                ${Contactrows[i].relation}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="contactResultRight">
+                                        <div class="contactResultExtra">
+                                            ${gender}
+                                        </div>
+                                        <div class="contactResultArrow">
+                                            <img src="pictures/white_pfp.png" class="contactResultIcon" id="contactResultIcon">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--Contact result-->
                     `;
                 }
             }

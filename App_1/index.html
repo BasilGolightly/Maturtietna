@@ -692,9 +692,16 @@
                     <div class="searchMailWrap" id="searchMailWrap">
 
                         <!--Mails results title-->
-                        <div class="searchMailHead">
+                        <div class="searchMailHead" onclick="showHideMailResults()">
+                            <!--
+                            <div class="mailHeadIconWrap">
+                            </div>    
+                            -->
                             <div class="searchMailHeadTitle searchTitleInner">
                                 Mails <span id="mailResultsCount"></span>
+                            </div>
+                            <div class="searchMailBtnWrap">
+                                <button class="searchMailBtn" id="searchMailBtn"></button>
                             </div>
                         </div>
                         <!--Mails results title-->
@@ -702,7 +709,7 @@
                         <!--Mail results display-->
                         <div class="searchMailResultsWrap" id="searchMailResultsWrap">
                             <!--Mail result-->
-                            <div class="searchMailResultFrame">
+                            <div class="searchMailResultFrame" onmouseover="hoverMailResult()" onmouseout="exitMailResult()">
                                 <div class="searchMailResultInner">
                                     <div class="mailResultLeft">
                                         <div class="mailResultTop">
@@ -726,7 +733,7 @@
                                                 Invitation
                                             </div>
                                         </div>
-                                        <div class="mailResultArrow" onmouseover="hoverMailResult()">
+                                        <div class="mailResultArrow">
                                             <img src="pictures/generated_mail_icon_neutral.png" id="mailResultIcon" class="mailResultIcon">
                                         </div>
                                     </div>
@@ -742,9 +749,17 @@
                     <div class="searchContactWrap" id="searchContactWrap">
 
                         <!--Contacts results title-->
-                        <div class="searchContactHead">
+                        <div class="searchContactHead" onclick="showHideContactResults()">
+                            <!--
+                            <div class="searchContactIconWrap">
+
+                            </div>
+                            -->
                             <div class="searchContactHeadTitle searchTitleInner">
                                 Contacts <span id="contactsResultCount"></span>
+                            </div>
+                            <div class="searchContactBtnWrap">
+                                <button class="contactResultsBtn" id="contactResultsBtn"></button>
                             </div>
                         </div>
                         <!--Contacts results title-->
@@ -755,11 +770,25 @@
                             <div class="searchContactResultFrame">
                                 <div class="searchContactResultFrameInner">
                                     <div class="contactResultLeft">
-
+                                        <div class="contactResultTop">
+                                            <div class="contactResulTitle">
+                                                Contact 1
+                                            </div>
+                                        </div>
+                                        <div class="contactResultBottom">
+                                            <div>
+                                                Friend
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="contactResultRight">
-
+                                        <div class="contactResultExtra">
+                                            Male
+                                        </div>
+                                        <div class="contactResultArrow">
+                                            <img src="pictures/white_pfp.png" class="contactResultIcon" id="contactResultIcon">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

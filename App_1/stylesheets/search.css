@@ -49,6 +49,10 @@
     margin-bottom: 10px;
 }
 
+.searchMailHead > div, .searchContactHead > div{
+    margin-right: 7.5px;
+}
+
 .searchContactsResultWrap, .searchMailResultsWrap{
     display: flex;
     flex-direction: column;
@@ -78,7 +82,7 @@
     background-color: #016b92;
 }
 
-.searchMailResultInner{
+.searchMailResultInner, .searchContactResultFrameInner{
     display: grid;
     grid-template-columns: auto auto;
     width: 100%;
@@ -94,11 +98,11 @@
     text-decoration: underline;
 }
 
-.mailResultBottom{
+.mailResultBottom, .contactResultBottom{
     font-size: 11px;
 }
 
-.mailResultLeft{
+.mailResultLeft, .contactResultLeft{
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto;
@@ -112,6 +116,7 @@
     font-size: 20px;
     font-family: 'Kanit', sans-serif;
     /*margin-top: 4.5px;*/
+    width: 35px;
 }
 
 .mailResultIcon{
@@ -129,11 +134,23 @@
     margin-top: 2.5px;
 }
 
-.mailResultDate{
-
+.contactResultExtra{
+    font-size: 14px;
+    margin-top: 10px;
+    margin-right: 15px;
 }
 
-.mailResultRight{
+.contactResultIcon{
+    width: 25px;
+    height: 25px;
+}
+
+.contactResultArrow{
+    margin-top: 7.5px;
+    width: 35px;
+}
+
+.mailResultRight, .contactResultRight{
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto;
@@ -150,8 +167,13 @@
 .searchContactResultFrame:hover{
     background-color: #016b92;
 }
-/*
-#searchStringOutput{
-    font-style: bold;
+
+.searchMailBtn, .contactResultsBtn{
+    width: 10px;
+    height: 10px;
+    background-image: url("../pictures/arrow_down.png");
+    background-size: contain;
+    background-color: transparent;
+    border: none;
+    color: white;
 }
-*/

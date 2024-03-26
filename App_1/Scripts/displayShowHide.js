@@ -28,5 +28,44 @@ function hoverMailResult(){
 }
 
 function exitMailResult(){
+    document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_neutral.png';
+}
 
+let mailResultsShown = true;
+let contactResultsShown = true;
+
+function showHideMailResults(){
+    let mailResults = document.getElementById("searchMailResultsWrap");
+    let mailBtn = document.getElementById("searchMailBtn");
+
+    //hide
+    if(mailResultsShown){
+        mailResults.style.display = "none";
+        mailBtn.style.backgroundImage = `url("pictures/arrow_up.png")`;
+        mailResultsShown = false;
+    }
+    //show
+    else{
+        mailResults.style.display = "flex";
+        mailBtn.style.backgroundImage = `url("pictures/arrow_down.png")`;
+        mailResultsShown = true;
+    }   
+}
+
+function showHideContactResults(){
+    let contactResults = document.getElementById("searchContactsResultWrap");
+    let contactBtn = document.getElementById("contactResultsBtn");
+
+    //hide
+    if(contactResultsShown){
+        contactResults.style.display = "none";
+        contactBtn.style.backgroundImage = `url("pictures/arrow_up.png")`;
+        contactResultsShown = false;
+    }
+    //show 
+    else{
+        contactResults.style.display = "flex";
+        contactBtn.style.backgroundImage = `url("pictures/arrow_down.png")`;
+        contactResultsShown = true;
+    }
 }
