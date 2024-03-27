@@ -69,3 +69,8 @@ function showHideContactResults(){
         contactResultsShown = true;
     }
 }
+
+function resizeField(el){
+    let text = el.value.trim();
+    el.style.width = `${text.length + 5} ch`;
+}

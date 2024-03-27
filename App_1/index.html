@@ -82,7 +82,7 @@
         <!--account-->
         <div class="bottom_l">
             <div class="navAccWrap">
-                <div class="navAccImgWrap">
+                <div class="navAccImgWrap" onclick="displayMode(3)">
                     <img src="pictures/white_pfp.png" class="navAccImg">
                 </div>
                 <div class="navAccTextWrap">
@@ -625,7 +625,7 @@
                                 </td>
 
                                 <td class="accSettingsUsernameBtnWrap">
-                                    <button class="changeUsernameBtn" id="changeUsernameBtn"
+                                    <button class="changeUsernameBtn settingsBtn" id="changeUsernameBtn"
                                         onclick="changeUsername()">Edit</button>
                                 </td>
                             </tr>
@@ -647,11 +647,28 @@
                                 </td>
 
                                 <td class="accSettingsPasswordBtnWrap">
-                                    <button class="changePassBtn" id="changePassBtn"
+                                    <button type="button" class="changePassBtn settingsBtn" id="changePassBtn"
                                         onclick="changePass()">Edit</button>
                                 </td>
                             </tr>
                             <!--password-->
+
+                            <!--full name-->
+                            <tr class="accFullNamePasswordWrap">
+                                <td class="accFullNameTitle"> 
+                                    Full name
+                                </td>
+
+                                <td class="accFullNameInner"> 
+                                    <input type="text" class="changeFirstNameField" id="changeFirstNameField" placeholder="First name" onchange="resizeField(this)">,
+                                    <input type="text" class="changeLastNameField" id="changeLastNameField" placeholder="Last name" onchange="resizeField(this)">
+                                </td>
+
+                                <td class="accFullNameBtnWrap">
+                                    <button type="button" class="changeAccFullNameBtn settingsBtn" id="changeAccFullNameBtn">Edit</button>
+                                </td>
+                            </tr>
+                            <!--full name-->
 
                             <!--delete account-->
                             <tr class="accSettingsDeleteAccount">
@@ -664,6 +681,33 @@
 
                     </div>
                     <!--account settings-->
+
+                    <!--API settings-->
+                    <div class="accApiSettingsWrap">
+                        	
+                        <div class="apiSettingsTitle">
+                            API settings
+                        </div>
+
+                        <table class="apiSettingsInner">
+                            
+                            <tr class="ApiKeyInner"> 
+                                <td id="accSettingsTableFirstCol">
+                                    API Key
+                                </td>   
+
+                                <td class="apiKeyTextFieldWrap">
+                                    <input type="password" class="apiKeyTextField" id="apiKeyTextField" placeholder="API key">
+                                </td>
+
+                                <td class="apiKeyBtnWrap">
+                                    <button type="button" class="settingsBtn">Change</button>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!--API settings-->
 
                 </div>
                 <!--settings content-->
