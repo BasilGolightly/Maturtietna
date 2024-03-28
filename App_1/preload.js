@@ -247,7 +247,7 @@ function registerCheck() {
     }
 
     //fullname check
-    if(firstName == "" || lastName == ""){
+    if (firstName == "" || lastName == "") {
         allgood = false;
     }
 
@@ -479,10 +479,10 @@ async function displayMode(mode) {
     }
 
     //hide new mail window if it is in fullscreen mode
-    if(isFullScreen && newMailFrame.style.display != 'none'){
+    if (isFullScreen && newMailFrame.style.display != 'none') {
         newMailFrame.style.display = 'none';
     }
-    
+
 
     //check which panel to show
     switch (mode) {
@@ -493,10 +493,10 @@ async function displayMode(mode) {
             loadContacts();
 
             fullScreenNewMails();
-    
-            newMailFrame.style.display = "flex";    
 
-            if(displayModeId != 0) displayMode(displayModeId);
+            newMailFrame.style.display = "flex";
+
+            if (displayModeId != 0) displayMode(displayModeId);
 
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
@@ -581,14 +581,14 @@ async function displayMode(mode) {
     }
 }
 
-function fullScreenNewMails(){
+function fullScreenNewMails() {
     let screenBtn = document.getElementById('fullscreenBtn');
     let newMailFrame = document.getElementById('newMailFrame');
     let newMailHead = document.getElementById('newMailHead');
     let newMailChapters = document.getElementsByClassName('newMailCh');
     //minimize
-    if(isFullScreen){
-        screenBtn.style.backgroundImage = "url('pictures/full_icon.png')"; 
+    if (isFullScreen) {
+        screenBtn.style.backgroundImage = "url('pictures/full_icon.png')";
         newMailFrame.style.cssText = `
         display: flex;
         float: right;
@@ -604,7 +604,7 @@ function fullScreenNewMails(){
         border: 1px solid white;
         `;
         newMailHead.style.padding = '15px 1vw 0 15px';
-        for(let i = 0; i < newMailChapters.length; i++){
+        for (let i = 0; i < newMailChapters.length; i++) {
             newMailChapters[i].style.fontSize = '16px';
         }
         newMailFrame.style.display = 'flex';
@@ -612,8 +612,8 @@ function fullScreenNewMails(){
         isFullScreen = false;
     }
     //fullscreen
-    else{
-        screenBtn.style.backgroundImage = "url('pictures/minimize_icon.png')"; 
+    else {
+        screenBtn.style.backgroundImage = "url('pictures/minimize_icon.png')";
         newMailFrame.style.cssText = `
         display: flex;
         float: none;
@@ -630,11 +630,11 @@ function fullScreenNewMails(){
         `;
         newMailHead.style.padding = '15px 15px 15px 0';
         let Windowframes = document.getElementsByClassName('windowFrame');
-       
-        for(let i = 0; i < newMailChapters.length; i++){
+
+        for (let i = 0; i < newMailChapters.length; i++) {
             newMailChapters[i].style.fontSize = '18px';
         }
-        
+
         //hide all frames
         for (let i = 0; i < Windowframes.length; i++) {
             Windowframes[i].style.display = "none";
@@ -645,16 +645,16 @@ function fullScreenNewMails(){
     }
 }
 
-function exitNewMails(){
+function exitNewMails() {
     document.getElementById('newMailFrame').style.display = 'none';
-    if(displayModeId === 0){
+    if (displayModeId === 0) {
         //alert("ba");
         displayMode(5);
     }
-    else{
+    else {
         //alert("ba2");
         displayMode(displayModeId);
-    }   
+    }
 }
 
 /*--------------------------SEARCH BAR--------------------------*/
@@ -684,74 +684,74 @@ function searchBarClear() {
     document.getElementById('clearBtnDiv').style.display = 'none';
     displayMode(displayModeId);
     searchBar.focus();
-    
-    for(let i = 0; i < navBtns.length; i++){
+
+    for (let i = 0; i < navBtns.length; i++) {
         navBtns[i].style.display = "none";
     }
 }
 
-async function searchBarDelete(){
+async function searchBarDelete() {
     //delete mail
-    if(selectedMailId > 0){
+    if (selectedMailId > 0) {
         let query = `DELETE FROM Mails
         WHERE id_mail = ?`;
-        try{
+        try {
             const deleteMailresult = await SqlRegisterPromise(query, [`${selectedMailId}`]);
             await loadMails();
             displayMode(1);
         }
-        catch(err){
+        catch (err) {
             alert("Mail failed to delete");
             console.log(err);
         }
     }
     //delete contact
-    else if(contactHiddenId > 0){
+    else if (contactHiddenId > 0) {
         let query = `DELETE FROM Contacts
         WHERE id_contact = ?`;
-        try{
+        try {
             const deleteContactResult = await SqlRegisterPromise(query, [`${contactHiddenId}`]);
             await loadContacts();
             displayMode(2);
         }
-        catch(err){
+        catch (err) {
             alert("Contact could not be deleted");
             console.log(err);
         }
     }
 }
 
-async function searchBarCopy(){
+async function searchBarCopy() {
     //copy mail
-    if(selectedMailId > 0){
+    if (selectedMailId > 0) {
         let mailContent = document.getElementById('selectedMailMiddle').innerHTML.trim();
         await navigator.clipboard.writeText(mailContent);
         alert("Mail copied");
     }
     //copy contact
-    else if(contactHiddenId > 0){
+    else if (contactHiddenId > 0) {
         let contactQuery = `SELECT name, surname, gender, relation FROM Contacts WHERE id_contact = '${contactHiddenId}'`;
-        try{
+        try {
             const contactResult = await SqlGetPromise(contactQuery);
-            if(contactResult != null){
+            if (contactResult != null) {
                 let fullName = `${contactResult.name} ${contactResult.surname}`;
                 let relation = `${contactResult.relation}`;
                 let gender = `male`;
-                if(contactResult.gender == 'f') gender = `female`;
+                if (contactResult.gender == 'f') gender = `female`;
                 let copyText = `${fullName}, ${gender}, ${relation}`;
                 await navigator.clipboard.writeText(copyText);
                 alert("Contact copied: " + copyText);
             }
             else alert("Contact could not be copied");
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             alert("Contact could not be copied");
         }
     }
 }
 
-function searchBarMore(){
+function searchBarMore() {
 
 }
 
@@ -855,7 +855,7 @@ async function searchBarSubmit() {
                 //display found contacts
                 for (let i = 0; i < Contactrows.length; i++) {
                     let gender = "Male";
-                    if(Contactrows[i].gender == 'f' || Contactrows[i].gender == 'F') gender = "Female";
+                    if (Contactrows[i].gender == 'f' || Contactrows[i].gender == 'F') gender = "Female";
 
                     document.getElementById('searchContactsResultWrap').innerHTML += `
                         <!--Contact result-->
@@ -943,7 +943,7 @@ async function loadMails() {
                     let dateYear = dateArr[0];
                     let dateMonth = dateArr[1];
                     let dateDay = dateArr[2];
-                    let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`; 
+                    let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`;
 
                     document.getElementById('generatedWrap').innerHTML += `
 
@@ -1097,6 +1097,8 @@ async function loadUserProfile() {
                     document.getElementById('accSettingsPasswordTextField').value = row.password;
                     document.getElementById('globalFirstName').innerHTML = row.firstName;
                     document.getElementById('globalLastName').innerHTML = row.lastName;
+                    document.getElementById('changeFirstNameField').value = row.firstName;
+                    document.getElementById('changeLastNameField').value = row.lastName;
                 }
             }
             catch (error) {
@@ -1132,167 +1134,96 @@ async function loadUserProfile() {
 }
 
 let changePassStage = 0;
+let oldPass = "";
 
 //change password
-async function changePass() {
-    let oldPass = document.getElementById('accSettingsPasswordTextField');
-    let enterPass = document.getElementById('accSettingsEnterPassTextField');
-    let newPass = document.getElementById('accSettingsNewPassTextField');
+async function changePassClick() {
+    if(changePassStage == 0){
+        EnterPass();
+    } 
+    else if(changePassStage == 1){
+        EditPass();
+    }
+    else if(changePassStage == 2){
+        await submitPass();
+    }
+}
+
+function resetPassword(){
+    let password = document.getElementById('accSettingsPasswordTextField');
+    let btn = document.getElementById('changePassBtn');
+    let cancelBtn = document.getElementById('changePassBtnCancel');
+
+    changePassStage = 0;    
+    btn.innerHTML = "Edit";
+    password.value = oldPass; 
+    cancelBtn.style.display = "none";
+}
+
+function EnterPass(){
+    let password = document.getElementById('accSettingsPasswordTextField');
+    let btn = document.getElementById('changePassBtn');
+    let cancelBtn = document.getElementById('changePassBtnCancel');
+
+    oldPass = password.value.trim();
+
+    btn.innerHTML = "Enter";
+    password.disabled = false;
+    password.value = "";
+    password.placeholder = "enter password...";
+    cancelBtn.style.display = "inline-block";
+    password.click();
+
+    changePassStage++;
+}
+
+function EditPass(){
+    let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
 
-    //0. default look, old password shown, button says 'edit'
-    if (changePassStage == -1) {
-        newPass.style.display = "none";
-        newPass.style.zIndex = -1;
-        newPass.style.width = '0px';
+    if(password.value.trim() == oldPass){
+        btn.innerHTML = "Save";
+        password.placeholder = "min. 12 char, no spaces";
+        password.value = "";
 
-        enterPass.style.display = "none";
-        enterPass.style.zIndex = -1;
-        enterPass.style.width = '0px';
+        changePassStage++;
 
-        oldPass.style.display = "flex";
-        oldPass.style.zIndex = 0;
-        oldPass.style.width = 'auto';
-
-        btn.innerHTML = "Edit";
-
-        changePassStage = 0;
+        password.click();
     }
-
-    //1. enter password - hide old pass text field, show enter pass text field, make button say enter password
-    else if (changePassStage == 0) {
-        oldPass.style.display = "none";
-        oldPass.style.zIndex = -1;
-        oldPass.style.width = '0px';
-
-        newPass.style.display = "none";
-        newPass.style.zIndex = -1;
-        newPass.style.width = '0px';
-
-        enterPass.style.display = "flex";
-        enterPass.style.zIndex = 0;
-        enterPass.style.width = 'auto';
-
-        btn.innerHTML = "Enter password";
-
-        newPass.value = "";
-        enterPass.value = "";
-
-        //enterPass.click();
-
-        changePassStage = 1;
+    else{
+        password.click();
     }
+}
 
-    //2. submit old pass - check if the password matches
-    else if (changePassStage == 1) {
-        //enterPass.click();
+async function submitPass(){
+    let password = document.getElementById('accSettingsPasswordTextField');
+    let btn = document.getElementById('changePassBtn');
 
-        enterPass.value = enterPass.value.trim();
+    if(password.value.trim() != ""){
+        if((password.value.trim()).length >= 12 && !(password.value.trim()).includes(" ")){
+            try{
+                let userId = document.getElementById('globalIdUser').innerHTML;
 
-        //password is not empty
-        if (enterPass.value != "") {
-            //passwords match
-            if (oldPass.value == enterPass.value) {
-                //change username ready
-                if (changeUserNameStage < 0) {
-                    changeUserNameStage = 1;
-                    changeUsername();
-                }
-                //change pass functionality
-                else {
-                    oldPass.style.display = "none";
-                    oldPass.style.zIndex = -1;
-                    oldPass.style.width = '0px';
+                let query = `UPDATE Users
+                SET password = ?
+                WHERE id_user = ?`;
 
-                    enterPass.style.display = "none";
-                    enterPass.style.zIndex = -1;
-                    enterPass.style.width = '0px';
+                const updatedId = await SqlRegisterPromise(query, [`${password.value.trim()}`, `${userId}`]);
+                
+                oldPass = password.value.trim();
 
-                    newPass.style.display = "flex";
-                    newPass.style.zIndex = 0;
-                    newPass.style.width = 'auto';
-
-                    btn.innerHTML = "Change password";
-
-                    changePassStage = 2;
-                }
+                resetPassword();
             }
-
-            //passwords don't match
-            else {
-                alert("Password is incorrect.");
-                //changePassStage = 1;
-                //changePass();
+            catch(err){
+                console.log(err);
             }
         }
-        //password is empty
-        else {
-            alert("Password cannot be empty.");
-            //changePassStage = 1;
-            //changePass();
+        else{
+            password.focus();
         }
     }
-
-    //3. change password
-    else {
-        newPass.click();
-
-        newPass.value = newPass.value.trim();
-
-        //new password is not empty
-        if (newPass.value != "") {
-            //check that password is at least 12 chars
-            if (newPass.value.length >= 12) {
-                //password includes spaces
-                if (newPass.value.includes(" ")) {
-                    alert("New password cannot contain spaces.");
-                    newPass.focus();
-                }
-                //password does not include spaces - attempt UPDATE
-                else {
-                    //get logged in user's ID from hidden <span> element
-                    let idUser = document.getElementById('globalIdUser').innerHTML;
-
-                    try {
-                        let query = `UPDATE Users
-                        SET password = '${newPass.value}'
-                        WHERE id_user = '${idUser}'`;
-                        const UpdateErr = await SqlRunPromise(query);
-
-                        if (UpdateErr == undefined) {
-                            alert("Password changed successfully");
-                            oldPass.value = newPass.value;
-                            newPass.value = "";
-                            enterPass.value = "";
-
-                            changePassStage = -1;
-                            changePass();
-                        }
-
-                        else {
-                            alert("Password could not be changed. We apologize for the inconvenience");
-                            changePassStage = -1;
-                            changePass();
-                        }
-                    }
-                    catch (error) {
-                        console.log(error);
-                        alert("Password could not be changed. We apologize for the inconvenience");
-                        changePassStage = -1;
-                        changePass();
-                    }
-                }
-            }
-            //password is shorter than 12 characters
-            else {
-                alert("New password must be at least 12 characters long.");
-            }
-        }
-        else {
-            alert("New password cannot be empty.");
-        }
-
-        newPass.click();
+    else{
+        password.focus();
     }
 }
 
@@ -1303,98 +1234,76 @@ async function changeUsername() {
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
 
-    //0. set username text field to readonly, set button to say 'edit'
-    if (changeUserNameStage == -1) {
-        userNameText.readOnly = true;
+    
+}
 
-        btn.innerHTML = "Edit";
+let nameStage = 0;
 
-        changePassStage = -1;
-        changePass();
-
-        changeUserNameStage = 0;
+async function EditNameClick() {
+    if (nameStage == 0) {
+        EditFullName();
+        nameStage++;
     }
-
-    //1. show enter password field via the changePassMethod
-    else if (changeUserNameStage == 0) {
-        changePassStage = 0;
-        changePass();
-
-        let enterPass = document.getElementById('accSettingsEnterPassTextField');
-        enterPass.click();
-    }
-
-    //2. password properly entered, make button say 'change Username', and enable username inputs, reset password to default 
-    else if (changeUserNameStage == 1) {
-        userNameText.readOnly = false;
-
-        btn.innerHTML = "Change username";
-
-        changePassStage = -1;
-        changePass();
-
-        userNameText.click();
-        changeUserNameStage = 2;
-    }
-
-    //3. submit changed username, check if the format is correct
-    else {
-        //get logged in user's ID from hidden <span> element
-        let idUser = document.getElementById('globalIdUser').innerHTML;
-        userNameText.value = userNameText.value.trim();
-        let username = userNameText.value;
-
-        //username is not empty
-        if (username != "") {
-            //username includes spacebars
-            if (username.includes(" ")) {
-                alert("New username cannot include spaces.");
-                userNameText.click();
-            }
-            else {
-
-                //check if another user with the same username exists
-                try {
-                    let query = `SELECT id_user FROM Users WHERE username = '${username}'`;
-                    const row = await SqlGetPromise(query);
-
-                    //username free
-                    if (row == undefined) {
-                        try {
-                            let update = `UPDATE Users
-                            SET username = '${username}'
-                            WHERE id_user = '${idUser}'`;
-                            const updatedId = await SqlRunPromise(update);
-
-                            alert("Username succesfuly changed.");
-
-                            changeUserNameStage = -1;
-                            changeUsername();
-                        }
-                        catch (error2) {
-                            console.log(error2);
-                            alert("Username could not be changed. We apologize for the inconvenience.");
-                        }
-                    }
-                    //username taken
-                    else {
-                        alert("Username taken.");
-                    }
-                }
-                catch (error) {
-                    console.log(error);
-                    alert("Username could not be changed. We apologize for the inconvenience.");
-                }
-            }
-        }
-        //username empty
-        else {
-            alert("New username cannot be empty.");
-            userNameText.click();
-        }
+    else if (nameStage == 1) {
+        console.log("1");
+        await UpdateFullName();
     }
 }
 
+function EditFullName() {
+    let btn = document.getElementById('changeAccFullNameBtn');
+    let cancelBtn = document.getElementById('changeAccFullNameCancelBtn');
+    let firstName = document.getElementById('changeFirstNameField');
+    let lastName = document.getElementById('changeLastNameField');
+    cancelBtn.style.display = "inline-block";
+    btn.innerHTML = "Save";
+    firstName.disabled = false;
+    lastName.disabled = false;
+    firstName.click();
+}
+
+function ResetName() {
+    let btn = document.getElementById('changeAccFullNameBtn');
+    let cancelBtn = document.getElementById('changeAccFullNameCancelBtn');
+    let firstName = document.getElementById('changeFirstNameField');
+    let lastName = document.getElementById('changeLastNameField');
+    cancelBtn.style.display = "none";
+    btn.innerHTML = "Edit";
+    firstName.disabled = true;
+    lastName.disabled = true;
+    nameStage = 0;
+}
+
+async function UpdateFullName() {
+    let firstName = document.getElementById('changeFirstNameField');
+    let lastName = document.getElementById('changeLastNameField');
+
+    if (firstName.value.trim() != "" || lastName.value.trim() != "") {
+        let userId = document.getElementById('globalIdUser').innerHTML;
+        try {
+            let query = `UPDATE Users
+            SET firstName = ?, lastName = ?
+            WHERE id_user = ?`;
+
+            const updatedId = await SqlRegisterPromise(query, [`${firstName.value.trim()}`, `${lastName.value.trim()}`, `${userId}`]);
+
+            firstName.value = firstName.value.trim();
+            lastName.value = lastName.value.trim();
+
+            firstName.disabled = true;
+            lastName.disabled = true;
+
+            ResetName();
+        }
+        catch (err) {
+            console.log(err);
+            ResetName();
+        }
+    }
+    else {
+        firstName.click();
+    }
+}
 
 // 0 = ADD, 1 = MODIFY
 let contactHiddenId = -1;
@@ -1665,7 +1574,7 @@ async function displayModeGenerated(mailId) {
         selectedMailId = 0;
 
         let navBtns = document.getElementsByClassName('rightTopBtn');
-        for(let i = 0; i < navBtns.length; i++){
+        for (let i = 0; i < navBtns.length; i++) {
             navBtns[i].style.display = "none";
         }
     }
@@ -1718,7 +1627,7 @@ async function displayModeGenerated(mailId) {
                 let dateYear = dateArr[0];
                 let dateMonth = dateArr[1];
                 let dateDay = dateArr[2];
-                let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`; 
+                let formattedDate = `${dateDay}.${dateMonth}.${dateYear}`;
 
                 //FILL RIGHT WINDOW WITH MAIL CONTENT
                 document.getElementById('generatedMailWrap').innerHTML = `
@@ -1763,7 +1672,7 @@ async function displayModeGenerated(mailId) {
 
                 //CHANGE HEAD TEXT TO 'Generated mail > [title of mail]'
                 document.getElementById('generatedTitleText').innerHTML = `<a onclick='displayMode(1)' href='#' class='titleLink'>Generated mails</a> > ${row.title}`;
-                
+
                 //display copy and delete buttons
                 document.getElementById('TopDeleteBtn').style.display = "flex";
                 document.getElementById('TopCopyBtn').style.display = "flex";
@@ -1845,13 +1754,13 @@ async function generateMail() {
 
     //3. insert data into prompt
 
-    if(allgood){
+    if (allgood) {
         recipient.disabled = true;
         title.disabled = true;
         purpose.disabled = true;
         reason.disabled = true;
 
-        try{
+        try {
             let firstName = document.getElementById('globalFirstName').innerHTML;
             let lastName = document.getElementById('globalLastName').innerHTML;
             let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender
@@ -1859,20 +1768,20 @@ async function generateMail() {
             WHERE id_contact = '${recipient.value}'`;
             const contactData = await SqlGetPromise(query);
 
-            if(contactData != null){
+            if (contactData != null) {
                 let name = contactData.name, surname = contactData.surname;
-                let dob = contactData.dob, relation = ", my " + contactData.relation; 
+                let dob = contactData.dob, relation = ", my " + contactData.relation;
                 let bio = contactData.bio;
-                let gender = 'male'; 
-    
-                if(contactData.gender == 'f'){
+                let gender = 'male';
+
+                if (contactData.gender == 'f') {
                     gender = 'female';
                 }
-    
-                if(relation == "other") relation = "";
-    
+
+                if (relation == "other") relation = "";
+
                 let recipientDesc = `${name} ${surname}${relation}`;
-    
+
                 let EngPrompt = `Receiver: ${recipientDesc} (${gender}${relation})
                 Date of birth of receiver (year/month/day): ${dob} 
                 Extra info about receiver: ${bio}
@@ -1891,18 +1800,18 @@ async function generateMail() {
                 console.log(EngPrompt);
                 let generateBtn = document.getElementById('NewMailSubmitBtn');
                 try {
-                    
+
                     generateBtn.innerHTML = "Generating <img src='pictures/loading_icon_2.gif' id='generateLoadingImg'>"
                     const generateRequest = await openai.chat.completions.create({
                         messages: [{ role: "system", content: EngPrompt }],
                         model: "gpt-3.5-turbo"
                     });
-                    
-                    let ReturnedMail = generateRequest.choices[0].message.content.trimEnd(); 
+
+                    let ReturnedMail = generateRequest.choices[0].message.content.trimEnd();
                     console.log(ReturnedMail);
 
                     //success
-                    if(ReturnedMail.substring(ReturnedMail.length - 1) == '1'){
+                    if (ReturnedMail.substring(ReturnedMail.length - 1) == '1') {
                         ReturnedMail = ReturnedMail.substring(0, ReturnedMail.length - 1).trimEnd();
                         console.log(ReturnedMail);
                         let idUser = document.getElementById('globalIdUser').innerHTML;
@@ -1916,10 +1825,10 @@ async function generateMail() {
 
                         let saveQuery = `INSERT INTO Mails VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-                        try{    
+                        try {
                             const savedMail = await SqlRegisterPromise(saveQuery, [`${recipient.value}`, `${idUser}`, `${title.value}`, `${year}-${month}-${day}`, `${ReturnedMail}`, `${purpose.value}`, `${reason.value}`, `${formalTextEng}`]);
 
-                            if(savedMail != null){
+                            if (savedMail != null) {
                                 recipient.value = 0;
                                 title.value = "";
                                 purpose.value = 0;
@@ -1928,11 +1837,11 @@ async function generateMail() {
                                 await loadMails();
                                 await displayModeGenerated(savedMail);
                             }
-                            else{
+                            else {
                                 displayMode(1);
                             }
                         }
-                        catch(error){
+                        catch (error) {
                             console.log("insert mail error: " + error);
                             console.log(saveQuery);
                             alert("Mail could not be saved.");
@@ -1940,12 +1849,12 @@ async function generateMail() {
                     }
 
                     //missing info
-                    else if(ReturnedMail.substring(ReturnedMail.length - 1) == '2'){
+                    else if (ReturnedMail.substring(ReturnedMail.length - 1) == '2') {
                         alert("There is not enough information to generate the mail. Please provide the necessary info.");
                     }
 
                     //failed mail
-                    else{
+                    else {
                         alert("The AI could not understand your inputs. Please double check them.");
                     }
 
@@ -1958,15 +1867,15 @@ async function generateMail() {
                 }
             }
         }
-        catch(error){
+        catch (error) {
             console.log(error);
             alert("Mail could not be generated. We apologize for the inconvenience.");
         }
     }
-    else{
+    else {
         alert("All inputs have to be filled out properly.");
     }
-    
+
     recipient.disabled = false;
     title.disabled = false;
     purpose.disabled = false;

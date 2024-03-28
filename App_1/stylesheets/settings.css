@@ -105,6 +105,38 @@
     background-color: rgb(200, 31, 31);
 }
 
+.accFullNameBtnWrap{
+    display: inline;
+}
+
+.settingsBtn2{
+    background-color: rgb(200, 31, 31);
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    background-image: url("../pictures/cancel_icon.png");
+    background-size: contain;
+    border: 0;
+    outline: none;
+    vertical-align: middle;
+}
+
+.settingsBtn2:hover{
+    background-color: rgb(105, 13, 13);
+}
+
+.changePassBtnCancel{
+    display: none;
+}
+
+.changeAccFullNameCancelBtn{
+    display: none;
+}
+
+.accSettingsPasswordBtnWrap{
+    display: inline;
+}
+
 /*ACC SETTINGS*/
 
 /*API SETTINGS*/

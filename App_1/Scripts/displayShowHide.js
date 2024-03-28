@@ -70,7 +70,17 @@ function showHideContactResults(){
     }
 }
 
-function resizeField(el){
+function resizeNameField(mode){
+    let el;
+    switch(mode){
+        case 0:
+            el = document.getElementById('changeFirstNameField');
+            break;
+        case 1:
+            el = document.getElementById('changeFirstNameField');
+            break;
+    }
+    
     let text = el.value.trim();
-    el.style.width = `${text.length + 5} ch`;
+    el.style.width = `${text.length + 5}ch !important`;
 }

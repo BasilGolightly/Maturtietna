@@ -62,6 +62,11 @@
     text-align: left;
 }
 
+.NewRecipientBtnText:hover{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .NewRecipientAdd{
     width: 7.5vw;
     display: flex;
@@ -96,6 +101,7 @@
 
 .newMailAddContactBtn:hover{
     background-color: #02394a;
+    border: 2px solid white;
 }
 
 @media screen and (max-width: 1300px) {

@@ -638,17 +638,22 @@
                                 </td>
 
                                 <td class="accSettingsPasswordInner">
+                                    <!--
                                     <input type="password" style="display: none;" class="accSettingsNewPassTextField"
-                                        id="accSettingsNewPassTextField" placeholder="12 characters minimum">
+                                        id="accSettingsNewPassTextField" disabled placeholder="12 characters minimum">
+                                    
                                     <input type="password" style="display: none;" class="accSettingsEnterPassTextField"
                                         id="accSettingsEnterPassTextField" placeholder="enter password...">
-                                    <input type="password" class="accSettingsPasswordTextField"
-                                        id="accSettingsPasswordTextField" readonly>
+                                    
+                                    -->
+                                    <input type="password" class="accSettingsPasswordTextField" maxlength="40"
+                                        id="accSettingsPasswordTextField" disabled>
+                                    
                                 </td>
 
                                 <td class="accSettingsPasswordBtnWrap">
-                                    <button type="button" class="changePassBtn settingsBtn" id="changePassBtn"
-                                        onclick="changePass()">Edit</button>
+                                    <button type="button" class="changePassBtn settingsBtn" id="changePassBtn" onclick="changePassClick()">Edit</button>
+                                    <button type="button" class="changePassBtnCancel settingsBtn2" id="changePassBtnCancel" onclick="resetPassword()"></button>
                                 </td>
                             </tr>
                             <!--password-->
@@ -660,12 +665,13 @@
                                 </td>
 
                                 <td class="accFullNameInner"> 
-                                    <input type="text" class="changeFirstNameField" id="changeFirstNameField" placeholder="First name" onchange="resizeField(this)">,
-                                    <input type="text" class="changeLastNameField" id="changeLastNameField" placeholder="Last name" onchange="resizeField(this)">
+                                    <input type="text" class="changeFirstNameField" id="changeFirstNameField" placeholder="First name" oninput="resizeNameField(0)" disabled>,
+                                    <input type="text" class="changeLastNameField" id="changeLastNameField" placeholder="Last name" oninput="resizeNameField(1)" disabled>
                                 </td>
 
                                 <td class="accFullNameBtnWrap">
-                                    <button type="button" class="changeAccFullNameBtn settingsBtn" id="changeAccFullNameBtn">Edit</button>
+                                    <button type="button" class="changeAccFullNameBtn settingsBtn" id="changeAccFullNameBtn" onclick="EditNameClick()">Edit</button>
+                                    <button type="button" class="changeAccFullNameCancelBtn settingsBtn2" id="changeAccFullNameCancelBtn" style="display: none;" onclick="ResetName()"></button>
                                 </td>
                             </tr>
                             <!--full name-->
@@ -1023,7 +1029,7 @@
     hideContact();
     hideTutorial();
     hideMails();
-    displayMode(4);
+    displayMode(3);
     //displayModeAddContacts(-1);
 </script>
 <!--script-->
