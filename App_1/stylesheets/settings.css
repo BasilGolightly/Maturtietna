@@ -133,6 +133,10 @@
     display: none;
 }
 
+.changeUsernameCancelBtn{
+    display: none;
+}
+
 .accSettingsPasswordBtnWrap{
     display: inline;
 }

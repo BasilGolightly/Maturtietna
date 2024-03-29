@@ -621,12 +621,13 @@
 
                                 <td class="accSettingsUsernameInner">
                                     <input type="text" class="accSettingsUsernameTextField"
-                                        id="accSettingsUsernameTextField" readonly>
+                                        id="accSettingsUsernameTextField" disabled>
                                 </td>
 
                                 <td class="accSettingsUsernameBtnWrap">
                                     <button class="changeUsernameBtn settingsBtn" id="changeUsernameBtn"
-                                        onclick="changeUsername()">Edit</button>
+                                        onclick="changeUsernameClick()">Edit</button>
+                                    <button class="changeUsernameCancelBtn settingsBtn2" id="changeUsernameCancelBtn" onclick="ResetUsername()"></button>
                                 </td>
                             </tr>
                             <!--username-->

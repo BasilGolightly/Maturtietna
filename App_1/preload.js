@@ -1230,11 +1230,78 @@ async function submitPass(){
 let changeUserNameStage = 0;
 
 //change username
-async function changeUsername() {
+async function changeUsernameClick() {
+    if(changeUserNameStage == 0){
+        EditUsername();
+    }
+    else if(changeUserNameStage == 1){
+        await changeUsername();
+    }
+}
+
+function EditUsername(){
+    let userNameText = document.getElementById('accSettingsUsernameTextField');
+    let btn = document.getElementById('changeUsernameBtn');
+    let btn2 = document.getElementById('changeUsernameCancelBtn');
+
+    userNameText.disabled = false;
+    userNameText.placeholder = "enter username";
+    btn.innerHTML = "Save";
+    btn2.style.display = "inline-block";
+
+    userNameText.click();
+
+    changeUserNameStage++;
+}
+
+function ResetUsername(){
+    let userNameText = document.getElementById('accSettingsUsernameTextField');
+    let btn = document.getElementById('changeUsernameBtn');
+    let btn2 = document.getElementById('changeUsernameCancelBtn');
+
+    userNameText.disabled = true;
+    btn.innerHTML = "Edit";
+    btn2.style.display = "none";
+
+    changeUserNameStage = 0;
+}
+
+async function changeUsername(){
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
 
-    
+    if(userNameText.value.trim() != ""){
+        try{
+            const existingUsernames = await SqlAllPromise(`SELECT id_user FROM Users WHERE Username = '${userNameText.value.trim()}'`);
+
+            if(existingUsernames.length < 1){
+                try{
+                    let userId = document.getElementById('globalIdUser').innerHTML;
+                    let query = `UPDATE users
+                    SET username = ?
+                    WHERE id_user = ?`;
+                    const insertedId = await SqlRegisterPromise(query, [`${userNameText.value.trim()}`, `${userId}`]);
+
+                    ResetUsername();
+                }
+                catch(err2){
+                    console.log(err2);
+                    ResetUsername();
+                }
+            }
+            else{
+                alert("Username taken");
+                userNameText.click();
+            }
+        }
+        catch(err){
+            console.log(err);
+            ResetUsername();
+        }
+    }
+    else{
+        userNameText.click();
+    }
 }
 
 let nameStage = 0;
