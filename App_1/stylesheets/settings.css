@@ -160,7 +160,22 @@
 }
 
 .apiKeyTextFieldWrap{
-    width: auto;
+    width: fit-content;
     display: inline;
 }
+
+.apiKeyChangeCancelBtn{
+    display: none;
+}
+
+.apiKeyTextField{
+    width: max-content;
+}
+
+.apiSettingsLoadingIcon{
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
+}
+
 /*API SETTINGS*/

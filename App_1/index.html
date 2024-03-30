@@ -676,14 +676,6 @@
                                 </td>
                             </tr>
                             <!--full name-->
-
-                            <!--delete account-->
-                            <tr class="accSettingsDeleteAccount">
-                                <td colspan="3">
-                                    <button class="deleteAccBtn">Delete Account</button>
-                                </td>
-                            </tr>
-                            <!--delete account-->
                         </table>
 
                     </div>
@@ -698,19 +690,31 @@
 
                         <table class="apiSettingsInner">
                             
+                            <!--API Key-->
                             <tr class="ApiKeyInner"> 
                                 <td id="accSettingsTableFirstCol">
                                     API Key
                                 </td>   
 
                                 <td class="apiKeyTextFieldWrap">
-                                    <input type="password" class="apiKeyTextField" id="apiKeyTextField" placeholder="API key">
+                                    <input type="text" class="apiKeyTextField" id="apiKeyTextField" placeholder="API key" disabled>
                                 </td>
 
                                 <td class="apiKeyBtnWrap">
-                                    <button type="button" class="settingsBtn">Change</button>
+                                    <button type="button" class="apiKeyChangeBtn settingsBtn" id="apiKeyChangeBtn" onclick="changeAPIClick()">Edit</button>
+                                    <button type="button" class="apiKeyCopyBtn settingsBtn3" id="apiKeyCopyBtn" onclick="copyAPIKey()"></button>
+                                    <button type="button" class="apiKeyChangeCancelBtn settingsBtn2" id="apiKeyChangeCancelBtn" onclick="resetAPIKey()"></button>
                                 </td>
                             </tr>
+                            <!--API key-->
+
+                            <!--delete account-->
+                            <tr class="accSettingsDeleteAccount">
+                                <td colspan="3">
+                                    <button class="deleteAccBtn">Delete Account</button>
+                                </td>
+                            </tr>
+                            <!--delete account-->
 
                         </table>
                     </div>

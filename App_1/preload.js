@@ -29,7 +29,8 @@ async function setupDb() {
         firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
         firstName NVARCHAR(50) NOT NULL,
         lastName NVARCHAR(50) NOT NULL,
-        date_registered DATETIME
+        date_registered DATETIME,
+        apiKey TEXT
     );`, (err) => {
         if (err) {
             console.error(err.message);
@@ -271,8 +272,8 @@ async function register(username, password, firstName, lastName) {
         let month = date.getMonth() + 1;
         let day = date.getDate();
 
-        let query = `INSERT INTO Users VALUES(null, ?, ?, 'en', '1', ?, ?, ?)`
-        const id = await SqlRegisterPromise(query, [`${username}`, `${password}`, `${firstName}`, `${lastName}`, `${year}-${month}-${day}`]);
+        let query = `INSERT INTO Users VALUES(null, ?, ?, 'en', '1', ?, ?, ?, ?)`
+        const id = await SqlRegisterPromise(query, [`${username}`, `${password}`, `${firstName}`, `${lastName}`, `${year}-${month}-${day}`, `${ApiKey}`]);
         console.log("New account ID: " + id);
 
         //write to intermediary JSON file
@@ -1086,7 +1087,7 @@ async function loadUserProfile() {
             document.getElementById('accSettingsUsernameTextField').value = obj.UserName;
 
             try {
-                let query = `SELECT firstTime, password, firstName, lastName  
+                let query = `SELECT firstTime, password, firstName, lastName, apiKey  
                 FROM Users
                 WHERE id_user = '${obj.Id}'`;
                 const row = await SqlGetPromise(query);
@@ -1099,6 +1100,7 @@ async function loadUserProfile() {
                     document.getElementById('globalLastName').innerHTML = row.lastName;
                     document.getElementById('changeFirstNameField').value = row.firstName;
                     document.getElementById('changeLastNameField').value = row.lastName;
+                    document.getElementById('apiKeyTextField').value = row.apiKey;
                 }
             }
             catch (error) {
@@ -1312,7 +1314,6 @@ async function EditNameClick() {
         nameStage++;
     }
     else if (nameStage == 1) {
-        console.log("1");
         await UpdateFullName();
     }
 }
@@ -1370,6 +1371,98 @@ async function UpdateFullName() {
     else {
         firstName.click();
     }
+}
+
+let apiKeyStage = 0;
+let oldApiKey = "";
+
+async function changeAPIClick(){
+    if(apiKeyStage == 0){
+        EditAPIKey();
+        apiKeyStage++;
+    } 
+    else if(apiKeyStage == 1){
+        await ChangeAPIKey();
+    }
+}
+
+function EditAPIKey(){
+    let apiKey = document.getElementById('apiKeyTextField');
+    let btn = document.getElementById('apiKeyChangeBtn');
+    let btn2 = document.getElementById('apiKeyChangeCancelBtn');
+
+    apiKey.disabled = false;
+    apiKey.placeholder = "Enter API key";
+    btn.innerHTML = "Change";
+    btn2.style.display = "inline-block";
+
+    apiKey.click();
+
+    oldApiKey = apiKey.value.trim();
+}
+
+async function ChangeAPIKey(){
+    let apiKey = document.getElementById('apiKeyTextField');
+    let btn = document.getElementById('apiKeyChangeBtn');
+
+    apiKey.disabled = true;
+
+    if(apiKey.value.trim() != ""){
+        console.log(1);
+        const tempKey = apiKey.value.trim();
+        
+        try{
+            btn.innerHTML = "Checking Key <img src='pictures/loading_icon_2.gif' class='apiSettingsLoadingIcon'>";
+
+            const testKey = new OpenAI({ apiKey: tempKey, dangerouslyAllowBrowser: true});
+            const testKeyResponse = await testKey.chat.completions.create({
+                messages: [{ role: "system", content: "What is 2 + 2"}],
+                model: "gpt-3.5-turbo"
+            });
+
+            try{
+                let userId = document.getElementById('globalIdUser').innerHTML;
+                let query = `UPDATE Users
+                SET apiKey = ?
+                WHERE id_user = ?`;
+                const updateApiKey = await SqlRegisterPromise(query, [`${tempKey}`, `${userId}`]);
+                resetAPIKey();
+            }
+            catch(err2){
+                console.log(err2);
+                alert("Failed to change API key. We apologize for the inconvenience");
+                resetAPIKey();
+            }
+        }
+        catch(err){
+            console.log(err);
+            alert("Your API key is invalid. Please double check it.");
+            btn.innerHTML = "Change";
+            apiKey.click();
+            apiKey.disabled = false;
+        }
+    }
+    else{
+        apiKey.click();
+        apiKey.disabled = false;
+    }
+}
+
+function resetAPIKey(){
+    let apiKey = document.getElementById('apiKeyTextField');
+    let btn = document.getElementById('apiKeyChangeBtn');
+    let btn2 = document.getElementById('apiKeyChangeCancelBtn');
+
+    apiKey.disabled = true;
+    apiKey.placeholder = "API key";
+    apiKey.value = oldApiKey;
+
+    btn.innerHTML = "Edit";
+    btn2.style.display = "none";
+
+    oldApiKey = "";
+
+    apiKeyStage = 0;
 }
 
 // 0 = ADD, 1 = MODIFY
