@@ -178,4 +178,23 @@
     vertical-align: middle;
 }
 
+.apiKeyBtnWrap{
+    display: inline;
+}
+
+.settingsBtn3{
+    background-color: transparent;
+    width: 25px;
+    height: 25px;
+    background-image: url("../pictures/copy_icon.png");
+    background-size: contain;
+    border: 0;
+    outline: none;
+    vertical-align: middle;
+}
+
+.apiKeyCopyBtn{
+    display: inline-block;
+}
+
 /*API SETTINGS*/

@@ -1160,6 +1160,8 @@ function resetPassword(){
     btn.innerHTML = "Edit";
     password.value = oldPass; 
     cancelBtn.style.display = "none";
+
+    password.blur();
 }
 
 function EnterPass(){
@@ -1266,6 +1268,7 @@ function ResetUsername(){
     btn2.style.display = "none";
 
     changeUserNameStage = 0;
+    userNameText.blur();
 }
 
 async function changeUsername(){
@@ -1327,7 +1330,7 @@ function EditFullName() {
     btn.innerHTML = "Save";
     firstName.disabled = false;
     lastName.disabled = false;
-    firstName.click();
+    firstName.focus();
 }
 
 function ResetName() {
@@ -1335,11 +1338,14 @@ function ResetName() {
     let cancelBtn = document.getElementById('changeAccFullNameCancelBtn');
     let firstName = document.getElementById('changeFirstNameField');
     let lastName = document.getElementById('changeLastNameField');
+
     cancelBtn.style.display = "none";
     btn.innerHTML = "Edit";
     firstName.disabled = true;
     lastName.disabled = true;
     nameStage = 0;
+    firstName.blur();
+    lastName.blur();
 }
 
 async function UpdateFullName() {
@@ -1369,7 +1375,7 @@ async function UpdateFullName() {
         }
     }
     else {
-        firstName.click();
+        firstName.focus();
     }
 }
 
@@ -1390,15 +1396,20 @@ function EditAPIKey(){
     let apiKey = document.getElementById('apiKeyTextField');
     let btn = document.getElementById('apiKeyChangeBtn');
     let btn2 = document.getElementById('apiKeyChangeCancelBtn');
+    let copyBtn = document.getElementById('apiKeyCopyBtn');
 
-    apiKey.disabled = false;
+    apiKey.disabled = false
+    apiKey.type = "text";
     apiKey.placeholder = "Enter API key";
     btn.innerHTML = "Change";
     btn2.style.display = "inline-block";
+    copyBtn.style.display = "none";
 
-    apiKey.click();
+    apiKey.focus();
 
     oldApiKey = apiKey.value.trim();
+
+    apiKey.blur();
 }
 
 async function ChangeAPIKey(){
@@ -1438,12 +1449,12 @@ async function ChangeAPIKey(){
             console.log(err);
             alert("Your API key is invalid. Please double check it.");
             btn.innerHTML = "Change";
-            apiKey.click();
+            apiKey.focus();
             apiKey.disabled = false;
         }
     }
     else{
-        apiKey.click();
+        apiKey.focus();
         apiKey.disabled = false;
     }
 }
@@ -1452,17 +1463,32 @@ function resetAPIKey(){
     let apiKey = document.getElementById('apiKeyTextField');
     let btn = document.getElementById('apiKeyChangeBtn');
     let btn2 = document.getElementById('apiKeyChangeCancelBtn');
-
+    let copyBtn = document.getElementById('apiKeyCopyBtn');
+    
     apiKey.disabled = true;
+    apiKey.type = "password";
     apiKey.placeholder = "API key";
     apiKey.value = oldApiKey;
 
     btn.innerHTML = "Edit";
     btn2.style.display = "none";
+    copyBtn.style.display = "inline-block";
 
     oldApiKey = "";
 
     apiKeyStage = 0;
+}
+
+async function copyAPIKey(){
+    let apiKey = document.getElementById('apiKeyTextField');
+
+    try{
+        let copyText = apiKey.value.trim();
+        await navigator.clipboard.writeText(copyText);
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
 // 0 = ADD, 1 = MODIFY
