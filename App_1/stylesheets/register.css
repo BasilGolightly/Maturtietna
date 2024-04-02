@@ -26,8 +26,10 @@ body {
     justify-content: center;
 }
 
+/*MAIN REGISTER WINDOW*/
+
 .main{
-    display: grid;
+    display: none;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
     width: 400px;
@@ -171,3 +173,102 @@ body {
 .firstNameWrap{
     margin-right: 15px;
 }
+
+/*MAIN REGISTER WINDOW*/
+
+/*API KEY ENTER WINDOW*/
+
+.apiMain{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto;
+    border-radius: 15px;
+    border: 1px solid white;
+    padding: 15px;
+    height: 400px;
+    width: 640px;
+    justify-content: center;
+}
+
+.apiTop{
+    text-align: center;
+}
+
+.apiTitle{
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.apiTitleInner{
+    margin-bottom: 0;
+    padding: 0 !important;
+}
+
+.apiTopHint{
+    color: lightgray;
+    font-size: 13px;
+}
+
+.apiMiddle{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.apiKeyRegisterInput{
+    text-align: center;
+    width: 90%;
+    color: white;
+    font-size: 13px;
+    font-family: 'Kanit', sans-serif;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+
+.apiKeyRegisterInput:focus, .apiKeyRegisterInput:hover{
+    border-bottom: 2px solid white;
+}
+
+.apiMidBtnWrap{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.apiMidBtnInner{
+    width: 90%;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 50% 50%;
+}
+
+.apiMidLeft{
+    display: grid;
+    justify-content: left;
+}
+
+.apiMidRight{
+    display: grid;
+    justify-content: right;
+}
+
+.apiMidBtn{
+    color: white;
+    padding: 2.5px 7.5px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid white;
+    background-color: transparent;
+    font-family: 'Kanit', sans-serif;
+    border-radius: 10px;
+}
+
+.apiMidBtn:hover{
+    background-color: rgb(25, 25, 25);
+}
+
+/*API KEY ENTER WINDOW*/

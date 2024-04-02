@@ -264,7 +264,6 @@ function registerCheck() {
 
 //INSERT INTO USERS 
 async function register(username, password, firstName, lastName) {
-
     try {
         //insert into users table
         let date = new Date();
@@ -278,7 +277,6 @@ async function register(username, password, firstName, lastName) {
 
         //write to intermediary JSON file
         const Writesuccess = await writeToLoginfile(username, "", id)
-
         //success - go straight to homepage
         if (Writesuccess) {
             //alert("JSON write successful");
@@ -495,10 +493,6 @@ async function displayMode(mode) {
 
             fullScreenNewMails();
 
-            newMailFrame.style.display = "flex";
-
-            if (displayModeId != 0) displayMode(displayModeId);
-
             /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
         //generated
@@ -611,6 +605,10 @@ function fullScreenNewMails() {
         newMailFrame.style.display = 'flex';
 
         isFullScreen = false;
+
+        if(displayModeId != 0){
+            displayMode(displayModeId);
+        }
     }
     //fullscreen
     else {
@@ -629,7 +627,7 @@ function fullScreenNewMails() {
         border-radius: 15px;
         border: none;
         `;
-        newMailHead.style.padding = '15px 15px 15px 0';
+        newMailHead.style.padding = '0 15px 15px 0';
         let Windowframes = document.getElementsByClassName('windowFrame');
 
         for (let i = 0; i < newMailChapters.length; i++) {
@@ -648,14 +646,11 @@ function fullScreenNewMails() {
 
 function exitNewMails() {
     document.getElementById('newMailFrame').style.display = 'none';
-    if (displayModeId === 0) {
-        //alert("ba");
-        displayMode(5);
-    }
-    else {
-        //alert("ba2");
-        displayMode(displayModeId);
-    }
+
+    isFullScreen = true;
+
+    if (displayModeId === 0) displayMode(5);
+    else displayMode(displayModeId);
 }
 
 /*--------------------------SEARCH BAR--------------------------*/

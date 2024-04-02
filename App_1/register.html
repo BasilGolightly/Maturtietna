@@ -9,7 +9,8 @@
 </head>
 <body>
     <div class="mainWrap">
-        <div class="main">
+        <!--MAIN REGISTER WINDOW-->
+        <div class="main" id="mainRegister">
             <div class="registerTop">
                 <div class="registerTitleWrap">
                     <h1 class="registerTitle">Register</h1>
@@ -69,26 +70,6 @@
                     </div>
                     <!--Full name-->
 
-                    <!--Repeat PASS-->
-                    <!--
-                    <div class="RepeatPasswordWrap promptWrap">
-                        <div class="RegisterTitle">
-                            Repeat password
-                        </div>
-                        <div class="RepeatPassInner">
-                            <div class="RepeatPassInnerDiv passwordInnerDiv">
-                                <div class="leftGrid">
-                                    <input type="password" class="registerTextBox" id="passwordtextBox2" placeholder="repeat password">
-                                </div>
-                                <div class="rightGrid">
-                                    <button class="showHideBtn showHideBtn2" id="showHideBtn2" onclick="showHidePassRegister(2)">(Show)</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-                    <!--Repeat PASS-->
-
                     <!--buttons-->
                     <div class="RegisterButtonsWrap promptWrap">
                         <div class="leftGrid">
@@ -114,6 +95,45 @@
                 </div>
             </div>
         </div>
+        <!--MAIN REGISTER WINDOW-->
+
+        <!--API KEY ENTER WINDOW-->
+        <div class="apiMain" id="apiMain">
+            <div class="apiTop">
+                <div class="apiTitle">
+                    Enter your OpenAI API key
+                </div>
+                <div class="apiTopHint">
+                    Step 2 out of 2
+                </div>
+            </div>
+
+            <div class="apiMiddle">
+                <div>
+                    API key
+                </div>
+
+                <div>
+                    <input type="text" class="apiKeyRegisterInput" id="apiKeyRegister" maxlength="255">
+                </div>
+
+                <div class="apiMidBtnWrap">
+                    <div class="apiMidBtnInner">
+                        <div class="apiMidLeft">
+                            <button type="button" class="apiMidBtn" onclick="RegisterDisplayMode(0)">Back to prompt</button>
+                        </div>
+                        <div class="apiMidRight">
+                            <button type="button" class="apiMidBtn">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="apiBottom">
+
+            </div>
+        </div>
+        <!--API KEY ENTER WINDOW-->
     </div>
 </body>
 
