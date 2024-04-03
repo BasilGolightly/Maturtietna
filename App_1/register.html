@@ -15,6 +15,11 @@
                 <div class="registerTitleWrap">
                     <h1 class="registerTitle">Register</h1>
                 </div>
+
+                <div class="registerTopHint">
+                    Step 1 out of 2
+                </div>
+                
                 <div class="ErrorWrap" id="error"></div>
             </div>
 
@@ -101,7 +106,9 @@
         <div class="apiMain" id="apiMain">
             <div class="apiTop">
                 <div class="apiTitle">
-                    Enter your OpenAI API key
+                    <h1 class="registerTitleText">
+                        Enter your OpenAI API key
+                    </h1>
                 </div>
                 <div class="apiTopHint">
                     Step 2 out of 2
@@ -120,17 +127,22 @@
                 <div class="apiMidBtnWrap">
                     <div class="apiMidBtnInner">
                         <div class="apiMidLeft">
-                            <button type="button" class="apiMidBtn" onclick="RegisterDisplayMode(0)">Back to prompt</button>
+                            <button class="registerBtn" onclick="RegisterDisplayMode(0)">Back to prompt</button>
                         </div>
                         <div class="apiMidRight">
-                            <button type="button" class="apiMidBtn">Register</button>
+                            <button class="registerBtn" onclick="registerCheckApi()">Register</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="apiBottom">
-
+                <div class="apiBottomHint">
+                    Keep your API key safe, do not share it with anyone.
+                </div>
+                <div>
+                    <button class="skipApiBtn">Skip this step (click here)</button>
+                </div>
             </div>
         </div>
         <!--API KEY ENTER WINDOW-->

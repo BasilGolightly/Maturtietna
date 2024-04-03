@@ -1,5 +1,5 @@
 const { count } = require('console');
-const { clipboard } = require('electron');
+const { clipboard, desktopCapturer } = require('electron');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const ApiKey = "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";
@@ -196,6 +196,23 @@ function SqlPreparePromise(query){
 
 /*-------------------------------------REGISTER-------------------------------------*/
 
+function RegisterDisplayMode(mode){
+    let regWindow = document.getElementById('mainRegister');
+    let apiWindow = document.getElementById('apiMain');
+
+    //main register
+    if(mode == 0){
+        apiWindow.style.display = "none";
+        regWindow.style.display = "grid";
+    }
+    //api register
+    else if(mode == 1)
+    {
+        regWindow.style.display = "none";
+        apiWindow.style.display = "grid";
+    }
+}
+
 //CHECK REGISTER FORM DATA
 function registerCheck() {
     //set error display to empty string
@@ -252,9 +269,10 @@ function registerCheck() {
         allgood = false;
     }
 
-    //if all is in proper format, proceed with register
+    //if all is in proper format, proceed with register, show API section
     if (allgood) {
-        register(username, password, firstName, lastName);
+        RegisterDisplayMode(1);
+        //register(username, password, firstName, lastName, apiKey);
     }
     //if not, output error
     else {
@@ -262,8 +280,17 @@ function registerCheck() {
     }
 }
 
+async function registerCheckApi(){
+    let apiKey = document.getElementById('apiKeyRegister');
+    let apiKeyText = apiKey.value.trim();
+
+    if(apiKeyText != ""){
+        
+    }
+}
+
 //INSERT INTO USERS 
-async function register(username, password, firstName, lastName) {
+async function register(username, password, firstName, lastName, apiKey) {
     try {
         //insert into users table
         let date = new Date();

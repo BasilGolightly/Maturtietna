@@ -29,7 +29,7 @@ body {
 /*MAIN REGISTER WINDOW*/
 
 .main{
-    display: none;
+    display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
     width: 400px;
@@ -68,6 +68,11 @@ body {
 .RegisterTitle{
     margin-bottom: 10px;
     text-align: center;
+}
+
+.registerTitleText{
+    padding: 0;
+    margin: 5px;
 }
 
 .promptWrap{
@@ -146,6 +151,7 @@ body {
     background-color: transparent;
     font-family: 'Kanit', sans-serif;
     border-radius: 10px;
+    height: 42.5px !important;
 }
 
 .registerBtn:hover{
@@ -174,12 +180,17 @@ body {
     margin-right: 15px;
 }
 
+.registerTopHint{
+    font-size: 13px;
+    color: lightgray;
+}
+
 /*MAIN REGISTER WINDOW*/
 
 /*API KEY ENTER WINDOW*/
 
 .apiMain{
-    display: grid;
+    display: none;
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto;
     border-radius: 15px;
@@ -195,8 +206,12 @@ body {
 }
 
 .apiTitle{
-    font-size: 18px;
     margin-bottom: 0;
+}
+
+.apiTitleText{
+    margin: 0;
+    padding-bottom: 5px;
 }
 
 .apiTitleInner{
@@ -204,7 +219,7 @@ body {
     padding: 0 !important;
 }
 
-.apiTopHint{
+.apiTopHint, .apiBottomHint{
     color: lightgray;
     font-size: 13px;
 }
@@ -247,12 +262,12 @@ body {
 }
 
 .apiMidLeft{
-    display: grid;
+    display: flex;
     justify-content: left;
 }
 
 .apiMidRight{
-    display: grid;
+    display: flex;
     justify-content: right;
 }
 
@@ -269,6 +284,26 @@ body {
 
 .apiMidBtn:hover{
     background-color: rgb(25, 25, 25);
+}
+
+.apiBottom{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.skipApiBtn{
+    color: lightgray;
+    font-size: 13px;
+    padding: 5px;
+    border: 0;
+    outline: 0;
+    font-family: 'Kanit', sans-serif;
+    background-color: transparent;
+}
+
+.skipApiBtn:hover{
+    text-decoration: underline;
+    color: white;
 }
 
 /*API KEY ENTER WINDOW*/

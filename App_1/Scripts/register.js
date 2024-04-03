@@ -20,20 +20,3 @@ function registerClear(){
     document.getElementById('passwordtextBox1').innerHTML = "";
     document.getElementById('passwordtextBox2').innerHTML = "";
 }
-
-function RegisterDisplayMode(mode){
-    let regWindow = document.getElementById('mainRegister');
-    let apiWindow = document.getElementById('apiMain');
-
-    //main register
-    if(mode == 0){
-        apiWindow.style.display = "none";
-        regWindow.style.display = "grid";
-    }
-    //api register
-    else if(mode == 1)
-    {
-        regWindow.style.display = "none";
-        apiWindow.style.display = "grid";
-    }
-}
