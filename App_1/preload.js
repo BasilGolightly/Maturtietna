@@ -1,11 +1,11 @@
-const { count } = require('console');
+//const { count } = require('console');
 const { clipboard, desktopCapturer } = require('electron');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
 const ApiKey = "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";
 
 const { OpenAI } = require("openai");
-const openai = new OpenAI({ apiKey: ApiKey, dangerouslyAllowBrowser: true });
+//const openai = new OpenAI({ apiKey: ApiKey, dangerouslyAllowBrowser: true });
 
 /*------------------------REQUIRE-----------------------*/
 
@@ -19,68 +19,66 @@ let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
     }
 });
 
+//CREATE TABLES
 async function setupDb() {
-    //CREATE USERS TABLE
-    db.run(`CREATE TABLE IF NOT EXISTS Users(
-        id_user INTEGER PRIMARY KEY AUTOINCREMENT,
-        username NVARCHAR(50) UNIQUE NOT NULL,
-        password NVARCHAR(255) NOT NULL,
-        lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
-        firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
-        firstName NVARCHAR(50) NOT NULL,
-        lastName NVARCHAR(50) NOT NULL,
-        date_registered DATETIME,
-        apiKey TEXT
-    );`, (err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        else {
-            console.log("Users table created / already exists.");
-        }
-    })
-
-    //CREATE CONTACTS TABLE
-    db.run(`CREATE TABLE IF NOT EXISTS Contacts(
-        id_contact INTEGER PRIMARY KEY AUTOINCREMENT,
-        id_user INTEGER NOT NULL,
-        name NVARCHAR(50) NOT NULL,
-        surname NVARCHAR(50) NOT NULL,
-        dob DATETIME NOT NULL,
-        relation NVARCHAR(50) NOT NULL,
-        bio TEXT,
-        gender NVARCHAR(10) NOT NULL CHECK(gender IN('m', 'f')),
-        date_created DATETIME,
-        CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
-    );`, (err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        else {
-            console.log("Contacts table created / already exists.");
-        }
-    })
-
-    //CREATE MAILS TABLE
-    db.run(`CREATE TABLE IF NOT EXISTS Mails(
-        id_mail INTEGER PRIMARY KEY AUTOINCREMENT,
-        id_contact INTEGER NOT NULL,
-        id_user INTEGER NOT NULL,
-        title NVARCHAR(50) NOT NULL,
-        date_generated DATE NOT NULL,
-        content TEXT NOT NULL,
-        type NVARCHAR(50) NOT NULL,
-        reason TEXT NOT NULL,
-        formality NVARCHAR(25) NOT NULL CHECK(formality IN('Formal', 'Informal', 'informal', 'formal')),
-        CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
-        CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
-    );`, (err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        else {
-            console.log("Mails table created / already exists.");
-        }
+    db.serialize(() => {
+        db.run(`CREATE TABLE IF NOT EXISTS Users(
+            id_user INTEGER PRIMARY KEY AUTOINCREMENT,
+            username NVARCHAR(50) UNIQUE NOT NULL,
+            password NVARCHAR(255) NOT NULL,
+            lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
+            firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
+            firstName NVARCHAR(50) NOT NULL,
+            lastName NVARCHAR(50) NOT NULL,
+            date_registered DATETIME,
+            apiKey TEXT
+        );`, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            else {
+                console.log("Users table created / already exists.");
+            }
+        })
+        .run(`CREATE TABLE IF NOT EXISTS Contacts(
+            id_contact INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_user INTEGER NOT NULL,
+            name NVARCHAR(50) NOT NULL,
+            surname NVARCHAR(50) NOT NULL,
+            dob DATETIME NOT NULL,
+            relation NVARCHAR(50) NOT NULL,
+            bio TEXT,
+            gender NVARCHAR(10) NOT NULL CHECK(gender IN('m', 'f')),
+            date_created DATETIME,
+            CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
+        );`, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            else {
+                console.log("Contacts table created / already exists.");
+            }
+        })
+        .run(`CREATE TABLE IF NOT EXISTS Mails(
+            id_mail INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_contact INTEGER NOT NULL,
+            id_user INTEGER NOT NULL,
+            title NVARCHAR(50) NOT NULL,
+            date_generated DATE NOT NULL,
+            content TEXT NOT NULL,
+            type NVARCHAR(50) NOT NULL,
+            reason TEXT NOT NULL,
+            formality NVARCHAR(25) NOT NULL CHECK(formality IN('Formal', 'Informal', 'informal', 'formal')),
+            CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
+            CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
+        );`, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            else {
+                console.log("Mails table created / already exists.");
+            }
+        })
     })
 }
 
@@ -214,7 +212,7 @@ function RegisterDisplayMode(mode){
 }
 
 //CHECK REGISTER FORM DATA
-function registerCheck() {
+async function registerCheck() {
     //set error display to empty string
     let errorHTML = document.getElementById('error');
     errorHTML.innerHTML = "";
@@ -271,8 +269,23 @@ function registerCheck() {
 
     //if all is in proper format, proceed with register, show API section
     if (allgood) {
-        RegisterDisplayMode(1);
-        //register(username, password, firstName, lastName, apiKey);
+        try{
+            let query = `SELECT id_user
+            FROM Users
+            WHERE username = '${username}'`;
+            const takenUsers = await SqlAllPromise(query);
+
+            if(takenUsers.length == 0){
+                RegisterDisplayMode(1);
+            }
+            else{
+                document.getElementById('error').innerHTML = "Username already taken.";
+            }
+        }
+        catch(err){
+            console.log(err);
+            document.getElementById('error').innerHTML = "Register could not be carried out.";
+        }
     }
     //if not, output error
     else {
@@ -280,12 +293,50 @@ function registerCheck() {
     }
 }
 
+async function registerSkipApi() {
+    let username = document.getElementById('newUsername').value.trim();
+    let password = document.getElementById('passwordtextBox1').value.trim();
+    let firstName = document.getElementById('newFirstName').value.trim();
+    let lastName = document.getElementById('newLastName').value.trim();
+    await register(username, password, firstName, lastName, "");
+}
+
 async function registerCheckApi(){
     let apiKey = document.getElementById('apiKeyRegister');
     let apiKeyText = apiKey.value.trim();
+    let apiError = document.getElementById('apiError');
+
+    apiError.innerHTML = "";
 
     if(apiKeyText != ""){
-        
+        let apiBtn = document.getElementById('registerApiBtn');
+        apiBtn.innerHTML = "Checking key <img src='pictures/loading_icon_2.gif' id='apiBtnImg'>";
+
+        try{
+            const testKey = new OpenAI({ apiKey: apiKeyText, dangerouslyAllowBrowser: true });
+            const testKeyResponse = await testKey.chat.completions.create({
+                messages: [{ role: "system", content: "Test"}],
+                model: "gpt-3.5-turbo"
+            });
+
+            if(testKeyResponse != null || testKeyResponse != undefined){
+                let username = document.getElementById('newUsername').value.trim();
+                let password = document.getElementById('passwordtextBox1').value.trim();
+                let firstName = document.getElementById('newFirstName').value.trim();
+                let lastName = document.getElementById('newLastName').value.trim();
+                await register(username, password, firstName, lastName, apiKeyText);
+            }
+        }
+        catch(err){
+            console.log(err);
+            apiError.innerHTML = "Your API key is invalid. Please double check it.";
+        }
+        finally{
+            apiBtn.innerHTML = "Register";
+        }
+    }
+    else{
+        apiError.innerHTML = "Please enter the API key";
     }
 }
 
@@ -299,14 +350,13 @@ async function register(username, password, firstName, lastName, apiKey) {
         let day = date.getDate();
 
         let query = `INSERT INTO Users VALUES(null, ?, ?, 'en', '1', ?, ?, ?, ?)`
-        const id = await SqlRegisterPromise(query, [`${username}`, `${password}`, `${firstName}`, `${lastName}`, `${year}-${month}-${day}`, `${ApiKey}`]);
+        const id = await SqlRegisterPromise(query, [`${username}`, `${password}`, `${firstName}`, `${lastName}`, `${year}-${month}-${day}`, `${apiKey}`]);
         console.log("New account ID: " + id);
 
         //write to intermediary JSON file
         const Writesuccess = await writeToLoginfile(username, "", id)
         //success - go straight to homepage
         if (Writesuccess) {
-            //alert("JSON write successful");
             window.location = "index.html";
         }
         //fail - you have to login manually to get data to JSON file
@@ -515,12 +565,8 @@ async function displayMode(mode) {
         //new email
         case 0:
             let contactsString = ``;
-
             loadContacts();
-
             fullScreenNewMails();
-
-            /*document.getElementById('newMailNavItem').style.backgroundColor = backgroundNavColor;*/
             break;
         //generated
         case 1:
@@ -1449,7 +1495,7 @@ async function ChangeAPIKey(){
 
             const testKey = new OpenAI({ apiKey: tempKey, dangerouslyAllowBrowser: true});
             const testKeyResponse = await testKey.chat.completions.create({
-                messages: [{ role: "system", content: "What is 2 + 2"}],
+                messages: [{ role: "system", content: "Test"}],
                 model: "gpt-3.5-turbo"
             });
 
@@ -1792,11 +1838,11 @@ async function displayModeGenerated(mailId) {
         //console.log("select");
         selectedMailId = mailId;
         //alert("ba");
-        selectedMail.style.borderLeft = "5px solid gray";
+        selectedMail.style.borderLeft = "5px solid gray !important";
 
         //query for mail
         try {
-            let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content, type, reason
+            let query = `SELECT id_mail, id_contact, id_user, title, date_generated, content, type, reason, formality
             FROM Mails
             WHERE id_mail = '${mailId}'`;
 
@@ -1846,7 +1892,7 @@ async function displayModeGenerated(mailId) {
                     <div class="selectedMailTop">
                         <div class="selectedMailTopLeft">  
                             <div class="selectedMailTopTitle">
-                                ${row.title} <span id="generatedTypeMail">(${row.type})</span>
+                                ${row.title} <span id="generatedTypeMail">(${row.type} - ${row.formality})</span>
                             </div>
                             <div class="selectedMailTopContact">
                                 <span style="font-size: 13px">to</span> <a onclick="displayModeAddContacts(${row.id_contact})" href="#" class='generatedContactLink'>${contactName}</a>
@@ -1971,8 +2017,9 @@ async function generateMail() {
         try {
             let firstName = document.getElementById('globalFirstName').innerHTML;
             let lastName = document.getElementById('globalLastName').innerHTML;
-            let query = `SELECT id_contact, id_user, name, surname, dob, relation, bio, gender
-            FROM Contacts
+            let query = `SELECT id_contact, c.id_user, name, surname, dob, relation, bio, gender, apiKey
+            FROM Contacts c JOIN Users u
+            ON c.id_user = u.id_user
             WHERE id_contact = '${recipient.value}'`;
             const contactData = await SqlGetPromise(query);
 
@@ -2006,11 +2053,16 @@ async function generateMail() {
                 If the email is not making sense or is incomplete indicate with "3" instead of "1".
                 `;
                 console.log(EngPrompt);
+
                 let generateBtn = document.getElementById('NewMailSubmitBtn');
+
+                let apiKey = contactData.apiKey;
+
                 try {
 
                     generateBtn.innerHTML = "Generating <img src='pictures/loading_icon_2.gif' id='generateLoadingImg'>"
-                    const generateRequest = await openai.chat.completions.create({
+                    const tempOpenAi = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
+                    const generateRequest = await tempOpenAi.chat.completions.create({
                         messages: [{ role: "system", content: EngPrompt }],
                         model: "gpt-3.5-turbo"
                     });

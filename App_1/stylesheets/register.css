@@ -202,6 +202,9 @@ body {
 }
 
 .apiTop{
+    display: grid;
+    grid-template-rows: auto 20px 20px;
+    grid-template-columns: auto;
     text-align: center;
 }
 
@@ -304,6 +307,18 @@ body {
 .skipApiBtn:hover{
     text-decoration: underline;
     color: white;
+}
+
+#apiBtnImg{
+    display: inline-block;
+    vertical-align: middle;
+    width: 12.5px;
+    height: 12.5px;
+}
+
+#apiError{
+    font-size: 13px !important;
+    color: rgb(250, 64, 64);
 }
 
 /*API KEY ENTER WINDOW*/

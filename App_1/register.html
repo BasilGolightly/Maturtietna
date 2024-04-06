@@ -113,6 +113,7 @@
                 <div class="apiTopHint">
                     Step 2 out of 2
                 </div>
+                <div id="apiError"></div>
             </div>
 
             <div class="apiMiddle">
@@ -130,7 +131,7 @@
                             <button class="registerBtn" onclick="RegisterDisplayMode(0)">Back to prompt</button>
                         </div>
                         <div class="apiMidRight">
-                            <button class="registerBtn" onclick="registerCheckApi()">Register</button>
+                            <button class="registerBtn" id="registerApiBtn" onclick="registerCheckApi()">Register</button>
                         </div>
                     </div>
                 </div>
@@ -141,7 +142,7 @@
                     Keep your API key safe, do not share it with anyone.
                 </div>
                 <div>
-                    <button class="skipApiBtn">Skip this step (click here)</button>
+                    <button class="skipApiBtn" onclick="registerSkipApi()">Skip this step (click here)</button>
                 </div>
             </div>
         </div>
