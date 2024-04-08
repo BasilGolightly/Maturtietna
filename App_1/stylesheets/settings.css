@@ -75,17 +75,17 @@
 .settingsBtn{
     font-size: 13px;
     border-radius: 5px;
-    border: 1px solid rgb(91, 91, 252);
+    border: 1px solid #0042bd;
     padding: 5px;
-    background-color: rgb(91, 91, 252);
+    background-color: #0042bd;
     font-family: 'Kanit', sans-serif;
     color: white;
     border: 0;
 }
 
 .settingsBtn:hover{
-    color: rgb(91, 91, 252);
-    border: 1px solid rgb(91, 91, 252);
+    color: #0149cf;
+    border: 1px solid #0149cf;
     background-color: transparent;
 }
 

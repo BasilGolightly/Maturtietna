@@ -66,16 +66,6 @@
                     Contacts
                 </div>
             </div>
-            <!--
-            <div class="listItem" id="settingsNavItem" onclick="displayMode(3)">
-                <div>
-                    <img src="pictures/setting_icon.png" class="settingsIcon navImg" width="" height="">
-                </div>
-                <div>
-                    Settings
-                </div>
-            </div>
-            -->
         </div>
         <!--nav items-->
 
@@ -711,7 +701,7 @@
                             <!--delete account-->
                             <tr class="accSettingsDeleteAccount">
                                 <td colspan="3">
-                                    <button class="deleteAccBtn">Delete Account</button>
+                                    <button class="deleteAccBtn" id="deleteAccBtn" onclick="deleteAcc()">Delete Account</button>
                                 </td>
                             </tr>
                             <!--delete account-->
@@ -1027,7 +1017,6 @@
 <script src="Scripts/displayShowHide.js"></script>
 <script src="Scripts/tutorial.js"></script>
 <script>
-    setupDb();
     loadContacts();
     loadUserProfile();
     hideGenerate();
@@ -1035,7 +1024,6 @@
     hideTutorial();
     hideMails();
     displayMode(3);
-    //displayModeAddContacts(-1);
 </script>
 <!--script-->
 

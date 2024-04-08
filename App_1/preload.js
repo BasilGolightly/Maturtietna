@@ -1227,9 +1227,11 @@ function resetPassword(){
     changePassStage = 0;    
     btn.innerHTML = "Edit";
     password.value = oldPass; 
+    password.disabled = true;
     cancelBtn.style.display = "none";
-
-    password.blur();
+    document.getElementById('deleteAccBtn').innerHTML = "Delete account";
+    document.getElementById('deleteAccBtn').disabled = false;
+    deleteInProgress = false;
 }
 
 function EnterPass(){
@@ -1244,7 +1246,7 @@ function EnterPass(){
     password.value = "";
     password.placeholder = "enter password...";
     cancelBtn.style.display = "inline-block";
-    password.click();
+    password.focus();
 
     changePassStage++;
 }
@@ -1254,22 +1256,28 @@ function EditPass(){
     let btn = document.getElementById('changePassBtn');
 
     if(password.value.trim() == oldPass){
-        btn.innerHTML = "Save";
-        password.placeholder = "min. 12 char, no spaces";
-        password.value = "";
+        if(deleteInProgress){
+            deleteStage++;
+            deleteAcc();
+        }
+        else{
+            btn.innerHTML = "Save";
+            password.placeholder = "min. 12 char, no spaces";
+            password.value = "";
 
-        changePassStage++;
+            changePassStage++;
 
-        password.click();
+            password.focus();
+        }
+        
     }
     else{
-        password.click();
+        password.focus();
     }
 }
 
 async function submitPass(){
     let password = document.getElementById('accSettingsPasswordTextField');
-    let btn = document.getElementById('changePassBtn');
 
     if(password.value.trim() != ""){
         if((password.value.trim()).length >= 12 && !(password.value.trim()).includes(" ")){
@@ -1300,6 +1308,7 @@ async function submitPass(){
 }
 
 let changeUserNameStage = 0;
+let oldUsername = "";
 
 //change username
 async function changeUsernameClick() {
@@ -1321,9 +1330,10 @@ function EditUsername(){
     btn.innerHTML = "Save";
     btn2.style.display = "inline-block";
 
-    userNameText.click();
-
     changeUserNameStage++;
+    oldUsername = userNameText.value.trim();
+
+    userNameText.focus();
 }
 
 function ResetUsername(){
@@ -1336,12 +1346,18 @@ function ResetUsername(){
     btn2.style.display = "none";
 
     changeUserNameStage = 0;
-    userNameText.blur();
+
+    userNameText.value = oldUsername;
+    oldUsername = "";
+
+    //userNameText.blur();
 }
 
 async function changeUsername(){
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
+
+    userNameText.disabled = true;
 
     if(userNameText.value.trim() != ""){
         try{
@@ -1355,6 +1371,8 @@ async function changeUsername(){
                     WHERE id_user = ?`;
                     const insertedId = await SqlRegisterPromise(query, [`${userNameText.value.trim()}`, `${userId}`]);
 
+                    oldUsername = userNameText.value.trim();
+
                     ResetUsername();
                 }
                 catch(err2){
@@ -1364,7 +1382,8 @@ async function changeUsername(){
             }
             else{
                 alert("Username taken");
-                userNameText.click();
+                userNameText.disabled = false;
+                userNameText.focus();
             }
         }
         catch(err){
@@ -1373,7 +1392,8 @@ async function changeUsername(){
         }
     }
     else{
-        userNameText.click();
+        userNameText.disabled = false;
+        userNameText.focus();
     }
 }
 
@@ -1556,6 +1576,55 @@ async function copyAPIKey(){
     }
     catch(err){
         console.log(err);
+    }
+}
+
+let deleteStage = 0;
+let deleteInProgress = false; 
+
+async function deleteAcc(){
+    let btn = document.getElementById('deleteAccBtn');
+
+    if(deleteStage == 0){
+
+        alert("0");
+        btn.disabled = true;
+        btn.innerHTML = "In progress";
+        
+        deleteInProgress = true;
+        resetPassword();
+        EnterPass();
+    }
+
+    else if(deleteStage == 1){
+        const accId = document.getElementById('globalIdUser').innerHTML.trim();
+
+        alert("1");
+        try{
+            let deleteMailQuery = `DELETE FROM Mails
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteMailQuery, [`${accId}`]);
+
+            let deleteContactQuery = `DELETE FROM Contacts
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteContactQuery, [`${accId}`]);
+
+            let deleteUserQuery = `DELETE FROM Users
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteUserQuery, [`${accId}`]); 
+
+            deleteInProgress = false;
+
+            db.close();
+            
+            window.location = "register.html";
+
+        }
+        catch(err){
+            console.log(err);
+            deleteInProgress = false;
+            btn.innerHTML = "Delete Account";
+        }
     }
 }
 
@@ -1835,10 +1904,7 @@ async function displayModeGenerated(mailId) {
 
     //select mail - SHOW MAIL
     else {
-        //console.log("select");
         selectedMailId = mailId;
-        //alert("ba");
-        selectedMail.style.borderLeft = "5px solid gray !important";
 
         //query for mail
         try {
@@ -1930,6 +1996,8 @@ async function displayModeGenerated(mailId) {
                 //display copy and delete buttons
                 document.getElementById('TopDeleteBtn').style.display = "flex";
                 document.getElementById('TopCopyBtn').style.display = "flex";
+
+                document.getElementById('generatedLetter' + selectedMailId).style.borderLeft = "5px solid gray";
             }
 
             //mail not found
