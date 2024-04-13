@@ -560,6 +560,11 @@
                                     Save changes
                                 </button>
                             </div>
+                            <div class="mailContactSubmitInner" id="contactMailWrap" onclick="mailSelectedContact()">
+                                <button class="mailSelectedBtn">
+                                    New mail <img src="pictures/generated_mail_icon_neutral.png" id="mailSelectedBtnImg">
+                                </button>
+                            </div>
                             <div class="deleteContactSubmitInner" id="deleteWrap" onclick="deleteContact()">
                                 <button class="deleteContactBtn">
                                     Delete contact
@@ -883,7 +888,7 @@
                     <!--recent mails-->
 
 
-                    <!--recent contacts-->
+                    <!--recent contacts
                     <div class="recentContactWrap">
                         <div class="recentContactHead">
                             <div class="recentContactImgWrap">
@@ -897,14 +902,15 @@
                                         src="pictures/arrow_up.png" id="recentContactHideImg"></button>
                             </div>
                         </div>
+                    -->
                         <!--
                         <div class="recentContactContent" id="recentContactChapter">
                             <div>
                                 No contacts recently used.
                             </div>
                         </div>
-                        -->
-                    </div>
+                        
+                    </div>-->
                     <!--recent contacts-->
 
                     <!--tutorial-->
@@ -961,7 +967,7 @@
                                                     mails list</li>
                                                 <li>Recipient - the person the mail is meant for</li>
                                                 <li>Type or purpose of mail - e. g. apology, invitation</li>
-                                                <li>Reason of mail - why you are writing te mail</li>
+                                                <li>Reason of mail - why you are writing the mail</li>
                                                 <li>Formality - whether you want your mail to be formal or informal</li>
                                             </ol>
                                         </li>
@@ -1023,7 +1029,7 @@
     hideContact();
     hideTutorial();
     hideMails();
-    displayMode(3);
+    displayMode(5);
 </script>
 <!--script-->
 
