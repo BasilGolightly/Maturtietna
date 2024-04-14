@@ -26,6 +26,9 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .homeFrameContent > div{
@@ -280,4 +283,16 @@
 
 .recentContactTitle, .recentMailTitle, .tutorialTitle{
     width: 11.5ch;
+}
+
+.tutorialChapter > p{
+    padding: 0;
+    margin: 0;
+    padding-top: 5px;
+    padding-left: 12.5px;
+}
+
+
+.homeFrame{
+
 }

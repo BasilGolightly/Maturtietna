@@ -1236,6 +1236,8 @@ async function homeLoadMails(){
         let outputHTML = document.getElementById('recentMailsOutput');
         outputHTML.innerHTML = "";
 
+        console.log(query);
+
         const returnedMails = await SqlAllPromise(query);
 
         if(returnedMails.length > 0){
