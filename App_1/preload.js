@@ -892,7 +892,7 @@ async function searchBarSubmit() {
             let MailsSearchQuery = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, content, name, surname, type
             FROM Mails m JOIN Contacts c
                 ON m.id_contact = c.id_contact
-            WHERE title LIKE '%${searchString}%'`;
+            WHERE title LIKE '%${searchString}%' OR type LIKE '%${searchString}%'`;
             //MailsSearchQuery = db.prepare(MailsSearchQuery);
 
             const MailsRows = await SqlAllPromise(MailsSearchQuery);
@@ -957,7 +957,7 @@ async function searchBarSubmit() {
             let ContactsSearchQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio, name + ' ' + surname AS full_name, gender
             FROM Contacts
             WHERE name LIKE '%${searchString}%' OR surname LIKE '%${searchString}%' 
-            OR full_name LIKE '%${searchString}%'`;
+            OR full_name LIKE '%${searchString}%' OR relation LIKE '%${searchString}%'`;
             //ContactsSearchQuery = db.prepare(ContactsSearchQuery);
             const Contactrows = await SqlAllPromise(ContactsSearchQuery);
 

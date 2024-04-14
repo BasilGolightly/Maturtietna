@@ -23,13 +23,13 @@ function showHideReason(){
     }   
 }
 
-function hoverMailResult(){
-    document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_hover.png';
-}
+function hoverMailResult(){ document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_hover.png';}
 
-function exitMailResult(){
-    document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_neutral.png';
-}
+function exitMailResult(){ document.getElementById('mailResultIcon').src = 'pictures/generated_mail_icon_neutral.png';}
+
+function hoverHomeMail(){ document.getElementById('homeMailImg').src = 'pictures/generated_mail_icon_hover.png';}
+
+function exitHomeMail(){ document.getElementById('homeMailImg').src = 'pictures/generated_mail_icon_neutral.png';}
 
 let mailResultsShown = true;
 let contactResultsShown = true;

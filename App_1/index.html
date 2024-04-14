@@ -865,8 +865,8 @@
 
                 <div class="homeFrameContent">
                     <!--recent mails-->
-                    <div class="recentMailWrap" onclick="hideMails()">
-                        <div class="recentMailHead">
+                    <div class="recentMailWrap">
+                        <div class="recentMailHead" onclick="hideMails()">
                             <div class="recentMailIconWrap">
                                 <img src="pictures/mail_icon.png" class="recentMailsIcon">
                             </div>
@@ -880,25 +880,56 @@
                         </div>
 
                         <div class="recentMailContent" id="recentMailContent">
+                            
+                            <div class="recentMailFilterWrap">
+                                <div class="recentMailFilterInner">
+                                    <div>
+                                        <select class="homeMailDropdown">
+                                            <option>Last Week</option>
+                                            <option>Last Month</option>
+                                            <option>Last Year</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select class="homeMailDropdown">
+                                            <option>Invitation</option>
+                                            <option>Apology</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="recentMailInner">
 
                                 <!--Mail frame-->
-                                <div class="homeMailFrame">
-                                    <div>
+                                <div class="homeMailFrame" onmouseover="hoverHomeMail()" onmouseout="exitHomeMail()">
+                                    <div class="homeMailInner">
                                         <div class="homeMailLeft">
-                                            <div class="homeMailTitle">
+                                            <div class="homeMailTitle" onclick="displayModeGenerated(mailId)">
                                                 Title
                                             </div>
-                                            <div class="homeMailType">
-    
+                                            <div class="homeMailRecipient">
+                                                to <a href="#" onclick="displayModeAddContacts(id)" class="homeMailLink">blabla</a>
                                             </div>
                                         </div>
-                                        <div class="homeMailRight">
-                                            <div class="homeMailTitle">
-    
+                                        <div class="homeMailRight" onclick="displayModeGenerated(mailId)">
+                                            <div class="homeMailExtra">
+                                                <div class="homeMailDate">
+                                                    14. 4. 2024
+                                                </div>
+                                                <div class="homeMailApology">
+                                                    apology
+                                                </div>
                                             </div>
-                                            <div class="homeMailArrow">
-                                                >
+                                            <div class="homeMailIcons">
+                                                <div class="homeMailIconWrap">
+                                                    <div>
+                                                        <img src="pictures/generated_mail_icon_neutral.png" id="homeMailImg">
+                                                    </div>
+                                                </div>
+                                                <div class="homeMailArrow">
+                                                    >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
