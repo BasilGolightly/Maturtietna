@@ -1203,6 +1203,91 @@ async function mailSelectedContact(){
     document.getElementById('newRecipentDropDown').value = contactHiddenId;
 }
 
+async function homeLoadMails(){
+    let dateDropDown = document.getElementById('homeMailDateSelect');
+    let typeDropDown = document.getElementById('homeMailTypeSelect');
+
+    try{
+        let idUser = document.getElementById('globalIdUser').innerHTML;
+        let daysAgo = dateDropDown.value;
+        let type = typeDropDown.value;
+
+        let date = new Date();
+        let dToday = date.getDate(), mToday = date.getMonth() + 1, yToday = date.getFullYear();
+
+        date.setDate(date.getDate() - daysAgo);
+        
+        let d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
+
+        let query = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, type, formality, name, surname
+        FROM Mails m JOIN Contacts c
+            ON m.id_contact = c.id_contact
+        WHERE m.id_user = '${idUser}'
+        AND date_generated BETWEEN '${y}-${m}-${d}' AND '${yToday}-${mToday}-${dToday}' `;
+
+        if(type != '0'){
+            query += `AND type='${type}'`;
+        }
+
+        query += `
+        ORDER BY date_generated DESC
+        `;
+
+        let outputHTML = document.getElementById('recentMailsOutput');
+        outputHTML.innerHTML = "";
+
+        const returnedMails = await SqlAllPromise(query);
+
+        if(returnedMails.length > 0){
+            
+
+            for(let i = 0; i < returnedMails.length; i++){
+                let tempDate = (returnedMails[i].date_generated).split("-");
+
+                outputHTML.innerHTML += `
+                <!--Mail frame-->
+                <div class="homeMailFrame" onmouseover="hoverHomeMail()" onmouseout="exitHomeMail()">
+                    <div class="homeMailInner">
+                        <div class="homeMailLeft">
+                            <div class="homeMailTitle" onclick="displayModeGenerated(${returnedMails[i].id_mail})">
+                                ${returnedMails[i].title}
+                            </div>
+                            <div class="homeMailRecipient">
+                                to <a href="#" onclick="displayModeAddContacts(${returnedMails[i].id_contact})" class="homeMailLink">${returnedMails[i].name} ${returnedMails[i].surname}</a>
+                            </div>
+                        </div>
+                        <div class="homeMailRight" onclick="displayModeGenerated(${returnedMails[i].id_mail})">
+                            <div class="homeMailExtra">
+                                <div class="homeMailDate">
+                                    ${tempDate[2]}. ${tempDate[1]}. ${tempDate[0]}
+                                </div>
+                                <div class="homeMailApology">
+                                    ${returnedMails[i].type}
+                                </div>
+                            </div>
+                            <div class="homeMailIcons">
+                                <div class="homeMailIconWrap">
+                                    <div>
+                                        <img src="pictures/generated_mail_icon_neutral.png" id="homeMailImg">
+                                    </div>
+                                </div>
+                                <div class="homeMailArrow" onclick="displayModeGenerated(${returnedMails[i].id_mail})">
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Mail frame-->    
+                `;
+            }
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 //load all of user's info by reading ID from JSON and querying for data
 async function loadUserProfile() {
     try {
@@ -1241,6 +1326,11 @@ async function loadUserProfile() {
 
             await loadContacts();
             await loadMails();
+            /*
+            document.getElementById('homeMailDateSelect').value = '7';
+            document.getElementById('homeMailTypeSelect').value = '0';
+            await homeLoadMails();
+            */
 
             //at the end, delete contents of JSON, to avoid unintended access to user info
             //try{

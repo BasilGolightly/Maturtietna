@@ -884,24 +884,26 @@
                             <div class="recentMailFilterWrap">
                                 <div class="recentMailFilterInner">
                                     <div>
-                                        <select class="homeMailDropdown">
-                                            <option>Last Week</option>
-                                            <option>Last Month</option>
-                                            <option>Last Year</option>
+                                        <select class="homeMailDropdown" id="homeMailDateSelect" oninput="homeLoadMails()">
+                                            <option value="7">Last Week</option>
+                                            <option value="30">Last Month</option>
+                                            <option value="180">Last 6 Months</option>
+                                            <option value="365">Last Year</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <select class="homeMailDropdown">
-                                            <option>Invitation</option>
-                                            <option>Apology</option>
+                                        <select class="homeMailDropdown" id="homeMailTypeSelect" oninput="homeLoadMails()">
+                                            <option value="0">All types</option>
+                                            <option value="invitation">Invitation</option>
+                                            <option value="apology">Apology</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="recentMailInner">
+                            <div class="recentMailInner" id="recentMailsOutput">
 
-                                <!--Mail frame-->
+                                <!--Mail frame
                                 <div class="homeMailFrame" onmouseover="hoverHomeMail()" onmouseout="exitHomeMail()">
                                     <div class="homeMailInner">
                                         <div class="homeMailLeft">
@@ -934,7 +936,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--Mail frame-->
+                                Mail frame-->
 
                             </div>
                         </div>
