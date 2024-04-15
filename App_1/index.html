@@ -1123,10 +1123,60 @@
                                             <li>&raquo;Delete contact&laquo; - simply deletes the contact, and shows the contact menu.</li>
                                         </ul>
                                     </p>
+                                    <p>When viewing a contact, you can also copy its information by clicking the copy button in the top-right corner of the page, or delete it by clicking on the trashcan / delete button next to it.</p>
                                 </span>
-                            </div>
-                            <div class="tutorialBtnWrap">
-                                <!--<button>Make a new contact</button>-->
+
+                                <br>
+
+                                <button class="tutorialChapterBtn" id="tutorialSettingsBtn" onclick="hideSettingsInfo()"><img
+                                    src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height="">
+                                Account info and settings</button>
+                                <span id="settingsChapter" class="tutorialChapter">
+                                    <p>
+                                        To change your account info - such as username, password, full name and API key - you can use the <a href="#" class="TutorialLink" onclick="displayMode(3)">&raquo;account settings&laquo;</a> panel.
+                                        <br>
+                                        The panel can be accessed in the bottom-left corner of the screen by: 
+                                    </p>
+
+                                    <ul>
+                                        <li>clicking on the profile icon, or</li>
+                                        <li>clicking on your username</li>
+                                    </ul>
+
+
+                                    <p>
+                                        Upon opening the panel, you can view / change the following info:
+                                    </p>
+
+                                    <ol>
+                                        <li>your username,</li>
+                                        <li>
+                                            password,
+                                            <ul>
+                                                <li>To change the password, you will first need to enter the old password,</li>
+                                                <li>the new password must be at least 12 characters long, with at least 1 number included, and no spaces</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            first name - the first name that show up in generated mails
+                                        </li>
+                                        <li>
+                                            last name - the last name that will pop up in the end of generated mail
+                                        </li>
+                                        <li>
+                                            OpenAI API key - which will be checked upon change 
+                                            <ul>
+                                                <li>if the new key is valid, it will be saved,</li>
+                                                <li>if not, the app will warn you and not save it</li>
+                                            </ul> 
+                                        </li>
+                                        <li>Delete account option:
+                                            <ul>
+                                                <li>If you decide to delete the account, you will first need to enter your password. After the correct password has been entered, the account will then be deleted.</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -1152,6 +1202,7 @@
     hideContact();
     hideTutorial();
     hideMails();
+    hideSettingsInfo();
     displayMode(5);
 </script>
 <!--script-->

@@ -3,6 +3,7 @@ let showGenerate = true;
 let showContact = true;
 let showMails = true;
 let showNewMailHelp = false;
+let showSettings = true;
 
 function hideTutorial(){
     let tutorial = document.getElementById('tutorialWrap');
@@ -78,7 +79,6 @@ function hideMails(){
     }
 }
 
-
 function newMailHelp(){
     let newMailHelp = document.getElementById('newMailHelp');
 
@@ -91,5 +91,21 @@ function newMailHelp(){
     else{
         newMailHelp.style.display = 'flex';
         showNewMailHelp = true;
+    }
+}
+
+function hideSettingsInfo(){
+    let btn = document.getElementById('tutorialSettingsBtn');
+    let chapter = document.getElementById('settingsChapter');
+
+    if(showSettings){
+        btn.innerHTML = `<img src="pictures/arrow_up.png" class="tutorialArrowIcon" width="" height=""> Account info and settings`;
+        chapter.style.display = "none";
+        showSettings = false;
+    }
+    else{
+        btn.innerHTML = `<img src="pictures/arrow_down.png" class="tutorialArrowIcon" width="" height=""> Account info and settings`;
+        chapter.style.display = "grid";
+        showSettings = true;
     }
 }
