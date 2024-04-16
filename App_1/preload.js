@@ -21,7 +21,7 @@ let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
 
 //CREATE TABLES
 async function setupDb() {
-    try{
+    try {
         await SqlRunPromise(`CREATE TABLE IF NOT EXISTS Users(
             id_user INTEGER PRIMARY KEY AUTOINCREMENT,
             username NVARCHAR(50) UNIQUE NOT NULL,
@@ -59,7 +59,7 @@ async function setupDb() {
             CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
         );`);
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
     /*
@@ -237,18 +237,17 @@ function SqlPreparePromise(query){
 
 /*-------------------------------------REGISTER-------------------------------------*/
 
-function RegisterDisplayMode(mode){
+function RegisterDisplayMode(mode) {
     let regWindow = document.getElementById('mainRegister');
     let apiWindow = document.getElementById('apiMain');
 
     //main register
-    if(mode == 0){
+    if (mode == 0) {
         apiWindow.style.display = "none";
         regWindow.style.display = "grid";
     }
     //api register
-    else if(mode == 1)
-    {
+    else if (mode == 1) {
         regWindow.style.display = "none";
         apiWindow.style.display = "grid";
     }
@@ -312,20 +311,20 @@ async function registerCheck() {
 
     //if all is in proper format, proceed with register, show API section
     if (allgood) {
-        try{
+        try {
             let query = `SELECT id_user
             FROM Users
             WHERE username = '${username}'`;
             const takenUsers = await SqlAllPromise(query);
 
-            if(takenUsers.length == 0){
+            if (takenUsers.length == 0) {
                 RegisterDisplayMode(1);
             }
-            else{
+            else {
                 document.getElementById('error').innerHTML = "Username already taken.";
             }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             document.getElementById('error').innerHTML = "Register could not be carried out.";
         }
@@ -344,25 +343,25 @@ async function registerSkipApi() {
     await register(username, password, firstName, lastName, "");
 }
 
-async function registerCheckApi(){
+async function registerCheckApi() {
     let apiKey = document.getElementById('apiKeyRegister');
     let apiKeyText = apiKey.value.trim();
     let apiError = document.getElementById('apiError');
 
     apiError.innerHTML = "";
 
-    if(apiKeyText != ""){
+    if (apiKeyText != "") {
         let apiBtn = document.getElementById('registerApiBtn');
         apiBtn.innerHTML = "Checking key <img src='pictures/loading_icon_2.gif' id='apiBtnImg'>";
 
-        try{
+        try {
             const testKey = new OpenAI({ apiKey: apiKeyText, dangerouslyAllowBrowser: true });
             const testKeyResponse = await testKey.chat.completions.create({
-                messages: [{ role: "system", content: "Test"}],
+                messages: [{ role: "system", content: "Test" }],
                 model: "gpt-3.5-turbo"
             });
 
-            if(testKeyResponse != null || testKeyResponse != undefined){
+            if (testKeyResponse != null || testKeyResponse != undefined) {
                 let username = document.getElementById('newUsername').value.trim();
                 let password = document.getElementById('passwordtextBox1').value.trim();
                 let firstName = document.getElementById('newFirstName').value.trim();
@@ -370,15 +369,15 @@ async function registerCheckApi(){
                 await register(username, password, firstName, lastName, apiKeyText);
             }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             apiError.innerHTML = "Your API key is invalid. Please double check it.";
         }
-        finally{
+        finally {
             apiBtn.innerHTML = "Register";
         }
     }
-    else{
+    else {
         apiError.innerHTML = "Please enter the API key";
     }
 }
@@ -577,6 +576,8 @@ let displayModeId = 0;
 let selectedMailId = 0;
 let isFullScreen = true;
 
+let isAddConact = false;
+
 async function displayMode(mode) {
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
 
@@ -653,7 +654,7 @@ async function displayMode(mode) {
 
             contactsFrame.style.display = "flex";
 
-            loadContacts();
+            await loadContacts();
 
             let contacts = document.getElementsByClassName('contactFrame');
             document.getElementById('countContacts').innerHTML = contacts.length;
@@ -668,6 +669,7 @@ async function displayMode(mode) {
             document.getElementById('TopDeleteBtn').style.display = "none";
             document.getElementById('TopCopyBtn').style.display = "none";
             document.getElementById('TopMailBtn').style.display = "none";
+
             break;
         //settings
         case 3:
@@ -727,7 +729,7 @@ function fullScreenNewMails() {
 
         isFullScreen = false;
 
-        if(displayModeId != 0){
+        if (displayModeId != 0) {
             displayMode(displayModeId);
         }
     }
@@ -762,6 +764,14 @@ function fullScreenNewMails() {
         newMailFrame.style.display = 'flex';
 
         isFullScreen = true;
+    }
+
+    if(isAddConact && !isFullScreen){
+        if(!isFullScreen){
+            displayModeAddContacts(contactHiddenId);
+        }
+        
+        isAddConact = false;
     }
 }
 
@@ -1149,7 +1159,7 @@ async function loadContacts() {
                 let tempVal = document.getElementById('newRecipentDropDown').value;
                 //loop through contacts and display them
                 for (let i = 0; i < rows.length; i++) {
-                    
+
 
                     if (i == 0) {
                         document.getElementById('newRecipentDropDown').innerHTML = `<option value="0">Select recipient</option>`;
@@ -1197,21 +1207,21 @@ async function loadContacts() {
     }
 }
 
-async function mailContact(contactId){
-    await displayMode(0);    
+async function mailContact(contactId) {
+    await displayMode(0);
     document.getElementById('newRecipentDropDown').value = contactId;
 }
 
-async function mailSelectedContact(){
-    await displayMode(0);    
+async function mailSelectedContact() {
+    await displayMode(0);
     document.getElementById('newRecipentDropDown').value = contactHiddenId;
 }
 
-async function homeLoadMails(){
+async function homeLoadMails() {
     let dateDropDown = document.getElementById('homeMailDateSelect');
     let typeDropDown = document.getElementById('homeMailTypeSelect');
 
-    try{
+    try {
         let idUser = document.getElementById('globalIdUser').innerHTML;
         let daysAgo = dateDropDown.value;
         let type = typeDropDown.value;
@@ -1228,7 +1238,7 @@ async function homeLoadMails(){
         */
 
         date.setDate(date.getDate() - daysAgo);
-        
+
         let d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
 
         /*
@@ -1243,7 +1253,7 @@ async function homeLoadMails(){
         WHERE m.id_user = '${idUser}'
         AND date_generated >= '${y}-${m}-${d}'`;
 
-        if(type != '0'){
+        if (type != '0') {
             query += `AND type='${type}'`;
         }
 
@@ -1256,8 +1266,8 @@ async function homeLoadMails(){
 
         const returnedMails = await SqlAllPromise(query);
 
-        if(returnedMails.length > 0){
-            for(let i = 0; i < returnedMails.length; i++){
+        if (returnedMails.length > 0) {
+            for (let i = 0; i < returnedMails.length; i++) {
                 let tempDate = (returnedMails[i].date_generated).split("-");
 
                 outputHTML.innerHTML += `
@@ -1299,7 +1309,7 @@ async function homeLoadMails(){
             }
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 }
@@ -1377,25 +1387,25 @@ let oldPass = "";
 
 //change password
 async function changePassClick() {
-    if(changePassStage == 0){
+    if (changePassStage == 0) {
         EnterPass();
-    } 
-    else if(changePassStage == 1){
+    }
+    else if (changePassStage == 1) {
         EditPass();
     }
-    else if(changePassStage == 2){
+    else if (changePassStage == 2) {
         await submitPass();
     }
 }
 
-function resetPassword(){
+function resetPassword() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
     let cancelBtn = document.getElementById('changePassBtnCancel');
 
-    changePassStage = 0;    
+    changePassStage = 0;
     btn.innerHTML = "Edit";
-    password.value = oldPass; 
+    password.value = oldPass;
     password.disabled = true;
     cancelBtn.style.display = "none";
     document.getElementById('deleteAccBtn').innerHTML = "Delete account";
@@ -1403,7 +1413,7 @@ function resetPassword(){
     deleteInProgress = false;
 }
 
-function EnterPass(){
+function EnterPass() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
     let cancelBtn = document.getElementById('changePassBtnCancel');
@@ -1420,16 +1430,16 @@ function EnterPass(){
     changePassStage++;
 }
 
-function EditPass(){
+function EditPass() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
 
-    if(password.value.trim() == oldPass){
-        if(deleteInProgress){
+    if (password.value.trim() == oldPass) {
+        if (deleteInProgress) {
             deleteStage++;
             deleteAcc();
         }
-        else{
+        else {
             btn.innerHTML = "Save";
             password.placeholder = "min. 12 char, no spaces";
             password.value = "";
@@ -1438,19 +1448,19 @@ function EditPass(){
 
             password.focus();
         }
-        
+
     }
-    else{
+    else {
         password.focus();
     }
 }
 
-async function submitPass(){
+async function submitPass() {
     let password = document.getElementById('accSettingsPasswordTextField');
 
-    if(password.value.trim() != ""){
-        if((password.value.trim()).length >= 12 && !(password.value.trim()).includes(" ")){
-            try{
+    if (password.value.trim() != "") {
+        if ((password.value.trim()).length >= 12 && !(password.value.trim()).includes(" ")) {
+            try {
                 let userId = document.getElementById('globalIdUser').innerHTML;
 
                 let query = `UPDATE Users
@@ -1458,20 +1468,20 @@ async function submitPass(){
                 WHERE id_user = ?`;
 
                 const updatedId = await SqlRegisterPromise(query, [`${password.value.trim()}`, `${userId}`]);
-                
+
                 oldPass = password.value.trim();
 
                 resetPassword();
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
             }
         }
-        else{
+        else {
             password.focus();
         }
     }
-    else{
+    else {
         password.focus();
     }
 }
@@ -1481,15 +1491,15 @@ let oldUsername = "";
 
 //change username
 async function changeUsernameClick() {
-    if(changeUserNameStage == 0){
+    if (changeUserNameStage == 0) {
         EditUsername();
     }
-    else if(changeUserNameStage == 1){
+    else if (changeUserNameStage == 1) {
         await changeUsername();
     }
 }
 
-function EditUsername(){
+function EditUsername() {
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
     let btn2 = document.getElementById('changeUsernameCancelBtn');
@@ -1505,7 +1515,7 @@ function EditUsername(){
     userNameText.focus();
 }
 
-function ResetUsername(){
+function ResetUsername() {
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
     let btn2 = document.getElementById('changeUsernameCancelBtn');
@@ -1522,18 +1532,18 @@ function ResetUsername(){
     //userNameText.blur();
 }
 
-async function changeUsername(){
+async function changeUsername() {
     let userNameText = document.getElementById('accSettingsUsernameTextField');
     let btn = document.getElementById('changeUsernameBtn');
 
     userNameText.disabled = true;
 
-    if(userNameText.value.trim() != ""){
-        try{
+    if (userNameText.value.trim() != "") {
+        try {
             const existingUsernames = await SqlAllPromise(`SELECT id_user FROM Users WHERE Username = '${userNameText.value.trim()}'`);
 
-            if(existingUsernames.length < 1){
-                try{
+            if (existingUsernames.length < 1) {
+                try {
                     let userId = document.getElementById('globalIdUser').innerHTML;
                     let query = `UPDATE users
                     SET username = ?
@@ -1544,23 +1554,23 @@ async function changeUsername(){
 
                     ResetUsername();
                 }
-                catch(err2){
+                catch (err2) {
                     console.log(err2);
                     ResetUsername();
                 }
             }
-            else{
+            else {
                 alert("Username taken");
                 userNameText.disabled = false;
                 userNameText.focus();
             }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             ResetUsername();
         }
     }
-    else{
+    else {
         userNameText.disabled = false;
         userNameText.focus();
     }
@@ -1639,17 +1649,17 @@ async function UpdateFullName() {
 let apiKeyStage = 0;
 let oldApiKey = "";
 
-async function changeAPIClick(){
-    if(apiKeyStage == 0){
+async function changeAPIClick() {
+    if (apiKeyStage == 0) {
         EditAPIKey();
         apiKeyStage++;
-    } 
-    else if(apiKeyStage == 1){
+    }
+    else if (apiKeyStage == 1) {
         await ChangeAPIKey();
     }
 }
 
-function EditAPIKey(){
+function EditAPIKey() {
     let apiKey = document.getElementById('apiKeyTextField');
     let btn = document.getElementById('apiKeyChangeBtn');
     let btn2 = document.getElementById('apiKeyChangeCancelBtn');
@@ -1669,26 +1679,26 @@ function EditAPIKey(){
     apiKey.blur();
 }
 
-async function ChangeAPIKey(){
+async function ChangeAPIKey() {
     let apiKey = document.getElementById('apiKeyTextField');
     let btn = document.getElementById('apiKeyChangeBtn');
 
     apiKey.disabled = true;
 
-    if(apiKey.value.trim() != ""){
+    if (apiKey.value.trim() != "") {
         console.log(1);
         const tempKey = apiKey.value.trim();
-        
-        try{
+
+        try {
             btn.innerHTML = "Checking Key <img src='pictures/loading_icon_2.gif' class='apiSettingsLoadingIcon'>";
 
-            const testKey = new OpenAI({ apiKey: tempKey, dangerouslyAllowBrowser: true});
+            const testKey = new OpenAI({ apiKey: tempKey, dangerouslyAllowBrowser: true });
             const testKeyResponse = await testKey.chat.completions.create({
-                messages: [{ role: "system", content: "Test"}],
+                messages: [{ role: "system", content: "Test" }],
                 model: "gpt-3.5-turbo"
             });
 
-            try{
+            try {
                 let userId = document.getElementById('globalIdUser').innerHTML;
                 let query = `UPDATE Users
                 SET apiKey = ?
@@ -1696,13 +1706,13 @@ async function ChangeAPIKey(){
                 const updateApiKey = await SqlRegisterPromise(query, [`${tempKey}`, `${userId}`]);
                 resetAPIKey();
             }
-            catch(err2){
+            catch (err2) {
                 console.log(err2);
                 alert("Failed to change API key. We apologize for the inconvenience");
                 resetAPIKey();
             }
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             alert("Your API key is invalid. Please double check it.");
             btn.innerHTML = "Change";
@@ -1710,18 +1720,18 @@ async function ChangeAPIKey(){
             apiKey.disabled = false;
         }
     }
-    else{
+    else {
         apiKey.focus();
         apiKey.disabled = false;
     }
 }
 
-function resetAPIKey(){
+function resetAPIKey() {
     let apiKey = document.getElementById('apiKeyTextField');
     let btn = document.getElementById('apiKeyChangeBtn');
     let btn2 = document.getElementById('apiKeyChangeCancelBtn');
     let copyBtn = document.getElementById('apiKeyCopyBtn');
-    
+
     apiKey.disabled = true;
     apiKey.type = "password";
     apiKey.placeholder = "API key";
@@ -1736,40 +1746,40 @@ function resetAPIKey(){
     apiKeyStage = 0;
 }
 
-async function copyAPIKey(){
+async function copyAPIKey() {
     let apiKey = document.getElementById('apiKeyTextField');
 
-    try{
+    try {
         let copyText = apiKey.value.trim();
         await navigator.clipboard.writeText(copyText);
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 }
 
 let deleteStage = 0;
-let deleteInProgress = false; 
+let deleteInProgress = false;
 
-async function deleteAcc(){
+async function deleteAcc() {
     let btn = document.getElementById('deleteAccBtn');
 
-    if(deleteStage == 0){
+    if (deleteStage == 0) {
 
         alert("0");
         btn.disabled = true;
         btn.innerHTML = "In progress";
-        
+
         deleteInProgress = true;
         resetPassword();
         EnterPass();
     }
 
-    else if(deleteStage == 1){
+    else if (deleteStage == 1) {
         const accId = document.getElementById('globalIdUser').innerHTML.trim();
 
         alert("1");
-        try{
+        try {
             let deleteMailQuery = `DELETE FROM Mails
             WHERE id_user = ?`;
             await SqlRegisterPromise(deleteMailQuery, [`${accId}`]);
@@ -1780,16 +1790,16 @@ async function deleteAcc(){
 
             let deleteUserQuery = `DELETE FROM Users
             WHERE id_user = ?`;
-            await SqlRegisterPromise(deleteUserQuery, [`${accId}`]); 
+            await SqlRegisterPromise(deleteUserQuery, [`${accId}`]);
 
             deleteInProgress = false;
 
             db.close();
-            
+
             window.location = "register.html";
 
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             deleteInProgress = false;
             btn.innerHTML = "Delete Account";
@@ -1989,6 +1999,8 @@ async function displayModeAddContacts(contactId) {
         contactHiddenId = -1;
 
         firstName.select();
+
+        isAddConact = true;
     }
 
     //MODIFY contact
@@ -2042,6 +2054,8 @@ async function displayModeAddContacts(contactId) {
             }
 
             firstName.select();
+
+            isAddConact = true;
         }
         //data not found
         catch (error) {
