@@ -30,7 +30,7 @@ async function setupDb() {
             firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
             firstName NVARCHAR(50) NOT NULL,
             lastName NVARCHAR(50) NOT NULL,
-            date_registered DATETIME,
+            date_registered DATE,
             apiKey TEXT
         );`);
         await SqlRunPromise(`CREATE TABLE IF NOT EXISTS Contacts(
@@ -667,6 +667,7 @@ async function displayMode(mode) {
             //hide copy and delete buttons
             document.getElementById('TopDeleteBtn').style.display = "none";
             document.getElementById('TopCopyBtn').style.display = "none";
+            document.getElementById('TopMailBtn').style.display = "none";
             break;
         //settings
         case 3:
@@ -1145,8 +1146,11 @@ async function loadContacts() {
 
             //if contacts were found, display them
             else {
+                let tempVal = document.getElementById('newRecipentDropDown').value;
                 //loop through contacts and display them
                 for (let i = 0; i < rows.length; i++) {
+                    
+
                     if (i == 0) {
                         document.getElementById('newRecipentDropDown').innerHTML = `<option value="0">Select recipient</option>`;
                     }
@@ -1175,7 +1179,7 @@ async function loadContacts() {
                         <option value="${rows[i].id_contact}">${rows[i].name} ${rows[i].surname}</option>
                     `;
 
-                    document.getElementById('newRecipentDropDown').value = '0';
+                    document.getElementById('newRecipentDropDown').value = tempVal;
                 }
             }
         }
@@ -1213,17 +1217,31 @@ async function homeLoadMails(){
         let type = typeDropDown.value;
 
         let date = new Date();
+        /*
         let dToday = date.getDate(), mToday = date.getMonth() + 1, yToday = date.getFullYear();
+        */
+
+        /*
+        if(dToday < 10) dToday = '0' + dToday;
+        if(mToday < 10) mToday = '0' + mToday;
+        if(yToday < 10) yToday = '0' + yToday;
+        */
 
         date.setDate(date.getDate() - daysAgo);
         
         let d = date.getDate(), m = date.getMonth() + 1, y = date.getFullYear();
 
+        /*
+        if(d < 10) d = '0' + d;
+        if(m < 10) m = '0' + m;
+        if(y < 10) y = '0' + y;
+        */
+
         let query = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, type, formality, name, surname
         FROM Mails m JOIN Contacts c
             ON m.id_contact = c.id_contact
         WHERE m.id_user = '${idUser}'
-        AND date_generated BETWEEN '${y}-${m}-${d}' AND '${yToday}-${mToday}-${dToday}' `;
+        AND date_generated >= '${y}-${m}-${d}'`;
 
         if(type != '0'){
             query += `AND type='${type}'`;
@@ -1236,13 +1254,9 @@ async function homeLoadMails(){
         let outputHTML = document.getElementById('recentMailsOutput');
         outputHTML.innerHTML = "";
 
-        console.log(query);
-
         const returnedMails = await SqlAllPromise(query);
 
         if(returnedMails.length > 0){
-            
-
             for(let i = 0; i < returnedMails.length; i++){
                 let tempDate = (returnedMails[i].date_generated).split("-");
 
@@ -1264,7 +1278,7 @@ async function homeLoadMails(){
                                     ${tempDate[2]}. ${tempDate[1]}. ${tempDate[0]}
                                 </div>
                                 <div class="homeMailApology">
-                                    ${returnedMails[i].type}
+                                    ${returnedMails[i].type} - ${returnedMails[i].formality}
                                 </div>
                             </div>
                             <div class="homeMailIcons">
@@ -1306,11 +1320,10 @@ async function loadUserProfile() {
             document.getElementById('accSettingsUsernameTextField').value = obj.UserName;
 
             try {
-                let query = `SELECT firstTime, password, firstName, lastName, apiKey  
+                let query = `SELECT password, firstName, lastName, apiKey  
                 FROM Users
                 WHERE id_user = '${obj.Id}'`;
                 const row = await SqlGetPromise(query);
-                //console.log(row);
 
                 //successful query for password
                 if (row != null) {
@@ -2018,6 +2031,7 @@ async function displayModeAddContacts(contactId) {
                 //display copy and delete buttons
                 document.getElementById('TopDeleteBtn').style.display = "flex";
                 document.getElementById('TopCopyBtn').style.display = "flex";
+                document.getElementById('TopMailBtn').style.display = "flex";
             }
 
             //query not successful

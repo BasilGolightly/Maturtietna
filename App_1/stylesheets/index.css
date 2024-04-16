@@ -369,6 +369,23 @@ h1 {
     background-image: url("../pictures/cancel_icon_hover.png");
 }
 
+.TopMailBtn{
+    display: none;
+    background-color: transparent;
+    width: 35px;
+    height: 27.5px;
+    /**border: 1px solid rgb(200, 200, 200);*/
+    margin-top: 11.5px;
+    outline: none;
+    border: 0;
+    background-image: url("../pictures/generated_mail_icon_neutral.png");
+    background-size: contain
+}
+
+.TopMailBtn:hover{
+    background-image: url("../pictures/generated_mail_icon_hover.png");
+}
+
 /*TOP MENU*/
 
 /*-----------------------------CONTENT - RIGHT-----------------------------*/

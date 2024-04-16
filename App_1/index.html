@@ -139,7 +139,7 @@
                     </div>
 
                     <div>
-                        
+                        <button class="rightTopBtn TopMailBtn" id="TopMailBtn" onclick="mailSelectedContact()"></button>
                     </div>
                 </div>
             </div>
@@ -866,7 +866,7 @@
                 <div class="homeFrameContent">
                     <!--recent mails-->
                     <div class="recentMailWrap">
-                        <div class="recentMailHead" onclick="hideMails()">
+                        <div class="recentMailHead" onclick="hideMails()" onchange="homeLoadMails()">
                             <div class="recentMailIconWrap">
                                 <img src="pictures/mail_icon.png" class="recentMailsIcon">
                             </div>
