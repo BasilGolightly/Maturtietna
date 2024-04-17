@@ -576,7 +576,7 @@ let displayModeId = 0;
 let selectedMailId = 0;
 let isFullScreen = true;
 
-let isAddConact = false;
+//let isAddConact = false;
 
 async function displayMode(mode) {
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
@@ -766,13 +766,14 @@ function fullScreenNewMails() {
         isFullScreen = true;
     }
 
+    /*
     if(isAddConact && !isFullScreen){
         if(!isFullScreen){
             displayModeAddContacts(contactHiddenId);
         }
         
         isAddConact = false;
-    }
+    }*/
 }
 
 function exitNewMails() {
@@ -1985,7 +1986,7 @@ async function displayModeAddContacts(contactId) {
         //change value of button to ADD CONTACT, hide DELETE BUTTON
         addBtn.innerHTML = "Add contact";
         delBtn.style.display = 'none';
-        document.getElementById('contactMailWrap').style.display = 'none';
+        document.getElementById('contactMailWrap').style.display = 'inline';
 
 
         //display add contact, hide contact list 
@@ -2000,7 +2001,7 @@ async function displayModeAddContacts(contactId) {
 
         firstName.select();
 
-        isAddConact = true;
+        //isAddConact = true;
     }
 
     //MODIFY contact
@@ -2055,7 +2056,7 @@ async function displayModeAddContacts(contactId) {
 
             firstName.select();
 
-            isAddConact = true;
+            //isAddConact = true;
         }
         //data not found
         catch (error) {
