@@ -10,10 +10,10 @@
   "author": "Mark Sadnik",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.2.7"
+    "electron": "^28.3.3"
   },
   "dependencies": {
-    "openai": "^4.29.1",
+    "openai": "^4.51.0",
     "sql.js": "^1.10.2",
     "sqlite3": "^5.1.7"
   }

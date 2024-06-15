@@ -1956,7 +1956,7 @@ async function deleteContact() {
 
 //ADD, MODIFY CONTACTS
 async function displayModeAddContacts(contactId) {
-    displayMode(2);
+    await displayMode(2);
     let firstName = document.getElementById('addContactFirstName');
     let lastName = document.getElementById('addContactLastName');
     let dob = document.getElementById('addContactDOB');
@@ -1986,7 +1986,7 @@ async function displayModeAddContacts(contactId) {
         //change value of button to ADD CONTACT, hide DELETE BUTTON
         addBtn.innerHTML = "Add contact";
         delBtn.style.display = 'none';
-        document.getElementById('contactMailWrap').style.display = 'inline';
+        document.getElementById('contactMailWrap').style.display = 'none';
 
 
         //display add contact, hide contact list 
