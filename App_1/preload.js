@@ -2072,7 +2072,6 @@ async function displayModeGenerated(mailId) {
 
     let mails = document.getElementsByClassName('generatedLetter');
     let selectedMail = document.getElementById('generatedLetter' + mailId);
-    //console.log(mailId);
 
     for (let i = 0; i < mails.length; i++) {
         mails[i].style.borderLeft = "3px solid gray";
@@ -2226,7 +2225,7 @@ async function generateMail() {
     let purpose = document.getElementById('newMailPurpose');
     let reason = document.getElementById('newReasonTextArea');
     //let formalityItem = document.getElementById('newFormalityCheck').value;
-    let formalTextSlo = "";
+    //let formalTextSlo = "";
     let formalTextEng = "";
 
     if (formality) {

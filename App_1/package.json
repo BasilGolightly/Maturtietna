@@ -5,14 +5,20 @@
   "description": "maturitetna naloga v1",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "install": "npm-git install"
   },
   "author": "Mark Sadnik",
   "license": "MIT",
   "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
     "electron": "^28.3.3"
   },
   "dependencies": {
+    "git": "^0.1.5",
+    "npm-git-install": "^0.3.0",
     "openai": "^4.51.0",
     "sql.js": "^1.10.2",
     "sqlite3": "^5.1.7"
