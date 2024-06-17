@@ -1352,6 +1352,8 @@ async function loadUserProfile() {
     }
 }
 
+let deleteStage = 0;
+let deleteInProgress = false;
 let changePassStage = 0;
 let oldPass = "";
 
@@ -1368,7 +1370,7 @@ async function changePassClick() {
     }
 }
 
-function resetPassword() {
+async function resetPassword() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
     let cancelBtn = document.getElementById('changePassBtnCancel');
@@ -1383,7 +1385,7 @@ function resetPassword() {
     deleteInProgress = false;
 }
 
-function EnterPass() {
+async function EnterPass() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
     let cancelBtn = document.getElementById('changePassBtnCancel');
@@ -1400,22 +1402,22 @@ function EnterPass() {
     changePassStage++;
 }
 
-function EditPass() {
+async function EditPass() {
+    console.log("editPass");
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
 
     if (password.value.trim() == oldPass) {
+        console.log(deleteInProgress);
         if (deleteInProgress) {
             deleteStage++;
-            deleteAcc();
+            await deleteAcc();
         }
         else {
             btn.innerHTML = "Save";
             password.placeholder = "min. 12 char, no spaces";
             password.value = "";
-
             changePassStage++;
-
             password.focus();
         }
 
@@ -1728,23 +1730,20 @@ async function copyAPIKey() {
     }
 }
 
-let deleteStage = 0;
-let deleteInProgress = false;
-
 async function deleteAcc() {
     let btn = document.getElementById('deleteAccBtn');
 
     if (deleteStage == 0) {
-        //alert("0");
+        //console.log("stage 0");
+        await resetPassword();
+        await EnterPass();
         btn.disabled = true;
         btn.innerHTML = "In progress";
-
         deleteInProgress = true;
-        resetPassword();
-        EnterPass();
     }
 
-    else if (deleteStage == 1) {
+    else if (deleteStage > 0) {
+        //console.log("stage 1");
         const accId = document.getElementById('globalIdUser').innerHTML.trim();
 
         //alert("1");
@@ -1761,7 +1760,7 @@ async function deleteAcc() {
             WHERE id_user = ?`;
             await SqlRegisterPromise(deleteUserQuery, [`${accId}`]);
 
-            deleteInProgress = false;
+            deleteStage = 0;
 
             db.close();
 
