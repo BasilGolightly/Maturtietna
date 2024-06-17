@@ -1321,25 +1321,22 @@ async function loadUserProfile() {
 
             await loadContacts();
             await loadMails();
-            /*
             document.getElementById('homeMailDateSelect').value = '7';
             document.getElementById('homeMailTypeSelect').value = '0';
             await homeLoadMails();
-            */
 
             //at the end, delete contents of JSON, to avoid unintended access to user info
-            //try{
-            ///const deleteJSONsuccess = await writeToLoginfile("", "", "");
-
-            //delete could not be carried out
-            ///if(!deleteJSONsuccess){
-            ///window.location = "login.html";
-            ///}
-            ///}
+            try{
+                const deleteJSONsuccess = await writeToLoginfile("", "", "");
+                //delete could not be carried out
+                if(!deleteJSONsuccess){
+                    window.location = "login.html";
+                }
+            }
             //if data delete could not go through, go back to login
-            ///catch(error){
-            ///console.log("JSON Delete error: " + error);
-            ///}
+            catch(error){
+                console.log("JSON Delete error: " + error);
+            }
         }
         //unsuccessful read
         else {
@@ -1356,6 +1353,54 @@ let deleteStage = 0;
 let deleteInProgress = false;
 let changePassStage = 0;
 let oldPass = "";
+
+async function deleteAcc() {
+    let btn = document.getElementById('deleteAccBtn');
+
+    if (deleteStage == 0) {
+        console.log("stage 0");
+        oldPass = document.getElementById('accSettingsPasswordTextField').value.trim();
+        await resetPassword();
+        await changePassClick();
+        btn.disabled = true;
+        btn.innerHTML = "In progress";
+        deleteInProgress = true;
+    }
+
+    else if (deleteStage > 0) {
+        console.log("stage 1");
+        const accId = document.getElementById('globalIdUser').innerHTML.trim();
+
+        //alert("1");
+        try {
+            let deleteMailQuery = `DELETE FROM Mails
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteMailQuery, [`${accId}`]);
+
+            let deleteContactQuery = `DELETE FROM Contacts
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteContactQuery, [`${accId}`]);
+
+            let deleteUserQuery = `DELETE FROM Users
+            WHERE id_user = ?`;
+            await SqlRegisterPromise(deleteUserQuery, [`${accId}`]);
+
+            deleteStage = 0;
+
+            db.close();
+
+            //deleteInProgress = false;
+
+            window.location = "register.html";
+
+        }
+        catch (err) {
+            console.log(err);
+            deleteInProgress = false;
+            btn.innerHTML = "Delete Account";
+        }
+    }
+}
 
 //change password
 async function changePassClick() {
@@ -1390,7 +1435,7 @@ async function EnterPass() {
     let btn = document.getElementById('changePassBtn');
     let cancelBtn = document.getElementById('changePassBtnCancel');
 
-    oldPass = password.value.trim();
+    oldPass = password.value;
 
     btn.innerHTML = "Enter";
     password.disabled = false;
@@ -1407,6 +1452,7 @@ async function EditPass() {
     let password = document.getElementById('accSettingsPasswordTextField');
     let btn = document.getElementById('changePassBtn');
 
+    console.log("old pass: " + oldPass + "  ||  entered: " + password.value);
     if (password.value.trim() == oldPass) {
         console.log(deleteInProgress);
         if (deleteInProgress) {
@@ -1443,7 +1489,7 @@ async function submitPass() {
 
                 oldPass = password.value.trim();
 
-                resetPassword();
+                await resetPassword();
             }
             catch (err) {
                 console.log(err);
@@ -1727,51 +1773,6 @@ async function copyAPIKey() {
     }
     catch (err) {
         console.log(err);
-    }
-}
-
-async function deleteAcc() {
-    let btn = document.getElementById('deleteAccBtn');
-
-    if (deleteStage == 0) {
-        //console.log("stage 0");
-        await resetPassword();
-        await EnterPass();
-        btn.disabled = true;
-        btn.innerHTML = "In progress";
-        deleteInProgress = true;
-    }
-
-    else if (deleteStage > 0) {
-        //console.log("stage 1");
-        const accId = document.getElementById('globalIdUser').innerHTML.trim();
-
-        //alert("1");
-        try {
-            let deleteMailQuery = `DELETE FROM Mails
-            WHERE id_user = ?`;
-            await SqlRegisterPromise(deleteMailQuery, [`${accId}`]);
-
-            let deleteContactQuery = `DELETE FROM Contacts
-            WHERE id_user = ?`;
-            await SqlRegisterPromise(deleteContactQuery, [`${accId}`]);
-
-            let deleteUserQuery = `DELETE FROM Users
-            WHERE id_user = ?`;
-            await SqlRegisterPromise(deleteUserQuery, [`${accId}`]);
-
-            deleteStage = 0;
-
-            db.close();
-
-            window.location = "register.html";
-
-        }
-        catch (err) {
-            console.log(err);
-            deleteInProgress = false;
-            btn.innerHTML = "Delete Account";
-        }
     }
 }
 
