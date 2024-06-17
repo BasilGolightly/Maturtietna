@@ -544,8 +544,8 @@ let isFullScreen = true;
 //let isAddConact = false;
 
 async function displayMode(mode) {
-    selectedMailId = 0;
-    contactHiddenId = 0;
+    //quick fix: not able to focus on elements sometimes
+    document.activeElement.blur();
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
 
     let navItems = document.getElementsByClassName('listItem');
@@ -573,9 +573,6 @@ async function displayMode(mode) {
     if (isFullScreen && newMailFrame.style.display != 'none') {
         newMailFrame.style.display = 'none';
     }
-
-    //quick fix: not able to focus on elements sometimes
-    document.activeElement.blur();
 
     //check which panel to show
     switch (mode) {
@@ -669,6 +666,9 @@ async function displayMode(mode) {
 }
 
 function fullScreenNewMails() {
+    //quick fix: not able to focus on elements sometimes
+    document.activeElement.blur();
+
     let screenBtn = document.getElementById('fullscreenBtn');
     let newMailFrame = document.getElementById('newMailFrame');
     let newMailHead = document.getElementById('newMailHead');
@@ -735,17 +735,13 @@ function fullScreenNewMails() {
         isFullScreen = true;
     }
 
-    /*
-    if(isAddConact && !isFullScreen){
-        if(!isFullScreen){
-            displayModeAddContacts(contactHiddenId);
-        }
-        
-        isAddConact = false;
-    }*/
+    
 }
 
 function exitNewMails() {
+    //quick fix: not able to focus on elements sometimes
+    document.activeElement.blur();
+
     document.getElementById('newMailFrame').style.display = 'none';
 
     isFullScreen = true;
@@ -799,6 +795,7 @@ async function searchBarDelete() {
         }
         catch (err) {
             alert("Mail failed to delete");
+            document.activeElement.blur();
             console.log(err);
         }
     }
@@ -813,6 +810,7 @@ async function searchBarDelete() {
         }
         catch (err) {
             alert("Contact could not be deleted");
+            document.activeElement.blur();
             console.log(err);
         }
     }
@@ -824,6 +822,7 @@ async function searchBarCopy() {
         let mailContent = document.getElementById('selectedMailMiddle').innerHTML.trim();
         await navigator.clipboard.writeText(mailContent);
         alert("Mail copied");
+        document.activeElement.blur();
     }
     //copy contact
     else if (contactHiddenId > 0) {
@@ -838,12 +837,18 @@ async function searchBarCopy() {
                 let copyText = `${fullName}, ${gender}, ${relation}`;
                 await navigator.clipboard.writeText(copyText);
                 alert("Contact copied: " + copyText);
+                document.activeElement.blur();
             }
-            else alert("Contact could not be copied");
+            else 
+            {
+                alert("Contact could not be copied"); 
+                document.activeElement.blur();
+            }
         }
         catch (err) {
             console.log(err);
             alert("Contact could not be copied");
+            document.activeElement.blur();
         }
     }
 }
@@ -870,7 +875,7 @@ async function searchBarSubmit() {
 
         //get mails
         try {
-            let MailsSearchQuery = `SELECT id_mail, m.id_contact, m.id_user, title, date_generated, content, name, surname, type
+            let MailsSearchQuery = `SELECT DISTINCT id_mail, m.id_contact, m.id_user, title, date_generated, content, name, surname, type
             FROM Mails m JOIN Contacts c
                 ON m.id_contact = c.id_contact
             WHERE title LIKE '%${searchString}%' OR type LIKE '%${searchString}%'`;
@@ -935,10 +940,10 @@ async function searchBarSubmit() {
 
         //get contacts
         try {
-            let ContactsSearchQuery = `SELECT id_contact, id_user, name, surname, dob, relation, bio, name + ' ' + surname AS full_name, gender
+            let ContactsSearchQuery = `SELECT DISTINCT id_contact, id_user, name, surname, dob, relation, bio, name + ' ' + surname AS full_name, gender
             FROM Contacts
             WHERE name LIKE '%${searchString}%' OR surname LIKE '%${searchString}%' 
-            OR full_name LIKE '%${searchString}%' OR relation LIKE '%${searchString}%'`;
+            OR relation LIKE '%${searchString}%'`;
             //ContactsSearchQuery = db.prepare(ContactsSearchQuery);
             const Contactrows = await SqlAllPromise(ContactsSearchQuery);
 
@@ -1068,12 +1073,14 @@ async function loadMails() {
         //unsuccessfull query
         else {
             alert("Mails could not be loaded");
+            document.activeElement.blur();
         }
     }
     //unsuccessfull query
     catch (error) {
         console.log(error);
         alert("Mails could not be loaded");
+        document.activeElement.blur();
     }
 }
 
@@ -1167,6 +1174,7 @@ async function loadContacts() {
         //UNSUCCESSFULL QUERY
         else {
             alert("Contact list could not be loaded");
+            document.activeElement.blur();
         }
     }
 
@@ -1174,6 +1182,7 @@ async function loadContacts() {
     catch (error) {
         console.log(error);
         alert("Contact list could not be loaded");
+        document.activeElement.blur();
     }
 }
 
@@ -1221,15 +1230,21 @@ async function homeLoadMails() {
         FROM Mails m JOIN Contacts c
             ON m.id_contact = c.id_contact
         WHERE m.id_user = '${idUser}'
-        AND date_generated >= '${y}-${m}-${d}'`;
+        AND date_generated >= '${y}-${m}-${d}'
+        `;
 
         if (type != '0') {
-            query += `AND type='${type}'`;
+            query += `
+            AND type='${type}'
+            `;
         }
 
+        query += `ORDER BY date_generated DESC`;
+        /*
         query += `
         ORDER BY date_generated DESC
         `;
+        */
 
         let outputHTML = document.getElementById('recentMailsOutput');
         outputHTML.innerHTML = "";
@@ -1345,6 +1360,7 @@ async function loadUserProfile() {
     }
     catch (error) {
         alert(error);
+        document.activeElement.blur();
         window.location = "login.html";
     }
 }
@@ -1579,6 +1595,7 @@ async function changeUsername() {
             }
             else {
                 alert("Username taken");
+                document.activeElement.blur();
                 userNameText.disabled = false;
                 userNameText.focus();
             }
@@ -1727,12 +1744,14 @@ async function ChangeAPIKey() {
             catch (err2) {
                 console.log(err2);
                 alert("Failed to change API key. We apologize for the inconvenience");
+                document.activeElement.blur();
                 resetAPIKey();
             }
         }
         catch (err) {
             console.log(err);
             alert("Your API key is invalid. Please double check it.");
+            document.activeElement.blur();
             btn.innerHTML = "Change";
             apiKey.focus();
             apiKey.disabled = false;
@@ -1847,6 +1866,7 @@ async function submitContact() {
                 //unsuccessful
                 else {
                     alert("Contact could not be created.");
+                    document.activeElement.blur();
                 }
             }
 
@@ -1854,6 +1874,7 @@ async function submitContact() {
             catch (error) {
                 console.log(error);
                 alert("Contact could not be created.");
+                document.activeElement.blur();
             }
 
         }
@@ -1887,6 +1908,7 @@ async function submitContact() {
             catch (error) {
                 console.log(error);
                 alert("Contact changes could not be saved.");
+                document.activeElement.blur();
             }
         }
 
@@ -1894,6 +1916,7 @@ async function submitContact() {
     //if not display error
     else {
         alert("All inputs have to be filled out properly.");
+        document.activeElement.blur();
     }
 }
 
@@ -1913,11 +1936,13 @@ async function deleteContact() {
             //contact could not be deleted
             else {
                 alert("Contact could not be deleted. We apologize for the inconvenience.");
+                document.activeElement.blur();
             }
         }
         catch (error) {
             console.log(error);
             alert("Contact could not be deleted. We apologize for the inconvenience.");
+            document.activeElement.blur();
         }
     }
 }
@@ -1933,6 +1958,7 @@ async function displayModeAddContacts(contactId) {
     let bio = document.getElementById('addContactBio');
     let delBtn = document.getElementById('deleteWrap');
     let gender = document.getElementById('genderSelect');
+    selectedMailId = 0;
 
     dob.value = '';
     gender.value = 'm';
@@ -2018,6 +2044,7 @@ async function displayModeAddContacts(contactId) {
             //query not successful
             else {
                 alert("Error finding contact info");
+                document.activeElement.blur();
                 //contactMode = 0;
                 contactHiddenId = -1;
             }
@@ -2038,6 +2065,7 @@ async function displayModeAddContacts(contactId) {
 async function displayModeGenerated(mailId) {
     displayMode(1);
 
+    contactHiddenId = 0;
     let mails = document.getElementsByClassName('generatedLetter');
     let selectedMail = document.getElementById('generatedLetter' + mailId);
 
@@ -2158,6 +2186,7 @@ async function displayModeGenerated(mailId) {
             //mail not found
             else {
                 alert("Mail not found");
+                document.activeElement.blur();
             }
         }
 
@@ -2328,17 +2357,20 @@ async function generateMail() {
                             console.log("insert mail error: " + error);
                             console.log(saveQuery);
                             alert("Mail could not be saved.");
+                            document.activeElement.blur();
                         }
                     }
 
                     //missing info
                     else if (ReturnedMail.substring(ReturnedMail.length - 1) == '2') {
                         alert("There is not enough information to generate the mail. Please provide the necessary info.");
+                        document.activeElement.blur();
                     }
 
                     //failed mail
                     else {
                         alert("The AI could not understand your inputs. Please double check them.");
+                        document.activeElement.blur();
                     }
 
                     generateBtn.innerHTML = "Generate";
@@ -2347,16 +2379,19 @@ async function generateMail() {
                     console.log(error);
                     generateBtn.innerHTML = "Generate";
                     alert("Mail could not be generated. We apologize for the inconvenience.");
+                    document.activeElement.blur();
                 }
             }
         }
         catch (error) {
             console.log(error);
             alert("Mail could not be generated. We apologize for the inconvenience.");
+            document.activeElement.blur();
         }
     }
     else {
         alert("All inputs have to be filled out properly.");
+        document.activeElement.blur();
     }
 
     recipient.disabled = false;
