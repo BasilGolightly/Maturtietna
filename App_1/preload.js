@@ -10,7 +10,24 @@ const { OpenAI } = require("openai");
 /*------------------------REQUIRE-----------------------*/
 
 //connect to sql DB
+/*
 let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+    else {
+        console.log('Connected to the local DB.');
+    }
+});
+*/
+/*
+const databaseDir = __dirname + './DB/data.db';
+const jsonDir = __dirname + "./DB/login.json";
+*/
+const databaseDir = __dirname + './data.db';
+const jsonDir = __dirname + "./login.json";
+
+let db = new sqlite3.Database(databaseDir, (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -541,6 +558,7 @@ function writeToLoginfile(username, pass, id) {
 
     return new Promise((resolve, reject) => {
 
+        /*
         fs.writeFile('DB/login.json', JSON.stringify(obj), (err) => {
             if (err) {
                 reject(false);
@@ -548,14 +566,33 @@ function writeToLoginfile(username, pass, id) {
 
             resolve(true);
         })
+        */
+        fs.writeFile(jsonDir, JSON.stringify(obj), (err) => {
+            if (err) {
+                reject(false);
+            }
 
+            resolve(true);
+        })
     })
 }
 
 //READ FROM FILE
 function readLoginFile() {
     return new Promise((resolve, reject) => {
+        /*
         fs.readFile('DB/login.json', (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                let obj;
+                obj = JSON.parse(data);
+                resolve(obj);
+            }
+        })
+        */
+        fs.readFile(jsonDir, (err, data) => {
             if (err) {
                 reject(err);
             }
@@ -579,6 +616,8 @@ let isFullScreen = true;
 //let isAddConact = false;
 
 async function displayMode(mode) {
+    selectedMailId = 0;
+    contactHiddenId = 0;
     let idUser = document.getElementById('globalIdUser').innerHTML.trim();
 
     let navItems = document.getElementsByClassName('listItem');
@@ -607,6 +646,8 @@ async function displayMode(mode) {
         newMailFrame.style.display = 'none';
     }
 
+    //quick fix: not able to focus on elements sometimes
+    document.activeElement.blur();
 
     //check which panel to show
     switch (mode) {
