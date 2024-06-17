@@ -1735,8 +1735,7 @@ async function deleteAcc() {
     let btn = document.getElementById('deleteAccBtn');
 
     if (deleteStage == 0) {
-
-        alert("0");
+        //alert("0");
         btn.disabled = true;
         btn.innerHTML = "In progress";
 
@@ -1748,7 +1747,7 @@ async function deleteAcc() {
     else if (deleteStage == 1) {
         const accId = document.getElementById('globalIdUser').innerHTML.trim();
 
-        alert("1");
+        //alert("1");
         try {
             let deleteMailQuery = `DELETE FROM Mails
             WHERE id_user = ?`;
