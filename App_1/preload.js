@@ -24,8 +24,8 @@ let db = new sqlite3.Database('./DB/data.db', sqlite3.OPEN_READWRITE, (err) => {
 const databaseDir = __dirname + './DB/data.db';
 const jsonDir = __dirname + "./DB/login.json";
 */
-const databaseDir = __dirname + './data.db';
-const jsonDir = __dirname + "./login.json";
+const databaseDir = __dirname + '/DB/data.db';
+const jsonDir = __dirname + "/DB/login.json";
 
 let db = new sqlite3.Database(databaseDir, (err) => {
     if (err) {
@@ -79,67 +79,6 @@ async function setupDb() {
     catch (err) {
         console.log(err);
     }
-    /*
-    db.serialize(() => {
-        db.run(`CREATE TABLE IF NOT EXISTS Users(
-            id_user INTEGER PRIMARY KEY AUTOINCREMENT,
-            username NVARCHAR(50) UNIQUE NOT NULL,
-            password NVARCHAR(255) NOT NULL,
-            lang NVARCHAR(50) NOT NULL CHECK(lang IN('en', 'sl')),
-            firstTime INTEGER NOT NULL CHECK (firstTime IN('0', '1')),
-            firstName NVARCHAR(50) NOT NULL,
-            lastName NVARCHAR(50) NOT NULL,
-            date_registered DATETIME,
-            apiKey TEXT
-        );`, (err) => {
-            if (err) {
-                console.error(err.message);
-            }
-            else {
-                console.log("Users table created / already exists.");
-            }
-        })
-        .run(`CREATE TABLE IF NOT EXISTS Contacts(
-            id_contact INTEGER PRIMARY KEY AUTOINCREMENT,
-            id_user INTEGER NOT NULL,
-            name NVARCHAR(50) NOT NULL,
-            surname NVARCHAR(50) NOT NULL,
-            dob DATETIME NOT NULL,
-            relation NVARCHAR(50) NOT NULL,
-            bio TEXT,
-            gender NVARCHAR(10) NOT NULL CHECK(gender IN('m', 'f')),
-            date_created DATETIME,
-            CONSTRAINT FK_CONTACTS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
-        );`, (err) => {
-            if (err) {
-                console.error(err.message);
-            }
-            else {
-                console.log("Contacts table created / already exists.");
-            }
-        })
-        .run(`CREATE TABLE IF NOT EXISTS Mails(
-            id_mail INTEGER PRIMARY KEY AUTOINCREMENT,
-            id_contact INTEGER NOT NULL,
-            id_user INTEGER NOT NULL,
-            title NVARCHAR(50) NOT NULL,
-            date_generated DATE NOT NULL,
-            content TEXT NOT NULL,
-            type NVARCHAR(50) NOT NULL,
-            reason TEXT NOT NULL,
-            formality NVARCHAR(25) NOT NULL CHECK(formality IN('Formal', 'Informal', 'informal', 'formal')),
-            CONSTRAINT FK_MAILS_ID_CONTACT FOREIGN KEY(id_contact) REFERENCES Contacts(id_contact),
-            CONSTRAINT FK_MAILS_ID_USER FOREIGN KEY(id_user) REFERENCES Users(id_user)
-        );`, (err) => {
-            if (err) {
-                console.error(err.message);
-            }
-            else {
-                console.log("Mails table created / already exists.");
-            }
-        })
-    })
-    */
 }
 
 /*-------------------------------------SQL FUNCTIONS-------------------------------------*/
@@ -238,17 +177,6 @@ function SqlRegisterPromise(query, arr) {
         })
     })
 }
-
-//PREPARE 
-/*
-function SqlPreparePromise(query){
-    return new Promise((resolve, reject) => {
-        db.prepare(query, (err, result) => {
-
-        }
-    })
-}
-*/
 
 /*-------------------------------------SQL FUNCTIONS-------------------------------------*/
 
